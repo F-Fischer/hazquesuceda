@@ -56,5 +56,9 @@ $route['translate_uri_dashes'] = FALSE;
 $route['exito'] = 'registroemprendedor/exito';
 $route['crearproyecto'] = 'proyectocontroller';
 
+$route['portfolio'] = 'portfolio';
+$route['portfolio/(:num)'] = 'portfolio';
+
+
 
 
