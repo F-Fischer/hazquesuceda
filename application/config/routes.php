@@ -58,7 +58,8 @@ $route['crearproyecto'] = 'proyectocontroller';
 
 $route['portfolio'] = 'portfolio';
 $route['portfolio/(:num)'] = 'portfolio';
-
+$route['adminproyectos'] = 'adminproyectos';
+$route['adminproyectos/(:num)'] = 'adminproyectos';
 
 
 

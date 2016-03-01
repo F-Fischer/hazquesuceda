@@ -110,7 +110,7 @@
 
             $puntos = "...";
 
-            echo         '<div class="col-lg-4 col-sm-6">
+            echo         '<div class="col-lg-4 col-sm-6" align="center">
                              <div class="thumbnail">
                                 <a href="#">
                                     <img class="img-responsive" src="http://placehold.it/700x400" alt="">
@@ -118,8 +118,8 @@
                                 <h3 style="color: #dd4814">'.$p->nombre.'</h3>
                                 <p>'.substr($p->descripcion, 0, 110).$puntos.'</p>
                                 <form class="form-inline" data-wow-offset="0" align="center">
-                                    <div class="form-group" >
-                                        <a target="_blank" href="descripcionproyecto" class="btn btn-primary" align="center">Conocer más</a>
+                                    <div class="form-group">
+                                        <a target="_blank" href="descripcionproyecto" class="btn btn-primary" >Conocer más</a>
                                     </div>
                                 </form>
                              </div>
