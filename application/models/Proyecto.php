@@ -8,7 +8,7 @@
  */
 class Proyecto extends CI_Model
 {
-     private $nombre;
+    private $nombre;
     private $idUsuarioEmprendedor;
     private $descripcion;
     private $idRubroProyecto;
@@ -160,10 +160,12 @@ class Proyecto extends CI_Model
     {
         return $this->fechaBaja;
     }
+
     public function setFechaBaja($fechaBaja)
     {
         $this->fechaBaja = $fechaBaja;
     }
+
     public function getFechaUltimaModificacion()
     {
         return $this->fechaUltimaModificacion;

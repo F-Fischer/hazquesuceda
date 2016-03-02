@@ -122,7 +122,7 @@
                 'disabled' => ''
             );
 
-            echo '<br>'.form_submit($data,'Registrame!');
+            echo '<br>'.form_submit($data);
 
             echo form_close();
             ?>
