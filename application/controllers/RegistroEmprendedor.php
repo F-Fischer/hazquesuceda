@@ -13,6 +13,7 @@ class RegistroEmprendedor extends CI_Controller
     {
         parent::__construct();
         $this->load->library('form_validation');
+        $this->load->library('calendar');
         $this->load->model('emprendedor');
     }
 
@@ -20,7 +21,9 @@ class RegistroEmprendedor extends CI_Controller
     public function index(){
         $this->load->helper('form');
 
-        $this->load->view('commons/header');
+        $data['username'] = null;
+
+        $this->load->view('commons/header', $data);
         $this->load->view('registraremprendedor');
         $this->load->view('commons/footer');
     }
@@ -53,7 +56,9 @@ class RegistroEmprendedor extends CI_Controller
 
         if ($this->form_validation->run() == FALSE)
         {
-            $this->load->view('commons/header');
+            $data['username'] =  null;
+
+            $this->load->view('commons/header',$data);
             $this->load->view('registraremprendedor');
             $this->load->view('commons/footer');
         }
@@ -72,7 +77,9 @@ class RegistroEmprendedor extends CI_Controller
 
     public function exito()
     {
-        $this->load->view('commons/header');
+        $data['username'] =  null;
+
+        $this->load->view('commons/header',$data);
         $this->load->view('postregistro');
         $this->load->view('commons/footer');
     }
