@@ -14,6 +14,7 @@ class Adminproyectos extends CI_Controller
         $this->load->library('pagination');
         $this->load->model('Proyecto');
         $this->load->model('Estado');
+        $this->load->library('session');
     }
 
     public function index(){
@@ -35,6 +36,7 @@ class Adminproyectos extends CI_Controller
 
         $data['proyectos'] = $proyecto->getProyectosAdmin($config['per_page'],$page);
         $data['estados'] = $estado->getEstados();
+        $data['username'] = $this->session->userdata['logged_in']['username'];
 
         $this->load->view('commons/header',$data);
         $this->load->view('adminproyectos',$data);

@@ -16,14 +16,16 @@ class RegistroInversor extends CI_Controller
         $this->load->model('usuario');
         $this->load->model('rubrointeres');
         $this->load->library('form_validation');
+        $this->load->library('calendar');
     }
 
     public function index()
     {
         $r = new Rubro();
         $data['rubros'] = $r->getRubros();
+        $data['username'] = null;
 
-        $this->load->view('commons/header');
+        $this->load->view('commons/header', $data);
         $this->load->view('registroinversor',$data);
         $this->load->view('commons/footer');
     }
@@ -36,9 +38,9 @@ class RegistroInversor extends CI_Controller
         $this->form_validation->set_rules('apellido','Apellido', 'trim|required',array('required' => 'No ingreso apellido'));
         $this->form_validation->set_rules('username','Usuario', 'trim|required|callback_validate_username', array('required' => 'Debe ingresar un nombre de usuario',
             'dvalidate_username' => 'El usuario ya existe'));
-        $this->form_validation->set_rules('password', 'Password', 'trim|required|min_length[6]', array('min_length[6]' => 'La contraseña debe tener mas de 6 caracteres',
-            'required' => 'Debe ingresar una contraseña'));
-        $this->form_validation->set_rules('passconf', 'Password Confirmation', 'trim|required|matches[password]', array('matches[password]' => 'Las contraseñas no son iguales'));
+        $this->form_validation->set_rules('password', 'Password', 'trim|required|min_length[6]', array('min_length[6]' => 'La contraseï¿½a debe tener mas de 6 caracteres',
+            'required' => 'Debe ingresar una contraseï¿½a'));
+        $this->form_validation->set_rules('passconf', 'Password Confirmation', 'trim|required|matches[password]', array('matches[password]' => 'Las contraseï¿½as no son iguales'));
         $this->form_validation->set_rules('mail', 'E-Mail', 'trim|required|valid_email|callback_validate_email', array('required' => 'Debe ingresar una cuenta de e-mail',
             'valid_email' => 'Debe ingresar un mail'));
 
@@ -61,8 +63,9 @@ class RegistroInversor extends CI_Controller
         {
             $r = new Rubro();
             $data['rubros'] = $r->getRubros();
+            $data['username'] =  null;
 
-            $this->load->view('commons/header');
+            $this->load->view('commons/header',$data);
             $this->load->view('registroinversor',$data);
             $this->load->view('commons/footer');
         }
@@ -89,7 +92,9 @@ class RegistroInversor extends CI_Controller
 
     public function exito()
     {
-        $this->load->view('commons/header');
+        $data['username'] =  null;
+
+        $this->load->view('commons/header',$data);
         $this->load->view('postregistro');
         $this->load->view('commons/footer');
     }

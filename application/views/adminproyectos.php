@@ -3,7 +3,7 @@
     <br>
     <br>
     <div class="panel-heading">
-        <h4 class="title" align="center">¡Bienvenido usuario!</h4>
+        <h4 class="title" align="center">¡Bienvenido <?php echo $username; ?>!</h4>
     </div>
 
     <div class="panel-body">
