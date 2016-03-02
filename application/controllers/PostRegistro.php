@@ -11,8 +11,9 @@ class PostRegistro extends CI_Controller
 
     public function index(){
         $this->load->helper('form');
+        $data['username'] = null;
 
-        $this->load->view('commons/header');
+        $this->load->view('commons/header', $data);
         $this->load->view('postregistro');
         $this->load->view('commons/footer');
     }

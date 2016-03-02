@@ -163,9 +163,7 @@
             ?>
 
         </div>
-        <img
-            src="resources/js/bootstrap-3.3.5-dist/img/portfolio/registroinversor.jpg"
-            class="img-responsive" align="right">
+        <img src="<?php echo base_url('assets/img/registroinversor.jpg') ?>" class="img-responsive" align="right">
 
     </div>
 

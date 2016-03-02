@@ -23,8 +23,9 @@ class ProyectoController extends CI_Controller
         $r = new Rubro();
 
         $data['rubros'] = $r->getRubros();
+        $data['username'] = $this->session->userdata['logged_in']['username'];
 
-        $this->load->view('commons/header');
+        $this->load->view('commons/header', $data);
         $this->load->view('crearproyecto',$data);
         $this->load->view('commons/footer');
 
