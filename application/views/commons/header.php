@@ -61,11 +61,11 @@
                 </li>
                 -->
                 <li>
-                    <a class="page-scroll" href=""> ¡Bienvenido <?php echo $username; ?>! </a>
+                    <a class="page-scroll" href=""> ¡Bienvenido <?php if ($username) { echo $username; } else { echo "a la plataforma"; } ?>! </a>
                 </li>
 
                 <li>
-                    <a class="page-scroll" href="portfolio/logout">Cerrar sesión</a>
+                    <a class="page-scroll" href="portfolio/logout"> <?php if ($username) { echo "Cerrar sesión"; } else { echo "Volver al inicio"; } ?> </a>
                 </li>
             </ul>
         </div>
