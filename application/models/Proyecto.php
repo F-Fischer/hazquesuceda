@@ -42,11 +42,39 @@ class Proyecto extends CI_Model
         return false;
     }
 
+    function getAllProyectos (){
+        $this->db->select('ID_proyecto, nombre, descripcion, cant_veces_pago');
+        $this->db->where('ID_estado',3);
+        $query = $this->db->get('proyecto');
+
+        if($query->num_rows() > 0)
+        {
+            return $query->result();
+        }
+
+        return false;
+    }
+
     function getProyectos ($limit,$start){
         $this->db->select('ID_proyecto, nombre, descripcion, cant_veces_pago');
         $this->db->where('ID_estado',3);
         $this->db->limit($limit, $start);
         $query = $this->db->get('proyecto');
+
+        if($query->num_rows() > 0)
+        {
+            return $query->result();
+        }
+
+        return false;
+    }
+
+    function getAllProyectosAdmin (){
+        $this->db->select('proyecto.ID_proyecto, proyecto.nombre as proy_nombre, usuario.ID_usuario as user_id, usuario.nombre, usuario.apellido, estados_proyecto.nombre as nombre_estad, proyecto.fecha_alta');
+        $this->db->from('proyecto');
+        $this->db->join('usuario', 'proyecto.ID_usuario_emprendedor = usuario.ID_usuario');
+        $this->db->join('estados_proyecto', 'proyecto.ID_estado = estados_proyecto.ID_estado');
+        $query = $this->db->get();
 
         if($query->num_rows() > 0)
         {
