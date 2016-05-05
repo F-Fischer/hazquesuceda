@@ -2,39 +2,87 @@
 
 class Upload extends CI_Controller {
 
-    public function __construct()
+    function __construct()
     {
         parent::__construct();
+        $this->load->library('session');
         $this->load->helper(array('form', 'url'));
     }
 
-    public function index()
+    function index()
     {
-        $this->load->view('upload_form', array('error' => ' ' ));
+        $data['username'] = $this->session->userdata['logged_in']['username'];
+        $data['error'] = ' ';
+
+        $this->load->view('commons/header', $data);
+        $this->load->view('upload_form',$data);
+        $this->load->view('commons/footer');
     }
 
-    public function do_upload()
+    function do_upload()
     {
-        $config['upload_path']          = './uploads/';
-        $config['allowed_types']        = 'gif|jpg|png';
-        $config['max_size']             = 100;
-        $config['max_width']            = 1024;
-        $config['max_height']           = 768;
+        $this->load->library('upload');
 
-        $this->load->library('upload', $config);
-
-        if ( ! $this->upload->do_upload('userfile'))
+        $files = $_FILES;
+        $cpt = count($_FILES['userfile']['name']);
+        for($i=0; $i<$cpt; $i++)
         {
-            $error = array('error' => $this->upload->display_errors());
+            $_FILES['userfile']['name']= $files['userfile']['name'][$i];
+            $_FILES['userfile']['type']= $files['userfile']['type'][$i];
+            $_FILES['userfile']['tmp_name']= $files['userfile']['tmp_name'][$i];
+            $_FILES['userfile']['error']= $files['userfile']['error'][$i];
+            $_FILES['userfile']['size']= $files['userfile']['size'][$i];
 
-            $this->load->view('upload_form', $error);
+            $this->upload->initialize($this->set_upload_options());
+            $this->upload->do_upload();
         }
-        else
+    }
+
+    private function set_upload_options()
+    {
+        //upload an image options
+        $config = array();
+        $config['upload_path'] = '/Applications/XAMPP/xamppfiles/htdocs/CodeIgniter-3.0.2/uploads/';
+
+        /*switch (userfile[$i]) {
+            case 1:
+            case 2:
+            case 3:
+                $config['allowed_types'] = 'gif|jpg|png';
+                break;
+            case 4:
+                $config['allowed_types'] = 'mp4';
+                break;
+            case 5:
+                $config['allowed_types'] = 'pdf';
+                break;
+        }*/
+
+        if($this->userfile[0])
         {
-            $data = array('upload_data' => $this->upload->data());
-
-            $this->load->view('upload_success', $data);
+            $config['allowed_types'] = 'gif|jpg|png';
         }
+        if($this->userfile[1])
+        {
+            $config['allowed_types'] = 'gif|jpg|png';
+        }
+        if($this->userfile[2])
+        {
+            $config['allowed_types'] = 'gif|jpg|png';
+        }
+        if($this->userfile[3])
+        {
+            $config['allowed_types'] = 'mp4';
+        }
+        if($this->userfile[4])
+        {
+            $config['allowed_types'] = 'pdf';
+        }
+
+        //$config['max_size']      = '0';
+        $config['overwrite']     = FALSE;
+
+        return $config;
     }
 }
 ?>

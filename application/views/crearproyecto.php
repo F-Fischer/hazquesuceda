@@ -4,12 +4,14 @@
     <br>
     <br>
     <div class="panel-heading">Cargar nuevo proyecto</div>
+    <br>
     <div class="panel-body">
-        <div class="col-lg-6">
+        <img src="<?php echo base_url('assets/img/ideas1.jpg') ?>" class="img-responsive" align="left">
+        <div class="col-md-4 container">
 
             <?php
 
-            echo form_open('proyectocontroller/crearproyecto');
+            echo form_open_multipart('proyectocontroller/crearproyecto');
 
             echo '<div class="form-group">'.form_label('Nombre del proyecto: ').form_error('nombre', '<div class="error" style="color:red; float: right;">', '</div>');
 
@@ -37,25 +39,29 @@
 
             echo '<div class="form-group">'.form_label('Rubro: ').form_error('rubro', '<div class="error" style="color:red; float: right;">', '</div>');
 
-            $options = array(
+            
+            foreach($rubros as $r)
+            {
+                $data1 = array(
+                    'name' => 'rubroSel[]',
+                    'value' => $r->ID_rubro
+                );
+
+                //echo form_dropdown($data).form_label($r->nombre).'<br>';
+            };
+            echo form_dropdown('comboRubros', $data1).'<br>';
+            /*$options = array(
                 '1'  => 'franquicia',
                 '2'    => 'proyecto generico',
             );
 
-            echo form_dropdown('comboRubros', $options);
+            echo form_dropdown('comboRubros', $options);*/
 
             echo '<div class="form-group">'.form_label('Imágenes: ');
 
-            ?>
-
-            <input type="file" name="imagen[]" class="images" id="imagen1">
-            <input type="file" name="imagen[]" class="images" id="imagen2">
-            <input type="file" name="imagen[]" class="images" id="imagen3">
-
-            <?php
             $data = array(
                 'id' => 'btnCrearProyecto',
-                'class' => 'btn btn-default',
+                'class' => 'btn btn-default btn-xl wow tada',
                 'value' => 'Crear Proyecto!'
             );
 
@@ -65,8 +71,13 @@
             ?>
 
         </div>
+        <img src="<?php echo base_url('assets/img/ideas2.jpg') ?>" class="img-responsive" align="right">
+
     </div>
 </div>
+
+
+
 
 <script src="<?= base_url('assets/js/file-validator.js'); ?>"></script>
 <!-- <script src="<?php //echo base_url('assets/js/validarformatos.js'); ?>"></script> -->

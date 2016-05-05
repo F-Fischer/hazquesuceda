@@ -12,6 +12,13 @@ class MultimediaProyecto extends CI_Model
     private $tipo;
     private $path;
 
+    public function setMultimedia($idProyecto,$tipo,$path)
+    {
+        $this->setIdProyecto($idProyecto);
+        $this->setTipo($tipo);
+        $this->setPath($path);
+    }
+
     public function insertMultimedia()
     {
         $data = array(
@@ -20,7 +27,7 @@ class MultimediaProyecto extends CI_Model
             'path' => $this->getPath()
         );
 
-        if($this->db->insert('multimedia_proyecto',$data))
+        if($this->db->insert('multimedia_proyectos',$data))
         {
             return true;
         }

@@ -8,6 +8,7 @@
  */
 class Proyecto extends CI_Model
 {
+    private $id;
     private $nombre;
     private $idUsuarioEmprendedor;
     private $descripcion;
@@ -19,17 +20,27 @@ class Proyecto extends CI_Model
     private $cantVisitas;
     private $cantVecesPago;
 
+    public function setProyecto($idUsuarioEmprendedor,$idRubro,$nombre,$descripcion,$fechaAlta,$fechaBaja)
+    {
+        $this->setIdUsuarioEmprendedor($idUsuarioEmprendedor);
+        $this->setIdRubroProyecto($idRubro);
+        $this->setNombre($nombre);
+        $this->setDescripcion($descripcion);
+        $this->setFechaAlta($fechaAlta);
+        $this->setFechaBaja($fechaBaja);
+    }
+
     public function insertProyecto()
     {
         $data = array(
             'nombre' => $this->getNombre(),
-            'ID_usuario_emprendedor' => 1,
+            'ID_usuario_emprendedor' => $this->getIdUsuarioEmprendedor(),
             'descripcion' => $this->getDescripcion(),
             'ID_rubro_proyecto' => $this->getIdRubroProyecto(),
             'ID_estado' => 1,
-            'fecha_alta' => 0000-00-00,
-            'fecha_baja' => 0000-00-00,
-            'fecha_ultima_modificacion' => 0000-00-00,
+            'fecha_alta' => $this->getFechaAlta(),
+            'fecha_baja' => $this->getFechaBaja(),
+            'fecha_ultima_modificacion' => $this->getFechaAlta(),
             'cant_visitas' => 0,
             'cant_veces_pago' => 0
         );
@@ -40,6 +51,28 @@ class Proyecto extends CI_Model
         }
 
         return false;
+    }
+
+    public function getIdByName($nombre,$idUsuarioEmprendedor)
+    {
+        $this -> db -> select('ID_proyecto');
+        $this -> db -> from('hazquesuceda.proyecto');
+        $this -> db -> where('nombre', "$nombre");
+        $this -> db -> where('ID_usuario_emprendedor', "$idUsuarioEmprendedor");
+
+        $query = $this->db->get();
+
+        if($query -> num_rows() == 1)
+        {
+            foreach ($query->result() as $row)
+            {
+                return $row->ID_proyecto;
+            }
+        }
+        else
+        {
+            return false;
+        }
     }
 
     function getProyectos ($limit,$start){
@@ -211,7 +244,21 @@ class Proyecto extends CI_Model
         $this->cantVecesPago = $cantVecesPago;
     }
 
+    /**
+     * @return mixed
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
 
+    /**
+     * @param mixed $id
+     */
+    public function setId($id)
+    {
+        $this->id = $id;
+    }
 
 
 }

@@ -9,6 +9,7 @@
 class Usuario extends CI_Model
 {
     private $id;
+    private $userName;
     private $nombre;
     private $apellido;
     private $telefono;
@@ -16,7 +17,6 @@ class Usuario extends CI_Model
     private $idRol;
     private $fechaNacimiento;
     private $contrasena;
-    private $userName;
     private $newsLetter;
 
 
@@ -47,6 +47,27 @@ class Usuario extends CI_Model
         return $id;
     }
 
+    public function getIdByUsername($username)
+    {
+        $this -> db -> select('ID_usuario');
+        $this -> db -> from('hazquesuceda.usuario');
+        $this -> db -> where('user_name', "$username");
+
+        $query = $this->db->get();
+
+        if($query -> num_rows() == 1)
+        {
+            foreach ($query->result() as $row)
+            {
+                return $row->ID_usuario;
+            }
+        }
+        else
+        {
+            return false;
+        }
+    }
+
     function login($username, $password)
     {
         $this -> db -> select('ID_usuario, user_name, contrasena');
@@ -59,6 +80,7 @@ class Usuario extends CI_Model
 
         if($query -> num_rows() == 1)
         {
+
             return $query->result();
         }
         else
