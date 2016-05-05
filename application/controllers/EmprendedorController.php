@@ -14,7 +14,7 @@ class EmprendedorController extends CI_Controller
     function __construct () {
         parent::__construct();
         $this->load->model('Proyecto');
-        //$this->load->model('Emprendedor');
+        $this->load->model('Emprendedor');
         $this->load->library('pagination');
         $this->load->library('session');
     }
@@ -56,9 +56,17 @@ class EmprendedorController extends CI_Controller
         }
     }
 
+    /**
+     *
+     */
     public function MiCuenta()
     {
         $data['username'] = $this->session->userdata['logged_in']['username'];
+
+        $emprendedor = new Emprendedor();
+
+        $datosMiCuenta = $emprendedor->getEmprendedor($data['username']);
+        $data['micuenta'] = $datosMiCuenta;
         $this->load->view('commons/header', $data);
         $this->load->view('micuenta_emprendedor',$data);
         $this->load->view('commons/footer');

@@ -60,11 +60,11 @@ $route['portfolio'] = 'portfolio';
 $route['portfolio/(:num)'] = 'portfolio';
 $route['adminproyectos'] = 'adminproyectos';
 $route['adminproyectos/(:num)'] = 'adminproyectos';
-$route['emprendedor'] = 'emprendedor';
-$route['emprendedor/(:num)'] = 'emprendedor';
-$route['micuenta'] = 'emprendedor/micuenta';
-$route['misproyectos'] = 'emprendedor/misproyectos';
-$route['crearproyecto'] = 'emprendedor/crearproyecto';
+$route['emprendedor'] = 'emprendedorcontroller';
+$route['emprendedor/(:num)'] = 'emprendedorcontroller';
+$route['micuenta'] = 'emprendedorcontroller/micuenta';
+$route['misproyectos'] = 'emprendedorcontroller/misproyectos';
+$route['crearproyecto'] = 'emprendedorcontroller/crearproyecto';
 
 
 
