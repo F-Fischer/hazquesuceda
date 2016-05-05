@@ -8,7 +8,7 @@
  */
 class Proyecto extends CI_Model
 {
-     private $nombre;
+    private $nombre;
     private $idUsuarioEmprendedor;
     private $descripcion;
     private $idRubroProyecto;
@@ -23,13 +23,13 @@ class Proyecto extends CI_Model
     {
         $data = array(
             'nombre' => $this->getNombre(),
-            'ID_usuario_emprendedor' => 1,
+            'ID_usuario_emprendedor' => $this->getIdUsuarioEmprendedor(),
             'descripcion' => $this->getDescripcion(),
             'ID_rubro_proyecto' => $this->getIdRubroProyecto(),
             'ID_estado' => 1,
-            'fecha_alta' => 0000-00-00,
-            'fecha_baja' => 0000-00-00,
-            'fecha_ultima_modificacion' => 0000-00-00,
+            'fecha_alta' => $this->getFechaAlta(),
+            'fecha_baja' => $this->getFechaBaja(),
+            'fecha_ultima_modificacion' => $this->getFechaAlta(),
             'cant_visitas' => 0,
             'cant_veces_pago' => 0
         );
@@ -122,8 +122,6 @@ class Proyecto extends CI_Model
     public function record_count() {
         return $this->db->count_all("proyecto");
     }
-
-
 
     public function getNombre()
     {
@@ -236,8 +234,5 @@ class Proyecto extends CI_Model
     {
         $this->cantVecesPago = $cantVecesPago;
     }
-
-
-
 
 }

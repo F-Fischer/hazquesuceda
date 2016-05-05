@@ -14,6 +14,7 @@ class Emprendedor extends CI_Controller
     function __construct () {
         parent::__construct();
         $this->load->model('Proyecto');
+        $this->load->model('rubro');
         $this->load->library('pagination');
         $this->load->library('session');
     }
@@ -72,9 +73,11 @@ class Emprendedor extends CI_Controller
     }
 
     public function crearProyecto () {
+        $r = new Rubro();
+        $data['rubros'] = $r->getRubros();
         $data['username'] = $this->session->userdata['logged_in']['username'];
         $this->load->view('commons/header', $data);
-        $this->load->view('basico_emprendedor',$data);
+        $this->load->view('crearproyecto',$data);
         $this->load->view('commons/footer');
 
 

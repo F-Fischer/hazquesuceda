@@ -24,16 +24,9 @@ class ProyectoController extends CI_Controller
 
     public function index()
     {
-        $r = new Rubro();
-
-        $data['rubros'] = $r->getRubros();
-        $data['username'] = $this->session->userdata['logged_in']['username'];
-        $data['error'] = ' ';
-
-        $this->load->view('commons/header', $data);
+        /*$this->load->view('commons/header', $data);
         $this->load->view('crearproyecto',$data);
-        $this->load->view('commons/footer');
-
+        $this->load->view('commons/footer');*/
     }
 
     public function crearProyecto()
@@ -53,8 +46,10 @@ class ProyectoController extends CI_Controller
 
         if ($this->form_validation->run() == FALSE)
         {
-            $data['username'] = $this->session->userdata['logged_in']['username'];
+            $r = new Rubro();
+            $data['jaja'] = $this->session->userdata['logged_in']['username'];
             $data['error'] = array('error' => ' ' );
+            $data['rubros'] = $r->getRubros();
 
             $this->load->view('commons/header',$data);
             $this->load->view('crearproyecto',$data);
@@ -66,7 +61,14 @@ class ProyectoController extends CI_Controller
 
             $p = new Proyecto();
 
-            $p->setProyecto($idUsuarioEmprendedor,$idRubro,$nombre,$descripcion,$fechaAlta,$fechaBaja);
+            var_dump($idUsuarioEmprendedor);
+
+            $p->setIdUsuarioEmprendedor($idUsuarioEmprendedor);
+            $p->setIdRubroProyecto($idRubro);
+            $p->setNombre($nombre);
+            $p->setDescripcion($descripcion);
+            $p->setFechaAlta($fechaAlta);
+            $p->setFechaBaja($fechaBaja);
 
             if($p->insertProyecto())
             {
