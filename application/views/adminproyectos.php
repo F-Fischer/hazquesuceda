@@ -1,3 +1,4 @@
+<script src="<?= base_url('assets/js/jquery-2.2.1.min.js');?>"></script>
 <div class="panel panel-default">
     <br>
     <br>
@@ -7,8 +8,6 @@
     </div>
 
     <div class="panel-body">
-
-        <form role="form">
 
             <div>
                 <h3>
@@ -38,7 +37,7 @@
             <br>
             <br>
 
-            <table cellspacing="0" cellpadding="4" border="0" class="table">
+            <table id="table_id" class="table">
                 <thead>
                 <tr>
                     <th>Num.</th>
@@ -57,6 +56,7 @@
                 <tbody>
 
                 <?php
+                /*
                 $cont = 0;
                 foreach($proyectos as $p)
                 {
@@ -76,7 +76,7 @@
                         '<td> <button type="button">accion 3</button> </td>'.
                         '<tr>';
                 }
-
+                */
                 ?>
 
                 </tbody>
@@ -84,15 +84,21 @@
 
             <br />
 
-            <!-- Pagination -->
-            <div class="row text-center">
-                <div class="col-lg-12">
-                    <?php echo $links;?>
-                </div>
-            </div>
-        </form>
-
     </div>
 
 
 </div>
+
+<!--<script src="<?= " "; //base_url('assets/js/jquery.min.js'); ?>"></script>->
+<script src="<?= base_url('assets/js/jquery.dataTables.min.js');?>"></script>
+
+<script type="application/javascript">
+    $(document).ready( function () {
+
+       $('#table_id').DataTable({
+            //scrollY: 400
+        });
+    } );
+</script>
+
+
