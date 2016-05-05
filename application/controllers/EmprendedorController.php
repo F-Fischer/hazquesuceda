@@ -6,7 +6,7 @@
  * Date: 4/20/2016
  * Time: 10:43 AM
  */
-class Emprendedor extends CI_Controller
+class EmprendedorController extends CI_Controller
 {
 
     private $portfolio;
@@ -14,6 +14,7 @@ class Emprendedor extends CI_Controller
     function __construct () {
         parent::__construct();
         $this->load->model('Proyecto');
+        //$this->load->model('Emprendedor');
         $this->load->library('pagination');
         $this->load->library('session');
     }
