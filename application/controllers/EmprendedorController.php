@@ -11,12 +11,17 @@ class EmprendedorController extends CI_Controller
 
     private $portfolio;
 
+    /**
+     *
+     */
     function __construct () {
         parent::__construct();
         $this->load->model('Proyecto');
         $this->load->model('Emprendedor');
+        $this->load->model('Rubro');
         $this->load->library('pagination');
         $this->load->library('session');
+
     }
 
     public function index(){
@@ -62,8 +67,8 @@ class EmprendedorController extends CI_Controller
     public function MiCuenta()
     {
         $data['username'] = $this->session->userdata['logged_in']['username'];
-
         $emprendedor = new Emprendedor();
+
 
         $datosMiCuenta = $emprendedor->getEmprendedor($data['username']);
         $data['micuenta'] = $datosMiCuenta;
@@ -75,15 +80,27 @@ class EmprendedorController extends CI_Controller
     public function MisProyectos ()
     {
         $data['username'] = $this->session->userdata['logged_in']['username'];
+
+        $emprendedor = new Emprendedor();
+        $result = $emprendedor->getIdByUsername($data['username']);
+
+        $proyecto = new Proyecto();
+
+
+        $data['proyectos'] = $proyecto->getProyectosById($result->ID_usuario);
+
         $this->load->view('commons/header', $data);
-        $this->load->view('basico_emprendedor',$data);
+        $this->load->view('verproyectospropios',$data);
         $this->load->view('commons/footer');
     }
 
     public function crearProyecto () {
         $data['username'] = $this->session->userdata['logged_in']['username'];
+        $r = new Rubro();
+        $data['rubros'] = $r->getRubros();
+
         $this->load->view('commons/header', $data);
-        $this->load->view('basico_emprendedor',$data);
+        $this->load->view('crear_proyecto',$data);
         $this->load->view('commons/footer');
 
 

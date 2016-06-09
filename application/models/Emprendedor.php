@@ -94,4 +94,19 @@ class Emprendedor extends Usuario
         return false;
     }
 
+    public function getIdByUsername ($user_name)
+    {
+        $this->db->select('ID_usuario');
+        $this->db->where('user_name',$user_name);
+        $query = $this->db->get('usuario');
+
+        if($query->num_rows()>0)
+        {
+            return $query->row();
+        }
+
+        return false;
+
+    }
+
 }

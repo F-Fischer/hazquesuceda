@@ -15,6 +15,7 @@ class ProyectoController extends CI_Controller
         $this->load->model('proyecto');
         $this->load->model('multimediaproyecto');
         $this->load->model('rubro');
+        $this->load->library('session');
 
     }
 
@@ -38,6 +39,14 @@ class ProyectoController extends CI_Controller
         $p.setNombre($_POST["nombre"]);
         $p.setDescripcion($_POST["descripcion"]);
         $p.setRubro($_POST["comboRubros"]);
+    }
+
+    public function descripcionProyecto()
+    {
+        $data['username'] = $this->session->userdata['logged_in']['username'];
+        $this->load->view('commons/header',$data);
+        $this->load->view('proyecto',$data);
+        $this->load->view('commons/footer');
     }
 
 }

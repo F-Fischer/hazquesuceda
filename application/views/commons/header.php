@@ -51,20 +51,9 @@
             <a class="navbar-brand page-scroll" href="#page-top">Haz que suceda!</a>
         </div>
 
-        <!-- Collect the nav links, forms, and other content for toggling -->
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <ul class="nav navbar-nav navbar-right">
-                <!--
-                <li>
-                    <a class="page-scroll" href="#about">About</a>
-                </li>
-                <li>
-                    <a class="page-scroll" href="#services">Services</a>
-                </li>
-                <li>
-                    <a class="page-scroll" href="#portfolio">Portfolio</a>
-                </li>
-                -->
+
                 <li>
                     <a class="page-scroll" href=""> ¡Bienvenido <?php if ($username) { echo $username; } else { echo "a la plataforma"; } ?>! </a>
                 </li>
@@ -74,7 +63,5 @@
                 </li>
             </ul>
         </div>
-        <!-- /.navbar-collapse -->
     </div>
-    <!-- /.container-fluid -->
 </nav>

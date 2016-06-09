@@ -56,7 +56,7 @@
                                 <p>'.substr($p->descripcion, 0, 110).$puntos.'</p>
                                 <form class="form-inline" data-wow-offset="0" align="center">
                                     <div class="form-group">
-                                        <a target="_blank" href="descripcionproyecto" class="btn btn-primary" >Conocer más</a>
+                                        <a target="_blank" href="descripcion" class="btn btn-primary" >Conocer más</a>
                                     </div>
                                 </form>
                              </div>
@@ -81,14 +81,6 @@
         </div>
 
 
-    <hr>
 
-    <!-- Pagination -->
-    <div class="row text-center">
-        <div class="col-lg-12">
-            <?php echo $links;?>
-        </div>
-    </div>
-    <hr>
 
 </div>

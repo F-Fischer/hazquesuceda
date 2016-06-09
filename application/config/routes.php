@@ -65,6 +65,9 @@ $route['emprendedor/(:num)'] = 'emprendedorcontroller';
 $route['micuenta'] = 'emprendedorcontroller/micuenta';
 $route['misproyectos'] = 'emprendedorcontroller/misproyectos';
 $route['crearproyecto'] = 'emprendedorcontroller/crearproyecto';
+$route['descripcion'] = 'proyectocontroller/descripcionproyecto';
+$route['admin'] = 'administradorcontroller/index';
+$route['users'] = 'AdministradorController/users';
 
 
 

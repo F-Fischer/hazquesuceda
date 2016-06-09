@@ -53,7 +53,7 @@
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <ul class="nav navbar-nav navbar-right">
                 <li>
-                    <a class="page-scroll" href="#about">Ingresar</a>
+                    <a href="#" id="popover">Ingresar</a>
                 </li>
                 <li>
                     <a class="page-scroll" href="registroemprendedor" >Quiero ser emprendedor</a>
@@ -281,6 +281,25 @@
     </div>
 </section>
 
+<div id="popover-head" class="hide col-md-12">Iniciar sesión</div>
+<div id="popover-content" class="hide col-md-12">
+    <form>
+        <!-- my form -->
+        <?php echo validation_errors(); ?>
+        <?php echo form_open('login'); ?>
+
+        <label for="username">Username:</label>
+        <input type="text" name="username" id="username" class="form-control input-lg" placeholder="Usuario" tabindex="1">
+        <br/>
+        <label for="password">Password:</label>
+        <input type="password" name="password" id="password" class="form-control input-lg" placeholder="Contraseña" tabindex="1">
+
+        <br/>
+        <input type="submit" class="btn btn-default btn-xl wow tada" value="Login"/>
+    </form>
+    </form>
+</div>
+
 <!-- jQuery -->
 <script src="<?php echo base_url('assets/js/jquery.js'); ?>"></script>
 
@@ -290,10 +309,22 @@
 <!-- Plugin JavaScript -->
 <script src="<?php echo base_url('assets/js/jquery.easing.min.js'); ?>"></script>
 <script src="<?php echo base_url('assets/js/jquery.fittext.js'); ?>"></script>
-<script src="<?php echo base_url('assets/js/wow.min.js'); ?>"></script>
+<script src="<?php echo base_url('assets/js/wow.mi                                                                                                                                           n.js'); ?>"></script>
 
 <!-- Custom Theme JavaScript -->
 <script src="<?php echo base_url('assets/js/creative.js'); ?>"></script>
+
+<script>
+        $('#popover').popover({
+            html : true,
+            title: function() {
+                return $("#popover-head").html();
+            },
+            content: function() {
+                return $("#popover-content").html();
+            }
+        });
+</script>
 
 </body>
 
