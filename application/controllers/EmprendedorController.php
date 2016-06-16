@@ -87,7 +87,7 @@ class EmprendedorController extends CI_Controller
         $proyecto = new Proyecto();
 
 
-        $data['proyectos'] = $proyecto->getProyectosById($result->ID_usuario);
+        $data['proyectos'] = $proyecto->getProyectosByUserId($result->ID_usuario);
 
         $this->load->view('commons/header', $data);
         $this->load->view('verproyectospropios',$data);

@@ -8,7 +8,7 @@
  */
 class Proyecto extends CI_Model
 {
-     private $nombre;
+    private $nombre;
     private $idUsuarioEmprendedor;
     private $descripcion;
     private $idRubroProyecto;
@@ -55,7 +55,24 @@ class Proyecto extends CI_Model
         return false;
     }
 
-    public function getProyectosById ($id)
+    function getProyectoById ($id){
+        $this->db->select('p.ID_proyecto, p.nombre as nombre, p.descripcion as descripcion, p.cant_veces_pago, r.nombre as rubro, m.path as youtube');
+        $this->db->from('proyecto as p');
+        $this->db->join('rubro as r', 'p.ID_rubro_proyecto = r.ID_rubro');
+        $this->db->join('multimedia_proyectos as m', 'p.ID_proyecto = m.ID_proyecto');
+        $this->db->where('p.ID_proyecto',$id);
+        $this->db->where('m.tipo','youtube');
+        $query = $this->db->get()->row();
+
+        if($query)
+        {
+            return $query;
+        }
+
+        return false;
+    }
+
+    public function getProyectosByUserId ($id)
     {
         $this->db->select('ID_proyecto, nombre, descripcion, cant_veces_pago');
         $this->db->where('ID_usuario_emprendedor',$id);
