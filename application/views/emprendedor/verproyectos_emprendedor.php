@@ -19,7 +19,7 @@
 
         <ul class="nav nav-pills nav-stacked" >
 
-            <li role="presentation" class="active"><a href="emprendedor">Ver todos los proyectos</a></li>
+            <li role="presentation" class="active"><a href="">Ver todos los proyectos</a></li>
             <li role="presentation"><a href="crearproyecto">Crear proyecto</a></li>
             <li role="presentation"><a href="misproyectos">Ver todos mis proyectos</a></li>
             <li role="presentation"><a href="micuenta">Mi cuenta</a></li>

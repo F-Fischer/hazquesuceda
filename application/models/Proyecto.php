@@ -1,11 +1,5 @@
 <?php
 
-/**
- * Created by PhpStorm.
- * User: franc
- * Date: 11/2/2015
- * Time: 12:20 PM
- */
 class Proyecto extends CI_Model
 {
     private $nombre;

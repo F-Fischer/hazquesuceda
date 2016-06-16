@@ -1,6 +1,5 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
-
 /*
 | -------------------------------------------------------------------------
 | URI ROUTING
@@ -52,10 +51,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 $route['default_controller'] = 'login';
 $route['404_override'] = '';
 $route['translate_uri_dashes'] = FALSE;
-
 $route['exito'] = 'registroemprendedor/exito';
 $route['crearproyecto'] = 'proyectocontroller';
-
 $route['portfolio'] = 'portfolio';
 $route['portfolio/(:num)'] = 'portfolio';
 $route['adminproyectos'] = 'adminproyectos';
@@ -65,9 +62,11 @@ $route['emprendedor/(:num)'] = 'emprendedorcontroller';
 $route['micuenta'] = 'emprendedorcontroller/micuenta';
 $route['misproyectos'] = 'emprendedorcontroller/misproyectos';
 $route['crearproyecto'] = 'emprendedorcontroller/crearproyecto';
+
+$route['video'] = 'emprendedorcontroller/subirvideoproyecto';
+$route['imagenes'] = 'emprendedorcontroller/subirimagenproyecto';
+$route['archivo'] = 'emprendedorcontroller/subirarchivoproyecto';
+
 $route['descripcion/(:num)'] = 'proyectocontroller/descripcionproyecto';
 $route['admin'] = 'administradorcontroller/index';
 $route['users'] = 'AdministradorController/users';
-
-
-
