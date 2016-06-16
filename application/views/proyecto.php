@@ -5,15 +5,15 @@
         <div class="col-lg-12">
             <br>
             <br>
-            <h1 class="page-header" align="center">Título del proyecto</h1>
-            <h3 align="center" style="color: #888888">Rubro al que pertenece</h3>
+            <h1 class="page-header" align="center"><?php echo $proyecto->nombre; ?></h1>
+            <h3 align="center" style="color: #888888"><?php echo $proyecto->rubro; ?></h3>
         </div>
     </div>
 
     <br>
 
     <div id="video" class="col-lg-8">
-        <img src="http://www.astamb.com/images/video-img.gif" class="img-responsive" alt="">
+        <iframe width="560" height="315" src="https://www.youtube.com/embed/<?php echo $proyecto->youtube; ?>" frameborder="0" allowfullscreen></iframe>
     </div>
 
     <div class="col-lg-4" style="width:300px; height:400px;">

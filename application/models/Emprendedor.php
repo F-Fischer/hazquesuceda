@@ -53,5 +53,60 @@ class Emprendedor extends Usuario
         return false;
 
     }
+/*
+    function getAllProyectos (){
+        $this->db->select('ID_proyecto, nombre, descripcion, cant_veces_pago');
+        $this->db->where('ID_estado',3);
+        $query = $this->db->get('proyecto');
+
+        if($query->num_rows() > 0)
+        {
+            return $query->result();
+        }
+
+        return false;
+    }
+*/
+    public function getIdEmprendedor($username){
+        $this->db->select('ID_usuario');
+        $this->db->where('user_name',$username);
+
+        $query = $this->db->get('usuario');
+
+        if($query->num_rows() > 0)
+        {
+            return $query->result();
+        }
+
+        return false;
+    }
+
+    public function getEmprendedor($user_name) {
+        $this->db->select('user_name,nombre,apellido,mail,telefono,fecha_nacimiento');
+        $this->db->where('user_name',$user_name);
+        $query = $this->db->get('usuario');
+
+        if($query->num_rows() > 0)
+        {
+            return $query->result();
+        }
+
+        return false;
+    }
+
+    public function getIdByUsername ($user_name)
+    {
+        $this->db->select('ID_usuario');
+        $this->db->where('user_name',$user_name);
+        $query = $this->db->get('usuario');
+
+        if($query->num_rows()>0)
+        {
+            return $query->row();
+        }
+
+        return false;
+
+    }
 
 }

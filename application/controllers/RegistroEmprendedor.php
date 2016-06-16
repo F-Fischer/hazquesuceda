@@ -64,7 +64,7 @@ class RegistroEmprendedor extends CI_Controller
         }
         else
         {
-            $e = new Emprendedor();
+            $e = new EmprendedorController();
 
             $e->setEmprendedor($nombre,$apellido,$telefono,$mail,$fechaNacimiento,$password,$username,$newsletter);
 

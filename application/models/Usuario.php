@@ -89,6 +89,18 @@ class Usuario extends CI_Model
         }
     }
 
+    public function getAllUsers()
+    {
+        $query = $this->db->get('usuario');
+
+        if($query->num_rows() > 0)
+        {
+            return $query->result();
+        }
+
+        return false;
+    }
+
 
     public function validate_username($username)
     {

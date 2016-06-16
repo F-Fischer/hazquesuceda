@@ -19,7 +19,12 @@ class ProyectoController extends CI_Controller
         $this->load->model('proyecto');
         $this->load->model('multimediaproyecto');
         $this->load->model('rubro');
+<<<<<<< HEAD
         $this->load->model('usuario');
+=======
+        $this->load->library('session');
+
+>>>>>>> 8e169eb19a2444c2b33aaf07a6ed3da64d40a29a
     }
 
     public function index()
@@ -93,6 +98,27 @@ class ProyectoController extends CI_Controller
 
             }
         }
+    }
+
+    public function descripcionProyecto()
+    {
+        $data['username'] = $this->session->userdata['logged_in']['username'];
+
+        $id = $this->uri->segment(2);
+        // Hacer validaciones del campo
+        // Tirar error si es nulo o no numerico
+
+        $proyecto = new Proyecto();
+        $resultado = $proyecto->getProyectoById($id);
+        if(!$resultado) {
+            // Tirar error que no existe ese proyecto
+        }
+
+        $data['proyecto'] = $resultado;
+
+        $this->load->view('commons/header',$data);
+        $this->load->view('proyecto',$data);
+        $this->load->view('commons/footer');
     }
 
 }

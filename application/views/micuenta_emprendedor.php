@@ -40,17 +40,20 @@
 
             <div class="panel-body">
 
-                <h4>Datos de cuenta</h4>
+                <div class="col-md-8">
+                    <div class="table table-hover">
+                        <table class="table">
 
-                <h5>Apodo</h5>
-                <h5>Clave</h5>
+                            <tr><td>Apodo</td><td><?php echo $micuenta[0]->user_name; ?></td><td>Edit</td></tr>
+                            <tr><td>Clave</td><td>********</td><td>Edit</td></tr>
+                            <tr><td>Nombre</td><td><?php echo $micuenta[0]->nombre;?></td><td>Edit</td></tr>
+                            <tr><td>Apellido</td><td><?php echo $micuenta[0]->apellido;?></td><td>Edit</td></tr>
+                            <tr><td>E-mail</td><td><?php echo $micuenta[0]->mail;?></td><td>Edit</td></tr>
+                            <tr><td>Telefono</td><td><?php echo $micuenta[0]->telefono;?></td><td>Edit</td></tr>
 
-                <h4>Datos personales</h4>
-
-                <h5>Nombre y apellido</h5>
-                <h5>Documento</h5>
-                <h5>E-mail</h5>
-                <h5>Telefono</h5>
+                        </table>
+                    </div>
+                </div>
 
             </div>
 
