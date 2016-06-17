@@ -19,7 +19,16 @@
         <ul class="nav nav-pills nav-stacked" >
 
             <li role="presentation" ><a href="emprendedor">Ver todos los proyectos</a></li>
-            <li role="presentation" class="active"><a href="crearproyecto">Crear proyecto</a></li>
+            <li role="presentation" class="active dropdown-menu"><a href="crearproyecto">Crear proyecto</a>
+
+                    <ul class="nav nav-pills nav-stacked" >
+                        <li role="presentation" class="active" id="caro"><a href="crearproyecto">Nuevo proyecto</a></li>
+                        <li role="presentation"><a href="video">Video</a></li>
+                        <li role="presentation"><a href="imagenes">Imágenes</a></li>
+                        <li role="presentation"><a href="archivo">Archivo</a></li>
+                    </ul>
+
+            </li>
             <li role="presentation"><a href="misproyectos">Ver todos mis proyectos</a></li>
             <li role="presentation"><a href="micuenta">Mi cuenta</a></li>
 
@@ -29,19 +38,6 @@
 
     <div class="col-md-9">
 
-        <div class="col-md-3">
-
-            <ul class="nav nav-pills nav-stacked" >
-
-                <li role="presentation" class="active"><a href="crearproyecto">Nuevo proyecto</a></li>
-                <li role="presentation"><a href="video">Video</a></li>
-                <li role="presentation"><a href="imagenes">Imágenes</a></li>
-                <li role="presentation"><a href="archivo">Archivo</a></li>
-
-            </ul>
-
-        </div>
-
         <div class="panel panel-default">
             <div class="panel-body">
 
@@ -50,7 +46,7 @@
                     <?php
                     echo form_open('proyectocontroller/crearProyecto');
 
-                    echo '<div class="form-group">'.form_label('Título del proyecto ').form_error('titulo', '<div class="error" style="color:red; float: right;">', '</div>');
+                    echo '<div class="form-group">'.form_label('Título del proyecto ').form_error('nombre', '<div class="error" style="color:red; float: right;">', '</div>');
 
                     $data = array (
                         'id' => 'inputNombre',
@@ -61,7 +57,7 @@
 
                     echo form_input($data).'</div>';
 
-                    echo '<div class="form-group">'.form_label('Descripción ').form_error('descripción', '<div class="error" style="color:red; float: right;">', '</div>');
+                    echo '<div class="form-group">'.form_label('Descripción ').form_error('descripcion', '<div class="error" style="color:red; float: right;">', '</div>');
 
                     $data = array (
                         'id' => 'inputDescripcion',

@@ -35,6 +35,41 @@ class MultimediaProyecto extends CI_Model
         return false;
     }
 
+    public function imgPorProyecto ($idProyecto)
+    {
+        $this->db->select('tipo, path');
+        $this->db->from('multimedia_proyectos');
+        $this->db->where('ID_proyecto',$idProyecto);
+        $this->db->where('tipo','imagen');
+        $query = $this->db->get();
+        //var_dump($query->result());
+
+        if($query)
+        {
+            return $query->result();
+        }
+
+        return false;
+
+    }
+
+    public function pdfProyecto ($idProyecto)
+    {
+        $this->db->select('tipo, path');
+        $this->db->from('multimedia_proyectos');
+        $this->db->where('ID_proyecto',$idProyecto);
+        $this->db->where('tipo','pdf');
+        $query = $this->db->get();
+
+        if($query)
+        {
+            return $query->result();
+        }
+
+        return false;
+
+    }
+
     public function getIdProyecto()
     {
         return $this->idProyecto;

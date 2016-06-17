@@ -16,6 +16,7 @@ class EmprendedorController extends CI_Controller
         $this->load->model('Proyecto');
         $this->load->model('Emprendedor');
         $this->load->model('Rubro');
+        $this->load->model('MultimediaProyecto');
         $this->load->library('pagination');
         $this->load->library('session');
     }
@@ -80,43 +81,100 @@ class EmprendedorController extends CI_Controller
         $data['username'] = $this->session->userdata['logged_in']['username'];
         $r = new Rubro();
         $data['rubros'] = $r->getRubros();
+
         $this->load->view('commons/header', $data);
         $this->load->view('emprendedor/crear_proyecto',$data);
         $this->load->view('commons/footer');
-        //ACA LA LOGICA PARA CREAR UN NUEVO PROYECTO
     }
 
     public function subirVideoProyecto ()
     {
         $data['username'] = $this->session->userdata['logged_in']['username'];
-        $r = new Rubro();
-        $data['rubros'] = $r->getRubros();
-        $this->load->view('commons/header', $data);
+        $id = $this->uri->segment(2);
+
+        $proyecto = new Proyecto();
+        $resultado = $proyecto->getProyectoBasicoById($id);
+
+        if(!$resultado) {
+            // Tirar error que no existe ese proyecto
+        }
+
+        $data['proyecto'] = $resultado;
+        $this->load->view('commons/header',$data);
         $this->load->view('emprendedor/subir_video',$data);
         $this->load->view('commons/footer');
-        //ACA LA LOGICA PARA subir video
     }
 
     public function subirImagenProyecto ()
     {
         $data['username'] = $this->session->userdata['logged_in']['username'];
-        $r = new Rubro();
-        $data['rubros'] = $r->getRubros();
+        $id = $this->uri->segment(2);
+
+        $proyecto = new Proyecto();
+        $resultado = $proyecto->getProyectoBasicoById($id);
+
+        if(!$resultado) {
+            // Tirar error que no existe ese proyecto
+        }
+
+        $multimedia = new MultimediaProyecto();
+        $cantImg = count($multimedia->imgPorProyecto($this->uri->segment(2)));
+
+        if($cantImg >= 3)
+        {
+            $data['error'] = 'Se ha alcanzado la cantidad máxima de imágenes para este proyecto';
+        }
+        else
+        {
+            $data['error'] = null;
+        }
+
+        $data['proyecto'] = $resultado;
+        $data['cantimg'] = $cantImg;
         $this->load->view('commons/header', $data);
         $this->load->view('emprendedor/subir_imagen',$data);
         $this->load->view('commons/footer');
-        //ACA LA LOGICA PARA subir imagen
     }
 
     public function subirArchivoProyecto ()
     {
         $data['username'] = $this->session->userdata['logged_in']['username'];
-        $r = new Rubro();
-        $data['rubros'] = $r->getRubros();
+        $id = $this->uri->segment(2);
+
+        if($this->uri->segment(3))
+        {
+            $msg = $this->uri->segment(3);
+            $data['msg'] = $this->uri->segment(3);
+        }
+        else
+        {
+            $msg = null;
+            $data['msg'] = null;
+        }
+
+        $proyecto = new Proyecto();
+        $resultado = $proyecto->getProyectoBasicoById($id);
+
+        if(!$resultado) {
+            // Tirar error que no existe ese proyecto
+        }
+
+        $multimedia = new MultimediaProyecto();
+        $pdf = count($multimedia->pdfProyecto($this->uri->segment(2)));
+
+        if($pdf && !$msg)
+        {
+            $data['error'] = 'El proyecto ya posee un pdf adjunto';
+        }
+        else
+        {
+            $data['error'] = null;
+        }
+
+        $data['proyecto'] = $resultado;
         $this->load->view('commons/header', $data);
         $this->load->view('emprendedor/subir_archivo',$data);
         $this->load->view('commons/footer');
-        //ACA LA LOGICA PARA subir el archivo
     }
 
 

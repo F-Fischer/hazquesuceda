@@ -42,9 +42,7 @@
                 if($cont == 0)
                 {
                     echo '<div class="row">';
-
                 }
-
                 ?>
 
                 <div class="col-lg-4 col-sm-6" align="center">
@@ -79,9 +77,7 @@
         }
         ?>
 
-
         </div>
-
 
     <hr>
 

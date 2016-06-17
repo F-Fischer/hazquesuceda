@@ -19,7 +19,16 @@
         <ul class="nav nav-pills nav-stacked" >
 
             <li role="presentation" ><a href="emprendedor">Ver todos los proyectos</a></li>
-            <li role="presentation" class="active"><a href="crearproyecto">Crear proyecto</a></li>
+            <li role="presentation" class="active dropdown-menu"><a href="crearproyecto">Crear proyecto</a>
+
+                <ul class="nav nav-pills nav-stacked">
+                    <li role="presentation"><a href="crearproyecto">Nuevo proyecto</a></li>
+                    <li role="presentation"><a href="video">Video</a></li>
+                    <li role="presentation" class="active" id="caro"><a href="imagenes">Imágenes</a></li>
+                    <li role="presentation"><a href="archivo">Archivo</a></li>
+                </ul>
+
+            </li>
             <li role="presentation"><a href="misproyectos">Ver todos mis proyectos</a></li>
             <li role="presentation"><a href="micuenta">Mi cuenta</a></li>
 
@@ -29,34 +38,43 @@
 
     <div class="col-md-9">
 
-        <div class="col-md-3">
-
-            <ul class="nav nav-pills nav-stacked" >
-
-                <li role="presentation"><a href="crearproyecto">Nuevo proyecto</a></li>
-                <li role="presentation"><a href="video">Video</a></li>
-                <li role="presentation" class="active"><a href="imagenes">Imágenes</a></li>
-                <li role="presentation"><a href="archivo">Archivo</a></li>
-
-            </ul>
-
-        </div>
-
         <div class="panel panel-default">
             <div class="panel-body">
 
-                <div class="col-md-6">
+                <div class="col-md-9">
 
-                    <form>
+                    <div class="form-group ">
+                        <h4>Usted subirá una imágen para el proyecto: <?php echo $proyecto->nombre; ?></h4>
+                        <h5>Cantidad actual de imágenes: <?php echo $cantimg; ?></h5>
+                    </div>
 
-                        <div class="form-group">
-                            <label for="inputFileImg1">Imagen 1</label>
-                            <input type="file" id="inputFileImg1">
-                            <p class="help-block">Seleccione una imagen</p>
-                        </div>
+                    <?php
 
-                        <button type="submit" class="btn btn-default">Subir!</button>
-                    </form>
+                    if($error)
+                    {
+                        echo "<div class=\"alert alert-danger\"><strong> Alerta! </strong>".$error."</div>";
+                        echo "<input type='file' name='userfile' size='20' disabled />";
+                        echo "<br>";
+                        echo "<input type='submit' class='btn btn-default' name='submit' value='upload' disabled/> ";
+                    }
+                    else
+                    {
+                        echo form_open_multipart('proyectocontroller/do_upload_img'.'/'.$proyecto->ID_proyecto);
+
+                        echo "<input type='file' name='userfile' size='20' />";
+                        echo "<br>";
+                        echo "<input type='submit' class='btn btn-default' name='submit' value='upload' /> ";
+
+                        echo form_close();
+                    }
+                    ?>
+
+                    <br>
+                    <br>
+                    <div class="form-group ">
+                        <h5>* Por el momento solo se podrán cargar 3 imágenes por proyecto. Disculpe las molestias.</h5>
+                    </div>
+
                 </div>
 
             </div>

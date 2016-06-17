@@ -49,8 +49,39 @@ class Proyecto extends CI_Model
         return false;
     }
 
+    function getInfoBasicaProyectoByNombre ($nombre, $idUsuario)
+    {
+        $this->db->select('ID_proyecto, nombre, descripcion');
+        $this->db->from('proyecto');
+        $this->db->where('nombre',$nombre);
+        $this->db->where('ID_usuario_emprendedor',$idUsuario);
+        $query = $this->db->get()->row();
+
+        if($query)
+        {
+            return $query;
+        }
+
+        return false;
+    }
+
+    function getProyectoBasicoById ($id)
+    {
+        $this->db->select('ID_proyecto, nombre, descripcion');
+        $this->db->from('proyecto');
+        $this->db->where('ID_proyecto',$id);
+        $query = $this->db->get()->row();
+
+        if($query)
+        {
+            return $query;
+        }
+
+        return false;
+    }
+
     function getProyectoById ($id){
-        $this->db->select('p.ID_proyecto, p.nombre as nombre, p.descripcion as descripcion, p.cant_veces_pago, r.nombre as rubro, m.path as youtube');
+        $this->db->select('p.ID_proyecto, p.nombre as nombre, p.descripcion as descripcion, p.cant_visitas, p.cant_veces_pago, r.nombre as rubro, m.path as youtube');
         $this->db->from('proyecto as p');
         $this->db->join('rubro as r', 'p.ID_rubro_proyecto = r.ID_rubro');
         $this->db->join('multimedia_proyectos as m', 'p.ID_proyecto = m.ID_proyecto');

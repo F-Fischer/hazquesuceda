@@ -4428,6 +4428,11 @@ textarea.input-group-sm > .input-group-addon, textarea.input-group-sm > .input-g
     background-color: #ee4b28
 }
 
+#caro {
+    color: #fff;
+    background-color: #bf0a07
+}
+
 .nav-stacked > li {
     float: none
 }
