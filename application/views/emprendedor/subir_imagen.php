@@ -24,7 +24,7 @@
                 <ul class="nav nav-pills nav-stacked">
                     <li role="presentation" class="disabled"><a href="crearproyecto">Nuevo proyecto</a></li>
                     <li role="presentation" class="disabled"><a href="video">Video</a></li>
-                    <li role="presentation" class="active" id="caro"><a href="imagenes">Imágenes</a></li>
+                    <li role="presentation" id="caro"><a href="imagenes">Imágenes</a></li>
                     <li role="presentation" class="disabled"><a href="archivo">Archivo</a></li>
                 </ul>
 
