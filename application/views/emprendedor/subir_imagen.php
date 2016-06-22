@@ -18,19 +18,19 @@
 
         <ul class="nav nav-pills nav-stacked" >
 
-            <li role="presentation" ><a href="emprendedor">Ver todos los proyectos</a></li>
+            <li role="presentation" ><a href="http://localhost/hazquesuceda/emprendedor">Ver todos los proyectos</a></li>
             <li role="presentation" class="active dropdown-menu"><a href="crearproyecto">Crear proyecto</a>
 
                 <ul class="nav nav-pills nav-stacked">
-                    <li role="presentation"><a href="crearproyecto">Nuevo proyecto</a></li>
-                    <li role="presentation"><a href="video">Video</a></li>
+                    <li role="presentation" class="disabled"><a href="crearproyecto">Nuevo proyecto</a></li>
+                    <li role="presentation" class="disabled"><a href="video">Video</a></li>
                     <li role="presentation" class="active" id="caro"><a href="imagenes">Imágenes</a></li>
-                    <li role="presentation"><a href="archivo">Archivo</a></li>
+                    <li role="presentation" class="disabled"><a href="archivo">Archivo</a></li>
                 </ul>
 
             </li>
-            <li role="presentation"><a href="misproyectos">Ver todos mis proyectos</a></li>
-            <li role="presentation"><a href="micuenta">Mi cuenta</a></li>
+            <li role="presentation"><a href="http://localhost/hazquesuceda/misproyectos">Ver todos mis proyectos</a></li>
+            <li role="presentation"><a href="http://localhost/hazquesuceda/micuenta">Mi cuenta</a></li>
 
         </ul>
 
@@ -56,6 +56,8 @@
                         echo "<input type='file' name='userfile' size='20' disabled />";
                         echo "<br>";
                         echo "<input type='submit' class='btn btn-default' name='submit' value='upload' disabled/> ";
+
+                        echo '<br>'.anchor('http://localhost/hazquesuceda/archivo/'.$proyecto->ID_proyecto,'Continuar');
                     }
                     else
                     {
@@ -66,6 +68,9 @@
                         echo "<input type='submit' class='btn btn-default' name='submit' value='upload' /> ";
 
                         echo form_close();
+
+                        echo '<br>'.anchor('http://localhost/hazquesuceda/archivo/'.$proyecto->ID_proyecto,'No tengo imágenes todavía');
+                        echo '<h5> ó </h5>'.anchor('http://localhost/hazquesuceda/archivo/'.$proyecto->ID_proyecto,'Ya subí mis imágenes');
                     }
                     ?>
 

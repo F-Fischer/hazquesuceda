@@ -18,19 +18,19 @@
 
         <ul class="nav nav-pills nav-stacked" >
 
-            <li role="presentation" ><a href="emprendedor">Ver todos los proyectos</a></li>
+            <li role="presentation" ><a href="http://localhost/hazquesuceda/emprendedor">Ver todos los proyectos</a></li>
             <li role="presentation" class="active dropdown-menu"><a href="crearproyecto">Crear proyecto</a>
 
                 <ul class="nav nav-pills nav-stacked">
-                    <li role="presentation"><a href="crearproyecto">Nuevo proyecto</a></li>
+                    <li role="presentation" class="disabled"><a href="crearproyecto">Nuevo proyecto</a></li>
                     <li role="presentation" id="caro"><a href="video">Video</a></li>
-                    <li role="presentation"><a href="imagenes">Imágenes</a></li>
-                    <li role="presentation"><a href="archivo">Archivo</a></li>
+                    <li role="presentation" class="disabled"><a href="imagenes">Imágenes</a></li>
+                    <li role="presentation" class="disabled"><a href="archivo">Archivo</a></li>
                 </ul>
 
             </li>
-            <li role="presentation"><a href="misproyectos">Ver todos mis proyectos</a></li>
-            <li role="presentation"><a href="micuenta">Mi cuenta</a></li>
+            <li role="presentation"><a href="http://localhost/hazquesuceda/misproyectos">Ver todos mis proyectos</a></li>
+            <li role="presentation"><a href="http://localhost/hazquesuceda/micuenta">Mi cuenta</a></li>
 
         </ul>
 
@@ -48,7 +48,7 @@
                     </div>
 
                     <?php
-                    echo form_open('proyectocontroller/subirVideo'.'/'.$proyecto->ID_proyecto);
+                    echo form_open('proyectocontroller/subirVideo/'.$proyecto->ID_proyecto);
 
                     echo '<div class="form-group">'.form_label('Título del proyecto ').form_error('video', '<div class="error" style="color:red; float: right;">', '</div>');
 
@@ -71,6 +71,9 @@
                     echo '<br>'.form_submit($data,'Guardar video!');
 
                     echo form_close();
+
+                    echo '<br>'.anchor('http://localhost/hazquesuceda/imagenes/'.$proyecto->ID_proyecto,'No tengo un video todavía');
+
                     ?>
 
                     <br>

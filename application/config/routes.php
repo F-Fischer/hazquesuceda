@@ -62,11 +62,11 @@ $route['micuenta'] = 'emprendedorcontroller/micuenta';
 $route['misproyectos'] = 'emprendedorcontroller/misproyectos';
 $route['crearproyecto'] = 'emprendedorcontroller/crearproyecto';
 
-//$route['video'] = 'emprendedorcontroller/subirvideoproyecto';
 $route['video/(:num)'] = 'emprendedorcontroller/subirvideoproyecto';
 $route['imagenes/(:num)'] = 'emprendedorcontroller/subirimagenproyecto';
 $route['archivo/(:num)'] = 'emprendedorcontroller/subirarchivoproyecto';
 $route['archivo/(:num)/El_archivo_se_ha_subido_correctamente'] = 'emprendedorcontroller/subirarchivoproyecto';
+$route['archivo/(:num)/Proyecto_sin_archivo'] = 'emprendedorcontroller/proyectosinarchivo';
 
 $route['descripcion/(:num)'] = 'proyectocontroller/descripcionproyecto';
 $route['admin'] = 'administradorcontroller/index';

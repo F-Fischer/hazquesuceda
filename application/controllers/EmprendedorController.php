@@ -177,6 +177,20 @@ class EmprendedorController extends CI_Controller
         $this->load->view('commons/footer');
     }
 
+    public function proyectoSinArchivo()
+    {
+        $data['username'] = $this->session->userdata['logged_in']['username'];
+        $id = $this->uri->segment(2);
+        $proyecto = new Proyecto();
+        $resultado = $proyecto->getProyectoBasicoById($id);
+
+        $data['error'] = null;
+        $data['msg'] = 'El proyecto se ha subido correctamente, sin archivo adjunto.';
+        $data['proyecto'] = $resultado;
+        $this->load->view('commons/header', $data);
+        $this->load->view('emprendedor/subir_archivo',$data);
+        $this->load->view('commons/footer');
+    }
 
     function logout()
     {

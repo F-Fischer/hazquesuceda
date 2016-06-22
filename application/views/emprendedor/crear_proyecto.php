@@ -18,19 +18,19 @@
 
         <ul class="nav nav-pills nav-stacked" >
 
-            <li role="presentation" ><a href="emprendedor">Ver todos los proyectos</a></li>
+            <li role="presentation" ><a href="http://localhost/hazquesuceda/emprendedor">Ver todos los proyectos</a></li>
             <li role="presentation" class="active dropdown-menu"><a href="crearproyecto">Crear proyecto</a>
 
                     <ul class="nav nav-pills nav-stacked" >
                         <li role="presentation" class="active" id="caro"><a href="crearproyecto">Nuevo proyecto</a></li>
-                        <li role="presentation"><a href="video">Video</a></li>
-                        <li role="presentation"><a href="imagenes">Imágenes</a></li>
-                        <li role="presentation"><a href="archivo">Archivo</a></li>
+                        <li role="presentation" class="disabled" ><a href="video">Video</a></li>
+                        <li role="presentation" class="disabled"><a href="imagenes">Imágenes</a></li>
+                        <li role="presentation" class="disabled"><a href="archivo">Archivo</a></li>
                     </ul>
 
             </li>
-            <li role="presentation"><a href="misproyectos">Ver todos mis proyectos</a></li>
-            <li role="presentation"><a href="micuenta">Mi cuenta</a></li>
+            <li role="presentation"><a href="http://localhost/hazquesuceda/misproyectos">Ver todos mis proyectos</a></li>
+            <li role="presentation"><a href="http://localhost/hazquesuceda/micuenta">Mi cuenta</a></li>
 
         </ul>
 
