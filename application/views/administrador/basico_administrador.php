@@ -1,4 +1,6 @@
 <script src="<?php echo base_url('assets/js/jquery.dataTables.min.js'); ?>"></script>
+<script src="<?php echo base_url('assets/js/admin/acciones.js'); ?>"></script>
+
 <link rel="stylesheet" href="<?php echo base_url('assets/css/jquery.dataTables.min.css'); ?>">
 <div class="container-fluid">
 
@@ -60,10 +62,9 @@
                         <td>'.$p->user_id.'</td>
                         <td>'.$p->nombre.'</td>
                         <td>'.$p->apellido.'</td>
-                        <td>'.$p->nombre_estad.'</td>
+                        <td id="nombreEstado'.$p->ID_proyecto.'">'.$p->nombre_estad.'</td>
                         <td>'.$p->fecha_alta.'</td>
-                        <td></td>
-
+                        <td><button type="button" title="Aceptar" class="btn btn-default aceptar" id="btnAceptar'.$p->ID_proyecto.'" value="'.$p->ID_proyecto.'"><span class="glyphicon glyphicon-ok"></span></button><button type="button" title="Rechazar" class="btn btn-default rechazar" id="btnRechazar'.$p->ID_proyecto.'" value="'.$p->ID_proyecto.'"> <span class="glyphicon glyphicon-remove"></span></button><button type="button" title="Clausurar" class="btn btn-default clausurar" id="btnClausurar'.$p->ID_proyecto.'" value="'.$p->ID_proyecto.'"> <span class="glyphicon glyphicon-ban-circle"></span></button></td>
                         </tr>';
                     }
 

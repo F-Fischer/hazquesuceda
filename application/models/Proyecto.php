@@ -48,6 +48,63 @@ class Proyecto extends CI_Model
 
         return false;
     }
+    
+    public function activarProyecto($idProyecto)
+    {
+        $this->db->select('ID_estado');
+        $this->db->where('ID_proyecto',$idProyecto);
+        $query = $this->db->get('proyecto');
+        $result = $query->row();
+
+        if($result->ID_estado == 1)
+        {
+            $this->db->set('ID_estado',3);
+            $this->db->where('ID_proyecto',$idProyecto);
+            $this->db->update('proyecto');
+
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
+
+    public function clausurarProyecto($idProyecto)
+    {
+        $this->db->select('ID_estado');
+        $this->db->where('ID_proyecto',$idProyecto);
+        $query = $this->db->get('proyecto');
+        $result = $query->row();
+
+        if($result->ID_estado == 3)
+        {
+            $this->db->delete('proyecto', array('ID_proyecto' => $idProyecto));
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
+
+    public function rechazarProyecto($idProyecto)
+    {
+        $this->db->select('ID_estado');
+        $this->db->where('ID_proyecto',$idProyecto);
+        $query = $this->db->get('proyecto');
+        $result = $query->row();
+
+        if($result->ID_estado == 1)
+        {
+            $this->db->delete('proyecto', array('ID_proyecto' => $idProyecto));
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
 
     function getInfoBasicaProyectoByNombre ($nombre, $idUsuario)
     {

@@ -42,4 +42,50 @@ class AdministradorController extends CI_Controller
         $this->load->view('commons/footer');
 
     }
+    
+     public function aceptarProyecto(){
+
+        $idProyecto = $this->input->get('idProyecto');
+
+        $p = new Proyecto();
+        if($p->activarProyecto($idProyecto))
+        {
+            echo 'Proyecto activo';
+        }
+        else
+        {
+            echo 'Este proyecto no puede ser activado';
+        }
+
+    }
+
+    public function clausurarProyecto()
+    {
+        $idProyecto = $this->input->get('idProyecto');
+
+        $p = new Proyecto();
+        if($p->clausurarProyecto($idProyecto))
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
+
+    public function rechazarProyecto()
+    {
+        $idProyecto = $this->input->get('idProyecto');
+
+        $p = new Proyecto();
+        if($p->rechazarProyecto($idProyecto))
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
 }
