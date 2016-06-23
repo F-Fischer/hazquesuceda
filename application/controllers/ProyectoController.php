@@ -165,7 +165,7 @@ class ProyectoController extends CI_Controller
         $path = $base_upload_path.$date;
 
         $filename = basename($path);
-        $new = md5($filename);
+        $new = hash("sha256",$filename);
         $bd_upload_path = $base_upload_path.$new;
 
         $config = array(
@@ -223,7 +223,7 @@ class ProyectoController extends CI_Controller
         $path = $base_upload_path.$date;
 
         $filename = basename($path);
-        $new = md5($filename);
+        $new = hash("sha256",$filename);
         $bd_upload_path = $base_upload_path.$new;
 
         $config = array(
