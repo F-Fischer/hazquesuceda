@@ -112,7 +112,8 @@ class Proyecto extends CI_Model
 
     }
 
-    function getProyectos ($limit,$start){
+    function getProyectos ($limit,$start)
+    {
         $this->db->select('ID_proyecto, nombre, descripcion, cant_veces_pago');
         $this->db->where('ID_estado',3);
         $this->db->limit($limit, $start);
@@ -128,7 +129,8 @@ class Proyecto extends CI_Model
 
 
 
-    function getAllProyectosAdmin (){
+    function getAllProyectosAdmin ()
+    {
         $this->db->select('proyecto.ID_proyecto, proyecto.nombre as proy_nombre, usuario.ID_usuario as user_id, usuario.nombre, usuario.apellido, estados_proyecto.nombre as nombre_estad, proyecto.fecha_alta');
         $this->db->from('proyecto');
         $this->db->join('usuario', 'proyecto.ID_usuario_emprendedor = usuario.ID_usuario');
@@ -143,7 +145,8 @@ class Proyecto extends CI_Model
         return false;
     }
 
-    function getProyectosAdmin ($limit, $start){
+    function getProyectosAdmin ($limit, $start)
+    {
         $this->db->select('proyecto.ID_proyecto, proyecto.nombre as proy_nombre, usuario.ID_usuario as user_id, usuario.nombre, usuario.apellido, estados_proyecto.nombre as nombre_estad, proyecto.fecha_alta');
         $this->db->from('proyecto');
         $this->db->join('usuario', 'proyecto.ID_usuario_emprendedor = usuario.ID_usuario');
