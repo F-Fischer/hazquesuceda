@@ -96,7 +96,7 @@ class EmprendedorController extends CI_Controller
         $resultado = $proyecto->getProyectoBasicoById($id);
 
         if(!$resultado) {
-            // Tirar error que no existe ese proyecto
+            //TODO: Tirar error que no existe ese proyecto
         }
 
         $data['proyecto'] = $resultado;
@@ -114,7 +114,7 @@ class EmprendedorController extends CI_Controller
         $resultado = $proyecto->getProyectoBasicoById($id);
 
         if(!$resultado) {
-            // Tirar error que no existe ese proyecto
+            //TODO: Tirar error que no existe ese proyecto
         }
 
         $multimedia = new MultimediaProyecto();
@@ -131,6 +131,7 @@ class EmprendedorController extends CI_Controller
 
         $data['proyecto'] = $resultado;
         $data['cantimg'] = $cantImg;
+        $data['warning'] = null;
         $this->load->view('commons/header', $data);
         $this->load->view('emprendedor/subir_imagen',$data);
         $this->load->view('commons/footer');
@@ -156,7 +157,7 @@ class EmprendedorController extends CI_Controller
         $resultado = $proyecto->getProyectoBasicoById($id);
 
         if(!$resultado) {
-            // Tirar error que no existe ese proyecto
+            //TODO: Tirar error que no existe ese proyecto
         }
 
         $multimedia = new MultimediaProyecto();

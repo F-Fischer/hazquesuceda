@@ -59,6 +59,20 @@
 
                         echo '<br>'.anchor('http://localhost/hazquesuceda/archivo/'.$proyecto->ID_proyecto,'Continuar');
                     }
+                    else if($warning)
+                    {
+                        echo form_open_multipart('proyectocontroller/do_upload_img'.'/'.$proyecto->ID_proyecto);
+
+                        echo "<div class=\"alert alert-warning\"><strong> Cuidado! </strong>".$warning."</div>";
+                        echo "<input type='file' name='userfile' size='20' />";
+                        echo "<br>";
+                        echo "<input type='submit' class='btn btn-default' name='submit' value='upload'/> ";
+
+                        echo form_close();
+
+                        echo '<br>'.anchor('http://localhost/hazquesuceda/archivo/'.$proyecto->ID_proyecto,'No tengo imágenes todavía');
+                        echo '<h5> ó </h5>'.anchor('http://localhost/hazquesuceda/archivo/'.$proyecto->ID_proyecto,'Ya subí mis imágenes');
+                    }
                     else
                     {
                         echo form_open_multipart('proyectocontroller/do_upload_img'.'/'.$proyecto->ID_proyecto);

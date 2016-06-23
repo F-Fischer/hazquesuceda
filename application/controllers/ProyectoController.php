@@ -89,7 +89,7 @@ class ProyectoController extends CI_Controller
             $resultado = $proyecto->getProyectoBasicoById($id);
 
             if(!$resultado) {
-                // Tirar error que no existe ese proyecto
+                //TODO: Tirar error que no existe ese proyecto
             }
 
             $data['proyecto'] = $resultado;
@@ -100,7 +100,7 @@ class ProyectoController extends CI_Controller
         else
         {
             /*
-            //ver validacion, funciona mal
+            //TODO: ver validacion, funciona mal
             $youtube_url = $_POST["video"];
 
             if (preg_match("/^((http\:\/\/){0,}(www\.){0,}(youtube\.com){1}|(youtu\.be){1}(\/watch\?v\=[^\s]){1})$/", $youtube_url) == 1)
@@ -129,18 +129,6 @@ class ProyectoController extends CI_Controller
     {
         $url = new MultimediaProyecto();
         $url->setTipo('imagen');
-
-        //$date = strtotime(date('Y-m-d'));
-        //$path = $upload_path.$date;
-
-        /*$filename = basename($name_file);
-        $new = md5($filename);
-
-        if (move_uploaded_file($name_file, $upload_path.$new))
-        {
-            // other code
-        }
-        */
 
         $url->setPath($upload_path);
         $url->setIdProyecto($this->uri->segment(3));
@@ -172,10 +160,20 @@ class ProyectoController extends CI_Controller
 
     public function do_upload_img()
     {
+        $base_upload_path = "/Applications/XAMPP/xamppfiles/htdocs/CodeIgniter-3.0.2/uploads/";
+        $date = strtotime(date('Y-m-d H:i:s'));
+        $path = $base_upload_path.$date;
+
+        $filename = basename($path);
+        $new = md5($filename);
+        $bd_upload_path = $base_upload_path.$new;
+
         $config = array(
-            'upload_path' => "/Applications/XAMPP/xamppfiles/htdocs/CodeIgniter-3.0.2/uploads/",
+            'upload_path' => $base_upload_path,
+            'file_name' => $new.'.jpg',
+            'file_type' => "jpg",
             'allowed_types' => "gif|jpg|png|jpeg",
-            'overwrite' => TRUE,
+            'overwrite' => FALSE,
             'max_size' => "2048000", // Can be set to particular file size , here it is 2 MB(2048 Kb)
             'max_height' => "768",
             'max_width' => "1024"
@@ -185,53 +183,77 @@ class ProyectoController extends CI_Controller
 
         if($this->upload->do_upload())
         {
-            $data = array('upload_data' => $this->upload->data());
-            //$this->load->view('upload_success',$data);
-
-            $upload_path = "/Applications/XAMPP/xamppfiles/htdocs/CodeIgniter-3.0.2/uploads/";
-            $this->guardarImgBD($upload_path);
+            $this->guardarImgBD($bd_upload_path);
         }
+        else
+        {
+            $this->failImagenProyecto();
+        }
+    }
+
+    public function failImagenProyecto ()
+    {
+        $data['username'] = $this->session->userdata['logged_in']['username'];
+        $id = $this->uri->segment(3);
+
+        $proyecto = new Proyecto();
+        $resultado = $proyecto->getProyectoBasicoById($id);
+
+        if(!$resultado) {
+            //TODO: Tirar error que no existe ese proyecto
+        }
+
+        $multimedia = new MultimediaProyecto();
+        $cantImg = count($multimedia->imgPorProyecto($id));
+
+        $data['error'] = null;
+        $data['warning'] = 'La imagen no pudo subirse, verifique que sea formato .jpg y tamaño xxx.';
+        $data['proyecto'] = $resultado;
+        $data['cantimg'] = $cantImg;
+        $this->load->view('commons/header', $data);
+        $this->load->view('emprendedor/subir_imagen',$data);
+        $this->load->view('commons/footer');
     }
 
     public function do_upload_pdf()
     {
+        //TODO: corregir path cuando se hostee
+        $base_upload_path = "/Applications/XAMPP/xamppfiles/htdocs/CodeIgniter-3.0.2/uploads/";
+        $date = strtotime(date('Y-m-d H:i:s'));
+        $path = $base_upload_path.$date;
+
+        $filename = basename($path);
+        $new = md5($filename);
+        $bd_upload_path = $base_upload_path.$new;
+
         $config = array(
-            'upload_path' => "/Applications/XAMPP/xamppfiles/htdocs/CodeIgniter-3.0.2/uploads/",
+            'upload_path' => $base_upload_path,
+            'file_name' => $new.'.pdf',
+            'file_type' => "pdf",
             'allowed_types' => "pdf",
-            'overwrite' => TRUE,
-            'max_size' => "2048000", // Can be set to particular file size , here it is 2 MB(2048 Kb)
-            'max_height' => "768",
-            'max_width' => "1024"
+            'overwrite' => FALSE,
+            'max_size' => "2048000" // Can be set to particular file size , here it is 2 MB(2048 Kb)
         );
 
         $this->load->library('upload', $config);
 
         if($this->upload->do_upload())
         {
-            $data = array('upload_data' => $this->upload->data());
-            //$this->load->view('upload_success',$data);
-
-            $upload_path = "/Applications/XAMPP/xamppfiles/htdocs/CodeIgniter-3.0.2/uploads/";
-            $this->guardarPdfBD($upload_path);
+            $this->guardarPdfBD($bd_upload_path);
         }
-    }
-
-    public function file_view()
-    {
-        $this->load->view('file_view', array('error' => ' ' ));
     }
 
     public function descripcionProyecto()
     {
         $data['username'] = $this->session->userdata['logged_in']['username'];
         $id = $this->uri->segment(2);
-        // Hacer validaciones del campo
+        //TODO: Hacer validaciones del campo
         // Tirar error si es nulo o no numerico
         $proyecto = new Proyecto();
         $resultado = $proyecto->getProyectoById($id);
 
         if(!$resultado) {
-            // Tirar error que no existe ese proyecto
+            //TODO: Tirar error que no existe ese proyecto
         }
 
         $data['proyecto'] = $resultado;
