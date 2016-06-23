@@ -70,4 +70,7 @@ $route['archivo/(:num)/Proyecto_sin_archivo'] = 'emprendedorcontroller/proyectos
 
 $route['descripcion/(:num)'] = 'proyectocontroller/descripcionproyecto';
 $route['admin'] = 'administradorcontroller/index';
+$route['admin/aceptarproyecto'] = 'administradorcontroller/aceptarproyecto';
+$route['admin/clausurarproyecto'] = 'administradorcontroller/clausurarproyecto';
+$route['admin/rechazarproyecto'] = 'administradorcontroller/rechazarproyecto';
 $route['users'] = 'AdministradorController/users';
