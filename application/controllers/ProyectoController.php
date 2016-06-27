@@ -153,23 +153,20 @@ class ProyectoController extends CI_Controller
 
     public function do_upload_img()
     {
-        $base_upload_path = base_url().'/assets/uploads/';
+        $base_upload_path = '/uploads/';
         $date = strtotime(date('Y-m-d H:i:s'));
         $path = $base_upload_path.$date;
 
         $filename = basename($path);
         $new = hash("sha256",$filename);
-        $bd_upload_path = $base_upload_path.$new;
+        $bd_upload_path = $new.'.jpg';
 
         $config = array(
             'upload_path' => './uploads',
             'file_name' => $new.'.jpg',
             'file_type' => "jpg",
             'allowed_types' => "gif|jpg|png|jpeg",
-            'overwrite' => FALSE,
-            //'max_size' => "2048000", // Can be set to particular file size , here it is 2 MB(2048 Kb)
-            'max_height' => "720",
-            'max_width' => "1280"
+            'overwrite' => FALSE
         );
 
         $this->load->library('upload', $config);
@@ -200,7 +197,7 @@ class ProyectoController extends CI_Controller
         $cantImg = count($multimedia->imgPorProyecto($id));
 
         $data['error'] = null;
-        $data['warning'] = 'La imagen no pudo subirse, verifique que sea formato .jpg y tamaño xxx.';
+        $data['warning'] = 'La imagen no pudo subirse, verifique que sea formato .jpg.';
         $data['proyecto'] = $resultado;
         $data['cantimg'] = $cantImg;
         $this->load->view('commons/header', $data);
@@ -212,21 +209,20 @@ class ProyectoController extends CI_Controller
     {
         //TODO: corregir path cuando se hostee
 
-        $base_upload_path = "/Applications/XAMPP/xamppfiles/htdocs/CodeIgniter-3.0.2/uploads";
+        $base_upload_path = base_url().'assets/uploads/';
         $date = strtotime(date('Y-m-d H:i:s'));
         $path = $base_upload_path.$date;
 
         $filename = basename($path);
         $new = hash("sha256",$filename);
-        $bd_upload_path = $base_upload_path.$new;
+        $bd_upload_path = $new.'.pdf';
 
         $config = array(
-            'upload_path' => $base_upload_path,
+            'upload_path' => './uploads',
             'file_name' => $new.'.pdf',
             'file_type' => "pdf",
             'allowed_types' => "pdf",
             'overwrite' => FALSE,
-            'max_size' => "2048000" // Can be set to particular file size , here it is 2 MB(2048 Kb)
         );
 
         $this->load->library('upload', $config);
@@ -235,7 +231,6 @@ class ProyectoController extends CI_Controller
         {
             $this->guardarPdfBD($bd_upload_path);
         }
-        else { var_dump("sigue mal"); }
     }
 
     public function descripcionProyecto()
@@ -262,10 +257,16 @@ class ProyectoController extends CI_Controller
         }
 
         $pdf = $proyecto->getPDFbyIdProyecto($id);
+        $imgs = $proyecto->getImgsByIdProyecto($id);
+
+        //var_dump('   lo que llega  --- ', $imgs);
+        //var_dump(' cuenta: ', count($imgs));
 
         $data['proyecto'] = $resultado;
         $data['dias_restantes'] = $diasRestantes;
         $data['pdf'] = $pdf;
+        $data['cant_img'] = count($imgs);
+        $data['imgs'] = $imgs;
         $this->load->view('commons/header',$data);
         $this->load->view('proyecto',$data);
         $this->load->view('commons/footer');

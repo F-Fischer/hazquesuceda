@@ -171,6 +171,22 @@ class Proyecto extends CI_Model
         return false;
     }
 
+    function getImgsByIdProyecto ($id)
+    {
+        $this->db->select('path');
+        $this->db->from('multimedia_proyectos');
+        $this->db->where('ID_proyecto',$id);
+        $this->db->where('tipo','imagen');
+        $query = $this->db->get();
+
+        if($query)
+        {
+            return $query->result();
+        }
+
+        return false;
+    }
+
     public function getProyectosByUserId ($id)
     {
         $this->db->select('ID_proyecto, nombre, descripcion, cant_veces_pago');
@@ -200,8 +216,6 @@ class Proyecto extends CI_Model
 
         return false;
     }
-
-
 
     function getAllProyectosAdmin ()
     {

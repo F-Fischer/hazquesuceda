@@ -28,7 +28,7 @@
         if($pdf)
         {
             echo '<h3 style="color: #dd4814">Para más información: </h3>';
-            echo '<h4> <a style="color: #3284b7" href="'.base_url($pdf->pdf).'">descarga del pdf</a> </h4>';
+            echo '<h4> <a style="color: #3284b7" target="_blank" href="'.base_url('/uploads/'.$pdf->pdf).'">consulta el PDF</a> </h4>';
         }
         ?>
 
@@ -45,21 +45,37 @@
         <div id="myCarousel" class="carousel slide" data-ride="carousel">
             <!-- Indicators -->
             <ol class="carousel-indicators">
-                <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
-                <li data-target="#myCarousel" data-slide-to="1"></li>
-                <li data-target="#myCarousel" data-slide-to="2"></li>
+                <?php
+                for ($i = 0; $i< $cant_img; $i++)
+                {
+                    if($i==0)
+                    {
+                        echo '<li data-target="#myCarousel" data-slide-to="0" class="active"></li>';
+                    }
+                    else
+                    {
+                        echo '<li data-target="#myCarousel" data-slide-to="'.$i.'"></li>';
+                    }
+                }
+                ?>
             </ol>
             <!-- Wrapper for slides -->
             <div class="carousel-inner" role="listbox">
-                <div class="item active" align="center" >
-                    <img src="https://placehold.it/1280x720" alt="Chania">
-                </div>
-                <div class="item" align="center" >
-                    <img   src="https://placehold.it/1280x720" alt="Chania">
-                </div>
-                <div class="item" align="center" >
-                    <img  src="https://placehold.it/1280x720" alt="Flower">
-                </div>
+
+                <?php
+                for ($i = 0; $i< $cant_img; $i++)
+                {
+                    if($i==0)
+                    {
+                        echo '<div class="item active" align="middle" style="height: 600px; max-height: 600px"><img src="'.base_url('/uploads/'.$imgs[$i]->path).'" alt="Chania"></div>';
+                    }
+                    else
+                    {
+                        echo '<div class="item" align="middle" style="height: 600px; max-height: 600px"><img src="'.base_url('/uploads/'.$imgs[$i]->path).'" alt="Chania"></div>';
+                    }
+                }
+                ?>
+
             </div>
             <!-- Left and right controls -->
             <a class="left carousel-control" href="#myCarousel" role="button" data-slide="prev">
