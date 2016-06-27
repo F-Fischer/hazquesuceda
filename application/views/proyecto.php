@@ -17,18 +17,27 @@
     </div>
 
     <div class="col-md-4">
-        <h3 style="color: #dd4814">Cantidad de visitas: </h3>
-        <h3><?php echo $proyecto->cant_visitas; ?></h3>
-        <h3 style="color: #dd4814">Cantidad de veces pago: </h3>
-        <h3><?php echo $proyecto->cant_veces_pago; ?></h3>
-        <h3 style="color: #dd4814">Días restantes: </h3>
-        <h3> <?php echo $dias_restantes; ?> </h3>
+        <h3 style="color: #dd4814">Visitas: <span style="color: #0c0c0c"><?php echo $proyecto->cant_visitas; ?></span></h3>
+
+        <?php
+        if($proyecto->cant_veces_pago==0)
+        {
+            echo '<h3 style="color: #dd4814">No contactado</h3>';
+        }
+        else
+        {
+            echo '<h3 style="color: #dd4814">Evaluado <span style="color: #0c0c0c">'.$proyecto->cant_veces_pago.'</span> veces </h3>';
+        }
+
+        ?>
+
+        <h3 style="color: #dd4814">Días restantes: </t><span style="color: #0c0c0c"><?php echo $dias_restantes; ?></span></h3>
 
         <?php
         if($pdf)
         {
-            echo '<h3 style="color: #dd4814">Para más información: </h3>';
-            echo '<h4> <a style="color: #3284b7" target="_blank" href="'.base_url('/uploads/'.$pdf->pdf).'">consulta el PDF</a> </h4>';
+            echo '<h3 style="color: #dd4814">Para más información </h3>';
+            echo '<h4> <a style="color: #3284b7" target="_blank" href="'.base_url('/uploads/'.$pdf->pdf).'">Consulta el PDF</a> </h4>';
         }
         ?>
 
