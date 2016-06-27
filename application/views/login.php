@@ -283,21 +283,19 @@
 
 <div id="popover-head" class="hide col-md-12">Iniciar sesión</div>
 <div id="popover-content" class="hide col-md-12">
-    <form>
-        <!-- my form -->
-        <?php echo validation_errors(); ?>
-        <?php echo form_open('login'); ?>
+    <?php echo validation_errors(); ?>
+    <?php echo form_open('login'); ?>
 
-        <label for="username">Username:</label>
-        <input type="text" name="username" id="username" class="form-control input-lg" placeholder="Usuario" tabindex="1">
-        <br/>
-        <label for="password">Password:</label>
-        <input type="password" name="password" id="password" class="form-control input-lg" placeholder="Contraseña" tabindex="1">
+    <label for="username">Username:</label>
+    <input type="text" name="username" id="username" class="form-control input-lg-12" placeholder="Usuario" tabindex="1">
+    <br/>
+    <label for="password">Password:</label>
+    <input type="password" name="password" id="password" class="form-control input-lg-12" placeholder="Contraseña" tabindex="1">
 
-        <br/>
-        <input type="submit" class="btn btn-default btn-xl wow tada" value="Login"/>
+    <br/>
+    <input type="submit" class="btn btn-default btn-xl wow tada" value="Login"/>
     </form>
-    </form>
+
 </div>
 
 <!-- jQuery -->
@@ -309,7 +307,7 @@
 <!-- Plugin JavaScript -->
 <script src="<?php echo base_url('assets/js/jquery.easing.min.js'); ?>"></script>
 <script src="<?php echo base_url('assets/js/jquery.fittext.js'); ?>"></script>
-<script src="<?php echo base_url('assets/js/wow.mi                                                                                                                                           n.js'); ?>"></script>
+<script src="<?php echo base_url('assets/js/wow.min.js'); ?>"></script>
 
 <!-- Custom Theme JavaScript -->
 <script src="<?php echo base_url('assets/js/creative.js'); ?>"></script>

@@ -22,9 +22,16 @@
         <h3 style="color: #dd4814">Cantidad de veces pago: </h3>
         <h3><?php echo $proyecto->cant_veces_pago; ?></h3>
         <h3 style="color: #dd4814">Días restantes: </h3>
-        <h3> xxx </h3>
-        <h3 style="color: #dd4814">Para más información: </h3>
-        <h4> <a style="color: #3284b7" href="">descarga del pdf</a> </h4>
+        <h3> <?php echo $dias_restantes; ?> </h3>
+
+        <?php
+        if($pdf)
+        {
+            echo '<h3 style="color: #dd4814">Para más información: </h3>';
+            echo '<h4> <a style="color: #3284b7" href="'.base_url($pdf->pdf).'">descarga del pdf</a> </h4>';
+        }
+        ?>
+
     </div>
 
     <div class="col-md-12">
@@ -45,13 +52,13 @@
             <!-- Wrapper for slides -->
             <div class="carousel-inner" role="listbox">
                 <div class="item active" align="center" >
-                    <img src="https://placehold.it/600x350" alt="Chania">
+                    <img src="https://placehold.it/1280x720" alt="Chania">
                 </div>
                 <div class="item" align="center" >
-                    <img   src="https://placehold.it/600x350" alt="Chania">
+                    <img   src="https://placehold.it/1280x720" alt="Chania">
                 </div>
                 <div class="item" align="center" >
-                    <img  src="https://placehold.it/600x350" alt="Flower">
+                    <img  src="https://placehold.it/1280x720" alt="Flower">
                 </div>
             </div>
             <!-- Left and right controls -->

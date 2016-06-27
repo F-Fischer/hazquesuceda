@@ -23,9 +23,9 @@ class EmprendedorController extends CI_Controller
     public function index(){
         if($this->session->userdata('logged_in'))
         {
-            $session_data = $this->session->userdata('logged_in');
+            //$session_data = $this->session->userdata('logged_in');
             $data['username'] = $this->session->userdata['logged_in']['username'];
-            //$data['username'] = $this->session->userdata('username');
+
             $this->load->library('pagination');
             $proyecto = new Proyecto();
             $dataCantidad = $proyecto->record_count();
@@ -78,13 +78,21 @@ class EmprendedorController extends CI_Controller
 
     public function crearProyecto ()
     {
-        $data['username'] = $this->session->userdata['logged_in']['username'];
-        $r = new Rubro();
-        $data['rubros'] = $r->getRubros();
+        if($this->session->userdata('logged_in'))
+        {
+            $data['username'] = $this->session->userdata['logged_in']['username'];
+            $r = new Rubro();
+            $data['rubros'] = $r->getRubros();
 
-        $this->load->view('commons/header', $data);
-        $this->load->view('emprendedor/crear_proyecto',$data);
-        $this->load->view('commons/footer');
+            $this->load->view('commons/header', $data);
+            $this->load->view('emprendedor/crear_proyecto',$data);
+            $this->load->view('commons/footer');
+        }
+        else
+        {
+            //If no session, redirect to login page
+            redirect('login', 'refresh');
+        }
     }
 
     public function subirVideoProyecto ()

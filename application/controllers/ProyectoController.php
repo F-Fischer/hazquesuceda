@@ -14,14 +14,7 @@ class ProyectoController extends CI_Controller
     }
     public function index()
     {
-        /*
-        $r = new Rubro();
-        $data['rubros'] = $r->getRubros();
-        $data['username'] = $this->session->userdata['logged_in']['username'];
-        $this->load->view('commons/header', $data);
-        $this->load->view('crearproyecto',$data);
-        $this->load->view('commons/footer');
-        */
+
     }
 
     public function crearProyecto()
@@ -160,7 +153,7 @@ class ProyectoController extends CI_Controller
 
     public function do_upload_img()
     {
-        $base_upload_path = "/Applications/XAMPP/xamppfiles/htdocs/CodeIgniter-3.0.2/uploads/";
+        $base_upload_path = base_url().'/assets/uploads/';
         $date = strtotime(date('Y-m-d H:i:s'));
         $path = $base_upload_path.$date;
 
@@ -169,14 +162,14 @@ class ProyectoController extends CI_Controller
         $bd_upload_path = $base_upload_path.$new;
 
         $config = array(
-            'upload_path' => $base_upload_path,
+            'upload_path' => './uploads',
             'file_name' => $new.'.jpg',
             'file_type' => "jpg",
             'allowed_types' => "gif|jpg|png|jpeg",
             'overwrite' => FALSE,
-            'max_size' => "2048000", // Can be set to particular file size , here it is 2 MB(2048 Kb)
-            'max_height' => "768",
-            'max_width' => "1024"
+            //'max_size' => "2048000", // Can be set to particular file size , here it is 2 MB(2048 Kb)
+            'max_height' => "720",
+            'max_width' => "1280"
         );
 
         $this->load->library('upload', $config);
@@ -218,7 +211,8 @@ class ProyectoController extends CI_Controller
     public function do_upload_pdf()
     {
         //TODO: corregir path cuando se hostee
-        $base_upload_path = "/Applications/XAMPP/xamppfiles/htdocs/CodeIgniter-3.0.2/uploads/";
+
+        $base_upload_path = "/Applications/XAMPP/xamppfiles/htdocs/CodeIgniter-3.0.2/uploads";
         $date = strtotime(date('Y-m-d H:i:s'));
         $path = $base_upload_path.$date;
 
@@ -241,6 +235,7 @@ class ProyectoController extends CI_Controller
         {
             $this->guardarPdfBD($bd_upload_path);
         }
+        else { var_dump("sigue mal"); }
     }
 
     public function descripcionProyecto()
@@ -250,13 +245,27 @@ class ProyectoController extends CI_Controller
         //TODO: Hacer validaciones del campo
         // Tirar error si es nulo o no numerico
         $proyecto = new Proyecto();
+        $proyecto->getProyectoById($id);
         $resultado = $proyecto->getProyectoById($id);
+
+        //sumo una visita! :)
+        $nuevasVisitas = intval($resultado->cant_visitas) + 1;
+        $proyecto->sumarVisitas($id,$nuevasVisitas);
+
+        $dt1 = $resultado->fecha_baja;
+        $dt1 = date('d', strtotime($dt1));
+        $dt2 = date('d');
+        $diasRestantes = 30 - ($dt2 - $dt1);
 
         if(!$resultado) {
             //TODO: Tirar error que no existe ese proyecto
         }
 
+        $pdf = $proyecto->getPDFbyIdProyecto($id);
+
         $data['proyecto'] = $resultado;
+        $data['dias_restantes'] = $diasRestantes;
+        $data['pdf'] = $pdf;
         $this->load->view('commons/header',$data);
         $this->load->view('proyecto',$data);
         $this->load->view('commons/footer');

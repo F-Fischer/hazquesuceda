@@ -137,13 +137,30 @@ class Proyecto extends CI_Model
         return false;
     }
 
-    function getProyectoById ($id){
-        $this->db->select('p.ID_proyecto, p.nombre as nombre, p.descripcion as descripcion, p.cant_visitas, p.cant_veces_pago, r.nombre as rubro, m.path as youtube');
+    function getProyectoById ($id)
+    {
+        $this->db->select('p.ID_proyecto, p.nombre as nombre, p.descripcion as descripcion, p.cant_visitas, p.cant_veces_pago, p.fecha_baja, r.nombre as rubro, m.path as youtube');
         $this->db->from('proyecto as p');
         $this->db->join('rubro as r', 'p.ID_rubro_proyecto = r.ID_rubro');
         $this->db->join('multimedia_proyectos as m', 'p.ID_proyecto = m.ID_proyecto');
         $this->db->where('p.ID_proyecto',$id);
         $this->db->where('m.tipo','youtube');
+        $query = $this->db->get()->row();
+
+        if($query)
+        {
+            return $query;
+        }
+
+        return false;
+    }
+
+    function getPDFbyIdProyecto ($id)
+    {
+        $this->db->select('path as pdf');
+        $this->db->from('multimedia_proyectos');
+        $this->db->where('ID_proyecto',$id);
+        $this->db->where('tipo','pdf');
         $query = $this->db->get()->row();
 
         if($query)
@@ -235,7 +252,27 @@ class Proyecto extends CI_Model
         }
 
         return false;
+    }
 
+    function sumarVisitas ($id, $cant)
+    {
+        $this->db->select('cant_visitas');
+        $this->db->where('ID_proyecto',$id);
+        $query = $this->db->get('proyecto');
+        $result = $query->row();
+
+        if($result)
+        {
+            $this->db->set('cant_visitas',$cant);
+            $this->db->where('ID_proyecto',$id);
+            $this->db->update('proyecto');
+
+            return true;
+        }
+        else
+        {
+            return false;
+        }
     }
 
     public function record_count() {
