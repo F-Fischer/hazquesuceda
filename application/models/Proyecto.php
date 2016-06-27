@@ -151,6 +151,19 @@ class Proyecto extends CI_Model
         {
             return $query;
         }
+        else
+        {
+            $this->db->select('p.ID_proyecto, p.nombre as nombre, p.descripcion as descripcion, p.cant_visitas, p.cant_veces_pago, p.fecha_baja, r.nombre as rubro');
+            $this->db->from('proyecto as p');
+            $this->db->join('rubro as r', 'p.ID_rubro_proyecto = r.ID_rubro');
+            $this->db->where('p.ID_proyecto',$id);
+            $query = $this->db->get()->row();
+
+            if($query)
+            {
+                return $query;
+            }
+        }
 
         return false;
     }

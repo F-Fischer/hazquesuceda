@@ -278,6 +278,7 @@ class ProyectoController extends CI_Controller
 
         if(!$resultado) {
             //TODO: Tirar error que no existe ese proyecto
+            var_dump('aca');
         }
 
         $pdf = $proyecto->getPDFbyIdProyecto($id);
