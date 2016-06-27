@@ -204,10 +204,13 @@ class Proyecto extends CI_Model
 
     function getProyectos ($limit,$start)
     {
-        $this->db->select('ID_proyecto, nombre, descripcion, cant_veces_pago');
-        $this->db->where('ID_estado',3);
+        $this->db->select('p.ID_proyecto as ID_proyecto, p.nombre as nombre, p.descripcion as descripcion, m.path as previs');
+        $this->db->from('proyecto as p');
+        $this->db->join('multimedia_proyectos as m', 'p.ID_proyecto = m.ID_proyecto');
+        $this->db->where('p.ID_estado',3);
+        $this->db->where('m.tipo','previsualizacion');
         $this->db->limit($limit, $start);
-        $query = $this->db->get('proyecto');
+        $query = $this->db->get();
 
         if($query->num_rows() > 0)
         {

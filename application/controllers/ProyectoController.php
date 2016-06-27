@@ -120,16 +120,28 @@ class ProyectoController extends CI_Controller
 
     public function guardarImgBD($upload_path)
     {
+        $id = $this->uri->segment(3);
         $url = new MultimediaProyecto();
-        $url->setTipo('imagen');
-
+        $cantImg = count($url->imgPorProyecto($id));
         $url->setPath($upload_path);
-        $url->setIdProyecto($this->uri->segment(3));
+        $url->setIdProyecto($id);
+
+        if($cantImg==null)
+        {
+            $url->setTipo('previsualizacion');
+
+            if($url->insertMultimedia())
+            {
+                $url->setTipo('imagen');
+            }
+        }
+        else
+        {
+            $url->setTipo('imagen');
+        }
 
         if($url->insertMultimedia())
         {
-            $id = $this->uri->segment(3);
-
             redirect('imagenes/'.$id);
         }
     }
@@ -178,6 +190,18 @@ class ProyectoController extends CI_Controller
         else
         {
             $this->failImagenProyecto();
+        }
+    }
+
+    public function no_img_upload()
+    {
+        if($this->guardarImgBD('image-not-available.jpg'))
+        {
+            $data['special_case'] = 'si';
+        }
+        else
+        {
+            $this->load->view('404');
         }
     }
 
@@ -258,9 +282,6 @@ class ProyectoController extends CI_Controller
 
         $pdf = $proyecto->getPDFbyIdProyecto($id);
         $imgs = $proyecto->getImgsByIdProyecto($id);
-
-        //var_dump('   lo que llega  --- ', $imgs);
-        //var_dump(' cuenta: ', count($imgs));
 
         $data['proyecto'] = $resultado;
         $data['dias_restantes'] = $diasRestantes;

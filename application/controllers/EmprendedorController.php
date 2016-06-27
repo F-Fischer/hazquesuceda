@@ -35,8 +35,10 @@ class EmprendedorController extends CI_Controller
             $config['per_page'] = $elementosPorPaginas;
             $config['uri_segment'] = 2;
             $this->pagination->initialize($config);
+
             $data['links'] = $this->pagination->create_links();
             $page = ($this->uri->segment(2)) ? $this->uri->segment(2) : 0;
+
             $data['portfolio'] = $proyecto->getProyectos($config['per_page'],$page);
 
             $this->load->view('commons/header', $data);
@@ -49,9 +51,7 @@ class EmprendedorController extends CI_Controller
             redirect('login', 'refresh');
         }
     }
-    /**
-     *
-     */
+
     public function MiCuenta()
     {
         $data['username'] = $this->session->userdata['logged_in']['username'];
@@ -70,6 +70,7 @@ class EmprendedorController extends CI_Controller
         $emprendedor = new Emprendedor();
         $result = $emprendedor->getIdByUsername($data['username']);
         $proyecto = new Proyecto();
+
         $data['proyectos'] = $proyecto->getProyectosByUserId($result->ID_usuario);
         $this->load->view('commons/header', $data);
         $this->load->view('emprendedor/verproyectospropios',$data);
@@ -126,15 +127,33 @@ class EmprendedorController extends CI_Controller
         }
 
         $multimedia = new MultimediaProyecto();
-        $cantImg = count($multimedia->imgPorProyecto($this->uri->segment(2)));
+        $cantImg = count($multimedia->imgPorProyecto($id));
 
         if($cantImg >= 3)
         {
             $data['error'] = 'Se ha alcanzado la cantidad máxima de imágenes para este proyecto';
+            $data['special_case'] = null;
         }
         else
         {
             $data['error'] = null;
+
+            if($cantImg == 0)
+            {
+                $data['special_case'] = null;
+            }
+
+            $multimedia = $multimedia->specialCase($id);
+
+            if($cantImg == 1 && ($multimedia[0]->path == 'image-not-available.jpg'))
+            {
+                var_dump('y aca');
+                $data['special_case'] = 'si';
+            }
+            else
+            {
+                $data['special_case'] = null;
+            }
         }
 
         $data['proyecto'] = $resultado;

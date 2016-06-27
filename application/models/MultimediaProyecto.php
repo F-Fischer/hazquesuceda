@@ -42,7 +42,6 @@ class MultimediaProyecto extends CI_Model
         $this->db->where('ID_proyecto',$idProyecto);
         $this->db->where('tipo','imagen');
         $query = $this->db->get();
-        //var_dump($query->result());
 
         if($query)
         {
@@ -50,7 +49,22 @@ class MultimediaProyecto extends CI_Model
         }
 
         return false;
+    }
 
+    public function specialCase($idProyecto)
+    {
+        $this->db->select('path');
+        $this->db->from('multimedia_proyectos');
+        $this->db->where('ID_proyecto',$idProyecto);
+        $this->db->where('tipo','previsualizacion');
+        $query = $this->db->get();
+
+        if($query)
+        {
+            return $query->result();
+        }
+
+        return false;
     }
 
     public function pdfProyecto ($idProyecto)

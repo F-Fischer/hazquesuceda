@@ -53,20 +53,7 @@ class Emprendedor extends Usuario
         return false;
 
     }
-/*
-    function getAllProyectos (){
-        $this->db->select('ID_proyecto, nombre, descripcion, cant_veces_pago');
-        $this->db->where('ID_estado',3);
-        $query = $this->db->get('proyecto');
 
-        if($query->num_rows() > 0)
-        {
-            return $query->result();
-        }
-
-        return false;
-    }
-*/
     public function getIdEmprendedor($username){
         $this->db->select('ID_usuario');
         $this->db->where('user_name',$username);

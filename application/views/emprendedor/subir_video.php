@@ -72,7 +72,7 @@
 
                     echo form_close();
 
-                    echo '<br>'.anchor('http://localhost/hazquesuceda/imagenes/'.$proyecto->ID_proyecto,'No tengo un video todavía');
+                    echo '<br>'.anchor(base_url().'imagenes/'.$proyecto->ID_proyecto,'No tengo un video todavía');
 
                     ?>
 
