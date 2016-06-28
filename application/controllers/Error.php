@@ -2,10 +2,9 @@
 /**
  * Created by PhpStorm.
  * User: carola
- * Date: 26/6/16
- * Time: 11:08 PM
+ * Date: 27/6/16
+ * Time: 11:26 PM
  */
-
 class Error extends CI_Controller
 {
     public function index()

@@ -71,14 +71,15 @@
             <br>
             <br>
             <br>
-            <div class="col-md-4">
-                <h1 style="color: #CC0000; font-family: 'Arial Rounded MT Bold' ">UPS! 404 PAGE NOT FOUND</h1>
+            <div class="col-md-4" style="font-family: 'Arial Rounded MT Bold'">
+                <h1 style="color: #CC0000">Esto es vergonzoso...</h1>
+                <h2>Nuestros servidores no están respondiendo bien.</h2>
             </div>
             <div class="col-md-4">
-                <img src="<?php echo base_url('assets/img/img404.png'); ?>">
+                <h3 style="color: silver; font-family: 'Arial Rounded MT Bold' ">Inténtalo de nuevo más tarde.</h3>
             </div>
             <div class="col-md-4">
-                <h3 style="color: silver; font-family: 'Arial Rounded MT Bold' ">Algo salió mal... regresa e intenta de nuevo.</h3>
+                <img src="<?php echo base_url('assets/img/algo_anda_mal.png'); ?>">
             </div>
         </div>
     </div>

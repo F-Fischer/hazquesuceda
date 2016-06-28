@@ -81,14 +81,18 @@ class ProyectoController extends CI_Controller
             $proyecto = new Proyecto();
             $resultado = $proyecto->getProyectoBasicoById($id);
 
-            if(!$resultado) {
-                //TODO: Tirar error que no existe ese proyecto
+            if(!$resultado)
+            {
+                $error = new ErrorPropio();
+                $error->Error_bd();
             }
-
-            $data['proyecto'] = $resultado;
-            $this->load->view('commons/header',$data);
-            $this->load->view('emprendedor/subir_video',$data);
-            $this->load->view('commons/footer');
+            else
+            {
+                $data['proyecto'] = $resultado;
+                $this->load->view('commons/header',$data);
+                $this->load->view('emprendedor/subir_video',$data);
+                $this->load->view('commons/footer');
+            }
         }
         else
         {
@@ -201,7 +205,8 @@ class ProyectoController extends CI_Controller
         }
         else
         {
-            $this->load->view('404');
+            $error = new ErrorPropio();
+            $error->Error_bd();
         }
     }
 
@@ -213,26 +218,28 @@ class ProyectoController extends CI_Controller
         $proyecto = new Proyecto();
         $resultado = $proyecto->getProyectoBasicoById($id);
 
-        if(!$resultado) {
-            //TODO: Tirar error que no existe ese proyecto
+        if(!$resultado)
+        {
+            $error = new ErrorPropio();
+            $error->Error_bd();
         }
+        else
+        {
+            $multimedia = new MultimediaProyecto();
+            $cantImg = count($multimedia->imgPorProyecto($id));
 
-        $multimedia = new MultimediaProyecto();
-        $cantImg = count($multimedia->imgPorProyecto($id));
-
-        $data['error'] = null;
-        $data['warning'] = 'La imagen no pudo subirse, verifique que sea formato .jpg.';
-        $data['proyecto'] = $resultado;
-        $data['cantimg'] = $cantImg;
-        $this->load->view('commons/header', $data);
-        $this->load->view('emprendedor/subir_imagen',$data);
-        $this->load->view('commons/footer');
+            $data['error'] = null;
+            $data['warning'] = 'La imagen no pudo subirse, verifique que sea formato .jpg.';
+            $data['proyecto'] = $resultado;
+            $data['cantimg'] = $cantImg;
+            $this->load->view('commons/header', $data);
+            $this->load->view('emprendedor/subir_imagen',$data);
+            $this->load->view('commons/footer');
+        }
     }
 
     public function do_upload_pdf()
     {
-        //TODO: corregir path cuando se hostee
-
         $base_upload_path = base_url().'assets/uploads/';
         $date = strtotime(date('Y-m-d H:i:s'));
         $path = $base_upload_path.$date;
@@ -261,36 +268,44 @@ class ProyectoController extends CI_Controller
     {
         $data['username'] = $this->session->userdata['logged_in']['username'];
         $id = $this->uri->segment(2);
-        //TODO: Hacer validaciones del campo
-        // Tirar error si es nulo o no numerico
+
+        if (!$id || !is_numeric($id))
+        {
+            $error = new ErrorPropio();
+            $error->Error_bd();
+        }
+
         $proyecto = new Proyecto();
         $proyecto->getProyectoById($id);
         $resultado = $proyecto->getProyectoById($id);
 
-        //sumo una visita! :)
-        $nuevasVisitas = intval($resultado->cant_visitas) + 1;
-        $proyecto->sumarVisitas($id,$nuevasVisitas);
-
-        $dt1 = $resultado->fecha_baja;
-        $dt1 = date('d', strtotime($dt1));
-        $dt2 = date('d');
-        $diasRestantes = 30 - ($dt2 - $dt1);
-
-        if(!$resultado) {
-            //TODO: Tirar error que no existe ese proyecto
-            var_dump('aca');
+        if (!$resultado)
+        {
+            $error = new ErrorPropio();
+            $error->Error_bd();
         }
+        else
+        {
+            //sumo una visita! :)
+            $nuevasVisitas = intval($resultado->cant_visitas) + 1;
+            $proyecto->sumarVisitas($id, $nuevasVisitas);
 
-        $pdf = $proyecto->getPDFbyIdProyecto($id);
-        $imgs = $proyecto->getImgsByIdProyecto($id);
+            $dt1 = $resultado->fecha_baja;
+            $dt1 = date('d', strtotime($dt1));
+            $dt2 = date('d');
+            $diasRestantes = 30 - ($dt2 - $dt1);
 
-        $data['proyecto'] = $resultado;
-        $data['dias_restantes'] = $diasRestantes;
-        $data['pdf'] = $pdf;
-        $data['cant_img'] = count($imgs);
-        $data['imgs'] = $imgs;
-        $this->load->view('commons/header',$data);
-        $this->load->view('proyecto',$data);
-        $this->load->view('commons/footer');
+            $pdf = $proyecto->getPDFbyIdProyecto($id);
+            $imgs = $proyecto->getImgsByIdProyecto($id);
+
+            $data['proyecto'] = $resultado;
+            $data['dias_restantes'] = $diasRestantes;
+            $data['pdf'] = $pdf;
+            $data['cant_img'] = count($imgs);
+            $data['imgs'] = $imgs;
+            $this->load->view('commons/header', $data);
+            $this->load->view('proyecto', $data);
+            $this->load->view('commons/footer');
+        }
     }
 }

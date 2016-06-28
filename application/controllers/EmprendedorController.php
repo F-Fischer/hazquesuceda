@@ -11,16 +11,20 @@ class EmprendedorController extends CI_Controller
     /**
      *
      */
-    function __construct () {
+    function __construct ()
+    {
         parent::__construct();
         $this->load->model('Proyecto');
         $this->load->model('Emprendedor');
         $this->load->model('Rubro');
         $this->load->model('MultimediaProyecto');
+        $this->load->model('ErrorPropio');
         $this->load->library('pagination');
         $this->load->library('session');
     }
-    public function index(){
+
+    public function index()
+    {
         if($this->session->userdata('logged_in'))
         {
             //$session_data = $this->session->userdata('logged_in');
@@ -47,7 +51,6 @@ class EmprendedorController extends CI_Controller
         }
         else
         {
-            //If no session, redirect to login page
             redirect('login', 'refresh');
         }
     }
@@ -71,10 +74,18 @@ class EmprendedorController extends CI_Controller
         $result = $emprendedor->getIdByUsername($data['username']);
         $proyecto = new Proyecto();
 
-        $data['proyectos'] = $proyecto->getProyectosByUserId($result->ID_usuario);
-        $this->load->view('commons/header', $data);
-        $this->load->view('emprendedor/verproyectospropios',$data);
-        $this->load->view('commons/footer');
+        if(!$proyecto)
+        {
+            $error = new ErrorPropio();
+            $error->Error_bd();
+        }
+        else
+        {
+            $data['proyectos'] = $proyecto->getProyectosByUserId($result->ID_usuario);
+            $this->load->view('commons/header', $data);
+            $this->load->view('emprendedor/verproyectospropios',$data);
+            $this->load->view('commons/footer');
+        }
     }
 
     public function crearProyecto ()
@@ -85,13 +96,20 @@ class EmprendedorController extends CI_Controller
             $r = new Rubro();
             $data['rubros'] = $r->getRubros();
 
-            $this->load->view('commons/header', $data);
-            $this->load->view('emprendedor/crear_proyecto',$data);
-            $this->load->view('commons/footer');
+            if(!$r->getRubros())
+            {
+                $error = new ErrorPropio();
+                $error->Error_bd();
+            }
+            else
+            {
+                $this->load->view('commons/header', $data);
+                $this->load->view('emprendedor/crear_proyecto',$data);
+                $this->load->view('commons/footer');
+            }
         }
         else
         {
-            //If no session, redirect to login page
             redirect('login', 'refresh');
         }
     }
@@ -104,14 +122,18 @@ class EmprendedorController extends CI_Controller
         $proyecto = new Proyecto();
         $resultado = $proyecto->getProyectoBasicoById($id);
 
-        if(!$resultado) {
-            //TODO: Tirar error que no existe ese proyecto
+        if(!$resultado)
+        {
+            $error = new ErrorPropio();
+            $error->Error_bd();
         }
-
-        $data['proyecto'] = $resultado;
-        $this->load->view('commons/header',$data);
-        $this->load->view('emprendedor/subir_video',$data);
-        $this->load->view('commons/footer');
+        else
+        {
+            $data['proyecto'] = $resultado;
+            $this->load->view('commons/header',$data);
+            $this->load->view('emprendedor/subir_video',$data);
+            $this->load->view('commons/footer');
+        }
     }
 
     public function subirImagenProyecto ()
@@ -122,46 +144,50 @@ class EmprendedorController extends CI_Controller
         $proyecto = new Proyecto();
         $resultado = $proyecto->getProyectoBasicoById($id);
 
-        if(!$resultado) {
-            //TODO: Tirar error que no existe ese proyecto
-        }
-
-        $multimedia = new MultimediaProyecto();
-        $cantImg = count($multimedia->imgPorProyecto($id));
-
-        if($cantImg >= 3)
+        if(!$resultado)
         {
-            $data['error'] = 'Se ha alcanzado la cantidad máxima de imágenes para este proyecto';
-            $data['special_case'] = null;
+            $error = new ErrorPropio();
+            $error->Error_bd();
         }
         else
         {
-            $data['error'] = null;
+            $multimedia = new MultimediaProyecto();
+            $cantImg = count($multimedia->imgPorProyecto($id));
 
-            if($cantImg == 0)
+            if($cantImg >= 3)
             {
+                $data['error'] = 'Se ha alcanzado la cantidad máxima de imágenes para este proyecto';
                 $data['special_case'] = null;
-            }
-
-            $multimedia = $multimedia->specialCase($id);
-
-            if($cantImg == 1 && ($multimedia[0]->path == 'image-not-available.jpg'))
-            {
-                var_dump('y aca');
-                $data['special_case'] = 'si';
             }
             else
             {
-                $data['special_case'] = null;
-            }
-        }
+                $data['error'] = null;
 
-        $data['proyecto'] = $resultado;
-        $data['cantimg'] = $cantImg;
-        $data['warning'] = null;
-        $this->load->view('commons/header', $data);
-        $this->load->view('emprendedor/subir_imagen',$data);
-        $this->load->view('commons/footer');
+                if($cantImg == 0)
+                {
+                    $data['special_case'] = null;
+                }
+
+                $multimedia = $multimedia->specialCase($id);
+
+                if($cantImg == 1 && ($multimedia[0]->path == 'image-not-available.jpg'))
+                {
+                    var_dump('y aca');
+                    $data['special_case'] = 'si';
+                }
+                else
+                {
+                    $data['special_case'] = null;
+                }
+            }
+
+            $data['proyecto'] = $resultado;
+            $data['cantimg'] = $cantImg;
+            $data['warning'] = null;
+            $this->load->view('commons/header', $data);
+            $this->load->view('emprendedor/subir_imagen',$data);
+            $this->load->view('commons/footer');
+        }
     }
 
     public function subirArchivoProyecto ()
@@ -183,26 +209,31 @@ class EmprendedorController extends CI_Controller
         $proyecto = new Proyecto();
         $resultado = $proyecto->getProyectoBasicoById($id);
 
-        if(!$resultado) {
-            //TODO: Tirar error que no existe ese proyecto
-        }
-
-        $multimedia = new MultimediaProyecto();
-        $pdf = count($multimedia->pdfProyecto($this->uri->segment(2)));
-
-        if($pdf && !$msg)
+        if(!$resultado)
         {
-            $data['error'] = 'El proyecto ya posee un pdf adjunto';
+            $error = new ErrorPropio();
+            $error->Error_bd();
         }
         else
         {
-            $data['error'] = null;
+            $multimedia = new MultimediaProyecto();
+            $pdf = count($multimedia->pdfProyecto($this->uri->segment(2)));
+
+            if($pdf && !$msg)
+            {
+                $data['error'] = 'El proyecto ya posee un pdf adjunto';
+            }
+            else
+            {
+                $data['error'] = null;
+            }
+
+            $data['proyecto'] = $resultado;
+            $this->load->view('commons/header', $data);
+            $this->load->view('emprendedor/subir_archivo',$data);
+            $this->load->view('commons/footer');
         }
 
-        $data['proyecto'] = $resultado;
-        $this->load->view('commons/header', $data);
-        $this->load->view('emprendedor/subir_archivo',$data);
-        $this->load->view('commons/footer');
     }
 
     public function proyectoSinArchivo()
@@ -212,12 +243,21 @@ class EmprendedorController extends CI_Controller
         $proyecto = new Proyecto();
         $resultado = $proyecto->getProyectoBasicoById($id);
 
-        $data['error'] = null;
-        $data['msg'] = 'El proyecto se ha subido correctamente, sin archivo adjunto.';
-        $data['proyecto'] = $resultado;
-        $this->load->view('commons/header', $data);
-        $this->load->view('emprendedor/subir_archivo',$data);
-        $this->load->view('commons/footer');
+        if(!$resultado)
+        {
+            $error = new ErrorPropio();
+            $error->Error_bd();
+        }
+        else
+        {
+            $data['error'] = null;
+            $data['msg'] = 'El proyecto se ha subido correctamente, sin archivo adjunto.';
+            $data['proyecto'] = $resultado;
+            $this->load->view('commons/header', $data);
+            $this->load->view('emprendedor/subir_archivo',$data);
+            $this->load->view('commons/footer');
+        }
+
     }
 
     function logout()

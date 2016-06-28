@@ -48,8 +48,11 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 | Examples:	my-controller/index	-> my_controller/index
 |		my-controller/my-method	-> my_controller/my_method
 */
+
 $route['default_controller'] = 'login';
+$route['BD_error'] = 'errorpropio/error_bd';
 $route['404_override'] = 'error';
+
 $route['translate_uri_dashes'] = FALSE;
 $route['exito'] = 'registroemprendedor/exito';
 $route['portfolio'] = 'portfolio';

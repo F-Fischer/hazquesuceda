@@ -18,7 +18,7 @@
 
         <ul class="nav nav-pills nav-stacked" >
 
-            <li role="presentation" ><a href="http://localhost/hazquesuceda/emprendedor">Ver todos los proyectos</a></li>
+            <li role="presentation" ><a href="<?php base_url('emprendedor'); ?>">Ver todos los proyectos</a></li>
             <li role="presentation" class="active dropdown-menu"><a href="crearproyecto">Crear proyecto</a>
 
                 <ul class="nav nav-pills nav-stacked">
@@ -29,8 +29,8 @@
                 </ul>
 
             </li>
-            <li role="presentation"><a href="http://localhost/hazquesuceda/misproyectos">Ver todos mis proyectos</a></li>
-            <li role="presentation"><a href="http://localhost/hazquesuceda/micuenta">Mi cuenta</a></li>
+            <li role="presentation"><a href=" <?php base_url('misproyectos'); ?> ">Ver todos mis proyectos</a></li>
+            <li role="presentation"><a href=" <?php base_url('micuenta'); ?> ">Mi cuenta</a></li>
 
         </ul>
 

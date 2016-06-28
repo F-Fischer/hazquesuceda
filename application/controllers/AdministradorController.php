@@ -8,7 +8,8 @@
  */
 class AdministradorController extends CI_Controller
 {
-    function __construct () {
+    function __construct ()
+    {
         parent::__construct();
         $this->load->model('Proyecto');
         $this->load->model('Emprendedor');
