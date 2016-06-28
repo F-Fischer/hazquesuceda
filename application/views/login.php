@@ -281,7 +281,7 @@
     </div>
 </section>
 
-<div id="popover-head" class="hide col-md-12">Iniciar sesión</div>
+<div id="popover-head" class="hide col-md-12" align="center">Iniciar sesión</div>
 <div id="popover-content" class="hide col-md-12">
     <?php echo validation_errors(); ?>
     <?php echo form_open('login'); ?>
@@ -293,7 +293,9 @@
     <input type="password" name="password" id="password" class="form-control input-lg-12" placeholder="Contraseña" tabindex="1">
 
     <br/>
-    <input type="submit" class="btn btn-default btn-xl wow tada" value="Login"/>
+    <div align="center">
+        <input type="submit" class="btn btn-default btn-xl wow tada" value="Login"/>
+    </div>
     </form>
 
 </div>
