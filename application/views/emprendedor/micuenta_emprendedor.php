@@ -49,7 +49,7 @@
                                 <td> No puede editarse </td>
                             </tr>
                             <tr>
-                                <td>Clave</td><td type="password"><?php echo $micuenta[0]->contrasena; ?></td>
+                                <td>Clave</td><td> <?php for($i=0;$i<strlen($micuenta[0]->contrasena);$i++){ echo '*';} ?> </td>
                                 <td><a id="popover-contrasena"> Editar </a></td>
                             </tr>
                             <tr>
@@ -62,7 +62,7 @@
                             </tr>
                             <tr>
                                 <td>E-mail</td><td><?php echo $micuenta[0]->mail;?></td>
-                                <td> No puede editarse </td>
+                                <td><a id="popover-mail" > Editar </a></td>
                             </tr>
                             <tr>
                                 <td>Telefono</td><td><?php echo $micuenta[0]->telefono;?></td>
@@ -100,10 +100,11 @@
     </div>
 
     <div id="popover-content-contrasena" class="hide col-md-12">
+        <?php echo validation_errors(); ?>
         <?php echo form_open('emprendedorcontroller/editarcontrasena'); ?>
-        <input type="text" name="nueva_cont_1" class="form-control input-lg-12" placeholder="Ingrese la contraseña actual " >
+        <input type="password" name="nueva_cont_1" class="form-control input-lg-12" placeholder="Ingrese la contraseña actual " >
         <br>
-        <input type="text" name="nueva_cont_2" class="form-control input-lg-12" placeholder="Ingrese la nueva contraseña " >
+        <input type="password" name="nueva_cont_2" class="form-control input-lg-12" placeholder="Ingrese la nueva contraseña " >
         <br>
         <div align="center">
             <input type="submit" class="btn btn-default" value="Actualizar"/>
@@ -121,6 +122,16 @@
         </form>
     </div>
 
+    <div id="popover-content-mail" class="hide col-md-12">
+        <?php echo validation_errors(); ?>
+        <?php echo form_open('emprendedorcontroller/editarmail'); ?>
+        <input type="text" name="nuevo_mail" class="form-control input-lg-12" placeholder="Ingrese la nueva dirección de correo " >
+        <br>
+        <div align="center">
+            <input type="submit" class="btn btn-default" value="Actualizar"/>
+        </div>
+        </form>
+    </div>
 
 
     <!-- jQuery -->
@@ -165,6 +176,13 @@
             html : true,
             content: function(value) {
                 return $("#popover-content-telefono").html();
+            }
+        });
+
+        $('#popover-mail').popover({
+            html : true,
+            content: function(value) {
+                return $("#popover-content-mail").html();
             }
         });
 

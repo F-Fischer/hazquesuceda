@@ -21,6 +21,7 @@ class EmprendedorController extends CI_Controller
         $this->load->model('ErrorPropio');
         $this->load->library('pagination');
         $this->load->library('session');
+        $this->load->library('form_validation');
     }
 
     public function index()
@@ -308,21 +309,33 @@ class EmprendedorController extends CI_Controller
 
     public function editarContrasena()
     {
+        $this->form_validation->set_rules('nueva_cont_2', 'Password', 'trim|required|min_length[6]', array('min_length[6]' => 'La contraseña debe tener mas de 6 caracteres',
+            'required' => 'Debe ingresar una contraseña'));
+
         $data['username'] = $this->session->userdata['logged_in']['username'];
         $actual = $this->input->post('nueva_cont_1');
         $nueva = $this->input->post('nueva_cont_2');
 
         $emprendedor = new Emprendedor();
 
-        if($emprendedor->editarContrasenaEmprendedor($data['username'], $actual, $nueva))
+        if ($this->form_validation->run() == FALSE)
         {
             $this->miCuenta();
         }
         else
         {
-            $error = new ErrorPropio();
-            $error->Error_bd();
+            if($emprendedor->editarContrasenaEmprendedor($data['username'], $actual, $nueva))
+            {
+                $this->miCuenta();
+            }
+            else
+            {
+                $error = new ErrorPropio();
+                $error->Error_bd();
+            }
         }
+
+
     }
 
     public function editarTelefono()
@@ -340,6 +353,51 @@ class EmprendedorController extends CI_Controller
         {
             $error = new ErrorPropio();
             $error->Error_bd();
+        }
+    }
+
+    public function editarMail()
+    {
+        $this->form_validation->set_rules('nuevo_mail', 'E-Mail', 'trim|required|valid_email|callback_validate_email', array('required' => 'Debe ingresar una cuenta de e-mail valida',
+            'valid_email' => 'Debe ingresar un mail válido',
+            'validate_email' => 'Ya existe un usuario con esa dirección de mail'));
+
+        $data['username'] = $this->session->userdata['logged_in']['username'];
+        $mail = $this->input->post('nuevo_mail');
+
+        $emprendedor = new Emprendedor();
+
+        if ($this->form_validation->run() == FALSE)
+        {
+            $this->miCuenta();
+        }
+        else
+        {
+            if($emprendedor->editarDataEmprendedor($data['username'], 'mail', $mail))
+            {
+                $this->miCuenta();
+            }
+            else
+            {
+                $error = new ErrorPropio();
+                $error->Error_bd();
+            }
+        }
+
+    }
+
+    public function validate_email($email)
+    {
+        $this->load->model('usuario');
+        $usuario = new Usuario();
+
+        if($usuario->validate_email($email))
+        {
+            return false;
+        }
+        else
+        {
+            return true;
         }
     }
 
