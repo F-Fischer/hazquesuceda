@@ -56,7 +56,7 @@
                 <tbody>
 
                 <?php
-                /*
+
                 $cont = 0;
                 foreach($proyectos as $p)
                 {
@@ -76,7 +76,7 @@
                         '<td> <button type="button">accion 3</button> </td>'.
                         '<tr>';
                 }
-                */
+
                 ?>
 
                 </tbody>

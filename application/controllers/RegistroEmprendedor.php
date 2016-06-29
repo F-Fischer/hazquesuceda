@@ -51,7 +51,7 @@ class RegistroEmprendedor extends CI_Controller
         $mail = $this->input->post('mail');
         $fechaNacimiento = $this->input->post('fecha_nacimiento');
         $username =  $this->input->post('username');
-        $password =  hash('sha256',$this->input->post('password'));
+        $password =  $this->input->post('password');
         $newsletter = $this->input->post('newsletter');
 
         if ($this->form_validation->run() == FALSE)
@@ -64,8 +64,7 @@ class RegistroEmprendedor extends CI_Controller
         }
         else
         {
-            $e = new EmprendedorController();
-
+            $e = new Emprendedor();
             $e->setEmprendedor($nombre,$apellido,$telefono,$mail,$fechaNacimiento,$password,$username,$newsletter);
 
             if($e->insertEmprendedor())

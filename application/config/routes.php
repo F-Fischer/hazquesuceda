@@ -77,3 +77,5 @@ $route['admin/aceptarproyecto'] = 'administradorcontroller/aceptarproyecto';
 $route['admin/clausurarproyecto'] = 'administradorcontroller/clausurarproyecto';
 $route['admin/rechazarproyecto'] = 'administradorcontroller/rechazarproyecto';
 $route['users'] = 'AdministradorController/users';
+
+$route['micuenta/editarnombre'] = 'emprendedorcontroller/editarnombre';

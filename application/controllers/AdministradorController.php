@@ -20,11 +20,8 @@ class AdministradorController extends CI_Controller
     public function index()
     {
         $data['username'] = $this->session->userdata['logged_in']['username'];
-
         $p = new Proyecto();
-
         $data['proyectos'] = $p->getAllProyectosAdmin();
-
 
         $this->load->view('commons/header', $data);
         $this->load->view('administrador/basico_administrador',$data);
@@ -35,7 +32,6 @@ class AdministradorController extends CI_Controller
     {
         $data['username'] = $this->session->userdata['logged_in']['username'];
         $u = new Usuario();
-
         $data['users'] = $u->getAllUsers();
 
         $this->load->view('commons/header', $data);
@@ -44,8 +40,8 @@ class AdministradorController extends CI_Controller
 
     }
     
-     public function aceptarProyecto(){
-
+    public function aceptarProyecto()
+    {
         $idProyecto = $this->input->get('idProyecto');
 
         $p = new Proyecto();
@@ -57,7 +53,6 @@ class AdministradorController extends CI_Controller
         {
             echo 'Este proyecto no puede ser activado';
         }
-
     }
 
     public function clausurarProyecto()

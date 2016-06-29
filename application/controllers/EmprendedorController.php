@@ -27,7 +27,6 @@ class EmprendedorController extends CI_Controller
     {
         if($this->session->userdata('logged_in'))
         {
-            //$session_data = $this->session->userdata('logged_in');
             $data['username'] = $this->session->userdata['logged_in']['username'];
 
             $this->load->library('pagination');
@@ -60,11 +59,22 @@ class EmprendedorController extends CI_Controller
         $data['username'] = $this->session->userdata['logged_in']['username'];
         $emprendedor = new Emprendedor();
         $datosMiCuenta = $emprendedor->getEmprendedor($data['username']);
-        $data['micuenta'] = $datosMiCuenta;
 
-        $this->load->view('commons/header', $data);
-        $this->load->view('emprendedor/micuenta_emprendedor',$data);
-        $this->load->view('commons/footer');
+        if(!$datosMiCuenta)
+        {
+            $error = new ErrorPropio();
+            $error->Error_bd();
+        }
+        else
+        {
+            $datosMiCuenta[0]->contrasena = $emprendedor->encrypt_decrypt('decrypt',$datosMiCuenta[0]->contrasena);
+            $data['micuenta'] = $datosMiCuenta;
+
+            $this->load->view('commons/header', $data);
+            $this->load->view('emprendedor/micuenta_emprendedor',$data);
+            $this->load->view('commons/footer');
+        }
+
     }
 
     public function MisProyectos ()
@@ -258,6 +268,79 @@ class EmprendedorController extends CI_Controller
             $this->load->view('commons/footer');
         }
 
+    }
+
+    public function editarNombre()
+    {
+        $data['username'] = $this->session->userdata['logged_in']['username'];
+        $nombre = $this->input->post('nuevo_nombre');
+
+        $emprendedor = new Emprendedor();
+
+        if($emprendedor->editarDataEmprendedor($data['username'], 'nombre', $nombre))
+        {
+            $this->miCuenta();
+        }
+        else
+        {
+            $error = new ErrorPropio();
+            $error->Error_bd();
+        }
+    }
+
+    public function editarApellido()
+    {
+        $data['username'] = $this->session->userdata['logged_in']['username'];
+        $apellido = $this->input->post('nuevo_apellido');
+
+        $emprendedor = new Emprendedor();
+
+        if($emprendedor->editarDataEmprendedor($data['username'], 'apellido', $apellido))
+        {
+            $this->miCuenta();
+        }
+        else
+        {
+            $error = new ErrorPropio();
+            $error->Error_bd();
+        }
+    }
+
+    public function editarContrasena()
+    {
+        $data['username'] = $this->session->userdata['logged_in']['username'];
+        $actual = $this->input->post('nueva_cont_1');
+        $nueva = $this->input->post('nueva_cont_2');
+
+        $emprendedor = new Emprendedor();
+
+        if($emprendedor->editarContrasenaEmprendedor($data['username'], $actual, $nueva))
+        {
+            $this->miCuenta();
+        }
+        else
+        {
+            $error = new ErrorPropio();
+            $error->Error_bd();
+        }
+    }
+
+    public function editarTelefono()
+    {
+        $data['username'] = $this->session->userdata['logged_in']['username'];
+        $tel = $this->input->post('nuevo_telefono');
+
+        $emprendedor = new Emprendedor();
+
+        if($emprendedor->editarDataEmprendedor($data['username'], 'telefono', $tel))
+        {
+            $this->miCuenta();
+        }
+        else
+        {
+            $error = new ErrorPropio();
+            $error->Error_bd();
+        }
     }
 
     function logout()
