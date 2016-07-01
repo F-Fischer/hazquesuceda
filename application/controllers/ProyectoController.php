@@ -293,7 +293,15 @@ class ProyectoController extends CI_Controller
             $dt1 = $resultado->fecha_baja;
             $dt1 = date('d', strtotime($dt1));
             $dt2 = date('d');
-            $diasRestantes = 30 - ($dt2 - $dt1);
+
+            if($dt1>$dt2)
+            {
+                $diasRestantes = $dt1 - $dt2;
+            }
+            else
+            {
+                $diasRestantes = 30 - ($dt2 - $dt1);
+            }
 
             $pdf = $proyecto->getPDFbyIdProyecto($id);
             $imgs = $proyecto->getImgsByIdProyecto($id);

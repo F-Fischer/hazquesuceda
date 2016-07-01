@@ -57,12 +57,14 @@ $route['translate_uri_dashes'] = FALSE;
 $route['exito'] = 'registroemprendedor/exito';
 $route['portfolio'] = 'portfolio';
 $route['portfolio/(:num)'] = 'portfolio';
+
 $route['adminproyectos'] = 'adminproyectos';
 $route['adminproyectos/(:num)'] = 'adminproyectos';
+
 $route['emprendedor'] = 'emprendedorcontroller';
 $route['emprendedor/(:num)'] = 'emprendedorcontroller';
-$route['micuenta'] = 'emprendedorcontroller/micuenta';
-$route['misproyectos'] = 'emprendedorcontroller/misproyectos';
+$route['micuentaE'] = 'emprendedorcontroller/micuenta';
+$route['misproyectosE'] = 'emprendedorcontroller/misproyectos';
 $route['crearproyecto'] = 'emprendedorcontroller/crearproyecto';
 
 $route['video/(:num)'] = 'emprendedorcontroller/subirvideoproyecto';
@@ -71,7 +73,12 @@ $route['archivo/(:num)'] = 'emprendedorcontroller/subirarchivoproyecto';
 $route['archivo/(:num)/El_archivo_se_ha_subido_correctamente'] = 'emprendedorcontroller/subirarchivoproyecto';
 $route['archivo/(:num)/Proyecto_sin_archivo'] = 'emprendedorcontroller/proyectosinarchivo';
 
+$route['inversor'] = 'inversorcontroller';
+$route['inversor/(:num)'] = 'inversorcontroller';
+$route['micuentaI'] = 'inversorcontroller/micuenta';
+$route['misproyectosI'] = 'inversorcontroller/misproyectos';
 $route['descripcion/(:num)'] = 'proyectocontroller/descripcionproyecto';
+
 $route['admin'] = 'administradorcontroller/index';
 $route['admin/aceptarproyecto'] = 'administradorcontroller/aceptarproyecto';
 $route['admin/clausurarproyecto'] = 'administradorcontroller/clausurarproyecto';

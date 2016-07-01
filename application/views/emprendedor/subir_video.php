@@ -30,7 +30,7 @@
 
             </li>
             <li role="presentation"><a href=" <?php base_url('misproyectos'); ?> ">Ver todos mis proyectos</a></li>
-            <li role="presentation"><a href=" <?php base_url('micuenta'); ?> ">Mi cuenta</a></li>
+            <li role="presentation"><a href=" <?php base_url('micuentaE'); ?> ">Mi cuenta</a></li>
 
         </ul>
 

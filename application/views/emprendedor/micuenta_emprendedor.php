@@ -19,10 +19,10 @@
 
         <ul class="nav nav-pills nav-stacked" >
 
-            <li role="presentation"><a href="http://localhost/hazquesuceda/emprendedor">Ver todos los proyectos</a></li>
-            <li role="presentation"><a href="http://localhost/hazquesuceda/crearproyecto">Crear proyecto</a></li>
-            <li role="presentation"><a href="http://localhost/hazquesuceda/misproyectos">Ver todos mis proyectos</a></li>
-            <li role="presentation" class="active"><a href="http://localhost/hazquesuceda/micuenta">Mi cuenta</a></li>
+            <li role="presentation"><a href="<?php echo base_url('emprendedor')?>">Ver todos los proyectos</a></li>
+            <li role="presentation"><a href="<?php echo base_url('crearproyecto')?>">Crear proyecto</a></li>
+            <li role="presentation"><a href="<?php echo base_url('misproyectos')?>">Ver todos mis proyectos</a></li>
+            <li role="presentation" class="active"><a href="<?php echo base_url('micuentaE')?>">Mi cuenta</a></li>
 
         </ul>
 
@@ -148,44 +148,6 @@
     <!-- Custom Theme JavaScript -->
     <script src="<?php echo base_url('assets/js/creative.js'); ?>"></script>
 
-
-    <script>
-
-        $('#popover-nombre').popover({
-            html : true,
-            content: function(value) {
-                return $("#popover-content-nombre").html();
-            }
-        });
-
-        $('#popover-apellido').popover({
-            html : true,
-            content: function(value) {
-                return $("#popover-content-apellido").html();
-            }
-        });
-
-        $('#popover-contrasena').popover({
-            html : true,
-            content: function(value) {
-                return $("#popover-content-contrasena").html();
-            }
-        });
-
-        $('#popover-telefono').popover({
-            html : true,
-            content: function(value) {
-                return $("#popover-content-telefono").html();
-            }
-        });
-
-        $('#popover-mail').popover({
-            html : true,
-            content: function(value) {
-                return $("#popover-content-mail").html();
-            }
-        });
-
-    </script>
+    <script src="<?php echo base_url('assets/js/emprendedor/micuenta.js'); ?>"></script>
 
 

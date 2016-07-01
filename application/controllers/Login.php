@@ -24,13 +24,26 @@ class Login extends CI_Controller
         $this->form_validation->set_rules('username', 'Username', 'trim|required');
         $this->form_validation->set_rules('password', 'Password', 'trim|required|callback_check_database');
 
-        if($this->form_validation->run() == FALSE)
+        $result = $this->form_validation->run();
+
+        if( $result == FALSE)
         {
             $this->load->view('login');
         }
         else
         {
-            redirect('emprendedor');
+            $data['rol'] = $this->session->userdata['logged_in']['rol'];
+
+            switch ($data['rol'])
+            {
+                case '1' : redirect('admin');
+                    break;
+                case '2' : redirect('emprendedor');
+                    break;
+                case '3' : redirect('inversor');
+                    break;
+                default : redirect('404');
+            }
         }
     }
 
@@ -49,12 +62,13 @@ class Login extends CI_Controller
             {
                 $sess_array = array(
                     'id' => $row->id,
-                    'username' => $this->input->post('username')
+                    'username' => $this->input->post('username'),
+                    'rol' => $row->ID_rol
                 );
 
                 $this->session->set_userdata('logged_in', $sess_array);
             }
-            return TRUE;
+            return $sess_array;
         }
         else
         {
