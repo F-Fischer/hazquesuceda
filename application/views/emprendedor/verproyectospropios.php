@@ -19,10 +19,10 @@
 
         <ul class="nav nav-pills nav-stacked" >
 
-            <li role="presentation"><a href="http://localhost/hazquesuceda/emprendedor">Ver todos los proyectos</a></li>
-            <li role="presentation"><a href="http://localhost/hazquesuceda/crearproyecto">Crear proyecto</a></li>
-            <li role="presentation" class="active"><a href="http://localhost/hazquesuceda/misproyectos">Ver todos mis proyectos</a></li>
-            <li role="presentation"><a href="http://localhost/hazquesuceda/micuenta">Mi cuenta</a></li>
+            <li role="presentation"><a href="<?php echo base_url('emprendedor')?> ">Ver todos los proyectos</a></li>
+            <li role="presentation"><a href="<?php echo base_url('crearproyecto')?>">Crear proyecto</a></li>
+            <li role="presentation" class="active" ><a href="<?php echo base_url('misproyectos')?>">Ver todos mis proyectos</a></li>
+            <li role="presentation"><a href="<?php echo base_url('micuentaE')?>">Mi cuenta</a></li>
 
         </ul>
 

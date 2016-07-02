@@ -20,6 +20,53 @@ class Usuario extends CI_Model
     private $newsLetter;
 
 
+    public function getUsuario($user_name)
+    {
+        $this->db->select('user_name, nombre, apellido, mail, telefono, contrasena');
+        $this->db->where('user_name',$user_name);
+        $query = $this->db->get('usuario');
+
+        if($query->num_rows() > 0)
+        {
+            return $query->result();
+        }
+
+        return false;
+    }
+
+    public function editarDataUsuario($user_name, $data, $nuevo)
+    {
+        $this->db->set($data, $nuevo);
+        $this->db->where('user_name',$user_name);
+        $this->db->update('usuario');
+
+        return true;
+    }
+
+    public function editarContrasena ($user_name, $actual, $nueva)
+    {
+        $this->db->select('contrasena');
+        $this->db->where('user_name',$user_name);
+        $query = $this->db->get('usuario');
+
+        $actualBD = $query->result();
+        $actualBD = $actualBD[0]->contrasena;
+        $actualBD = $this->encrypt_decrypt('decrypt',$actualBD);
+
+        if($query->num_rows()>0 && ($actualBD == $actual))
+        {
+            $nueva = $this->encrypt_decrypt('encrypt', $nueva);
+
+            $this->db->set('contrasena', $nueva);
+            $this->db->where('user_name',$user_name);
+            $this->db->update('usuario');
+
+            return true;
+        }
+
+        return false;
+    }
+
     public function devolverIdRol($variable)
     {
         $consulta = $this->db->get_where('usuario',array('usuario'=>$variable));

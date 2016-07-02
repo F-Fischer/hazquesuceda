@@ -4423,14 +4423,22 @@ textarea.input-group-sm > .input-group-addon, textarea.input-group-sm > .input-g
     margin-left: 2px
 }
 
+.inversor .active a,
+.inversor .active a:hover {
+    color: #fff;
+    background-color: red
+}
+
 .nav-pills > li.active > a, .nav-pills > li.active > a:focus, .nav-pills > li.active > a:hover {
     color: #fff;
     background-color: #ee4b28
 }
 
-.inversor, .nav-pills > li.active > a, .nav-pills > li.active > a:focus, .nav-pills > li.active > a:hover {
+.inversor > .nav-pills > li.active > a,
+.inversor > .nav-pills > li.active > a:focus,
+.inversor > .nav-pills > li.active > a:hover {
     color: #fff;
-    background-color: #5cb85c;
+    background-color: red;
 }
 
 #caro {

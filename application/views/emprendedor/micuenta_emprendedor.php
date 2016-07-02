@@ -148,6 +148,6 @@
     <!-- Custom Theme JavaScript -->
     <script src="<?php echo base_url('assets/js/creative.js'); ?>"></script>
 
-    <script src="<?php echo base_url('assets/js/emprendedor/micuenta.js'); ?>"></script>
+    <script src="<?php echo base_url('assets/js/usuario/micuenta.js'); ?>"></script>
 
 

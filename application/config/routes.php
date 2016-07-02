@@ -64,7 +64,7 @@ $route['adminproyectos/(:num)'] = 'adminproyectos';
 $route['emprendedor'] = 'emprendedorcontroller';
 $route['emprendedor/(:num)'] = 'emprendedorcontroller';
 $route['micuentaE'] = 'emprendedorcontroller/micuenta';
-$route['misproyectosE'] = 'emprendedorcontroller/misproyectos';
+$route['misproyectos'] = 'emprendedorcontroller/misproyectos';
 $route['crearproyecto'] = 'emprendedorcontroller/crearproyecto';
 
 $route['video/(:num)'] = 'emprendedorcontroller/subirvideoproyecto';
@@ -76,7 +76,8 @@ $route['archivo/(:num)/Proyecto_sin_archivo'] = 'emprendedorcontroller/proyectos
 $route['inversor'] = 'inversorcontroller';
 $route['inversor/(:num)'] = 'inversorcontroller';
 $route['micuentaI'] = 'inversorcontroller/micuenta';
-$route['misproyectosI'] = 'inversorcontroller/misproyectos';
+$route['tarjetacontacto'] = 'inversorcontroller/tarjetacontacto';
+$route['proyectospagos'] = 'inversorcontroller/proyectospagos';
 $route['descripcion/(:num)'] = 'proyectocontroller/descripcionproyecto';
 
 $route['admin'] = 'administradorcontroller/index';

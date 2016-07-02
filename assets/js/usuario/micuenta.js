@@ -1,6 +1,3 @@
-/**
- * Created by carola on 1/7/16.
- */
 $(document).ready(function(){
 
     $('#popover-nombre').popover({

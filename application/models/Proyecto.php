@@ -184,6 +184,22 @@ class Proyecto extends CI_Model
         return false;
     }
 
+    function getVideoByIdProyecto ($id)
+    {
+        $this->db->select('path as video');
+        $this->db->from('multimedia_proyectos');
+        $this->db->where('ID_proyecto',$id);
+        $this->db->where('tipo','youtube');
+        $query = $this->db->get()->row();
+
+        if($query)
+        {
+            return $query;
+        }
+
+        return false;
+    }
+
     function getImgsByIdProyecto ($id)
     {
         $this->db->select('path');
@@ -215,12 +231,30 @@ class Proyecto extends CI_Model
 
     }
 
-    function getProyectos ($limit,$start)
+    public function getProyectosPagosByUserId ($id)
+    {
+        $this->db->select('p.ID_proyecto as ID_proyecto, p.nombre as nombre, p.descripcion as descripcion, r.nombre as rubro, pa.fecha as fecha_pago, u.nombre as nombre_emprendedor, u.apellido as apellido_emprendedor, u.telefono as tel_emprendedor, u.mail as mail_emprendedor, u.user_name as username_emprendedor');
+        $this->db->from('pago as pa');
+        $this->db->join('proyecto as p', 'pa.ID_proyecto_pagado = p.ID_proyecto');
+        $this->db->join('rubro as r', 'p.ID_rubro_proyecto = r.ID_rubro');
+        $this->db->join('usuario as u', 'p.ID_usuario_emprendedor = u.ID_usuario');
+        $this->db->where('pa.ID_usuario_inversor', $id);
+        $query = $this->db->get();
+
+        if($query->num_rows() > 0)
+        {
+            return $query->result();
+        }
+
+        return false;
+    }
+
+    function getProyectos ($estado, $limit,$start)
     {
         $this->db->select('p.ID_proyecto as ID_proyecto, p.nombre as nombre, p.descripcion as descripcion, m.path as previs');
         $this->db->from('proyecto as p');
         $this->db->join('multimedia_proyectos as m', 'p.ID_proyecto = m.ID_proyecto');
-        $this->db->where('p.ID_estado',3);
+        $this->db->where('p.ID_estado',$estado);
         $this->db->where('m.tipo','previsualizacion');
         $this->db->limit($limit, $start);
         $query = $this->db->get();

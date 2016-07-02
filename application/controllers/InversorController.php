@@ -38,7 +38,8 @@ class InversorController extends CI_Controller
             $data['links'] = $this->pagination->create_links();
             $page = ($this->uri->segment(2)) ? $this->uri->segment(2) : 0;
 
-            $data['portfolio'] = $proyecto->getProyectos($config['per_page'],$page);
+            //ve proyectos activos
+            $data['portfolio'] = $proyecto->getProyectos('3', $config['per_page'],$page);
 
             $this->load->view('commons/header', $data);
             $this->load->view('inversor/verproyectos_inversor',$data);
@@ -50,11 +51,11 @@ class InversorController extends CI_Controller
         }
     }
 
-    public function MiCuenta()
+    public function miCuenta()
     {
         $data['username'] = $this->session->userdata['logged_in']['username'];
         $inversor = new Inversor();
-        $datosMiCuenta = $inversor->getInversor($data['username']);
+        $datosMiCuenta = $inversor->getUsuario($data['username']);
 
         if(!$datosMiCuenta)
         {
@@ -72,35 +73,64 @@ class InversorController extends CI_Controller
         }
     }
 
-    public function MisProyectosPagos ()
+    public function proyectosPagos ()
     {
-        /*$data['username'] = $this->session->userdata['logged_in']['username'];
-        $emprendedor = new Emprendedor();
-        $result = $emprendedor->getIdByUsername($data['username']);
+        $data['username'] = $this->session->userdata['logged_in']['username'];
+        $inversor = new Inversor();
+        $result = $inversor->getIdByUsername($data['username']);
         $proyecto = new Proyecto();
+        $proyectos = $proyecto->getProyectosPagosByUserId($result->ID_usuario);
 
-        if(!$proyecto)
+        if(!$proyectos)
         {
             $error = new ErrorPropio();
             $error->Error_bd();
         }
         else
         {
-            $data['proyectos'] = $proyecto->getProyectosByUserId($result->ID_usuario);
+            $i = 0;
+            foreach ($proyectos as $p)
+            {
+                $pdf = $proyecto->getPDFbyIdProyecto($p->ID_proyecto);
+
+                if ($pdf)
+                {
+                    $proyectos[$i]->pdf = $pdf;
+                }
+                else
+                {
+                    $proyectos[$i]->pdf = null;
+                }
+
+                $video = $proyecto->getVideoByIdProyecto($p->ID_proyecto);
+
+                if ($video)
+                {
+                    $proyectos[$i]->video = $video;
+                }
+                else
+                {
+                    $proyectos[$i]->video = null;
+                }
+
+                $i++;
+            }
+
+            $data['proyectos'] = $proyectos;
             $this->load->view('commons/header', $data);
-            $this->load->view('emprendedor/verproyectospropios',$data);
+            $this->load->view('inversor/proyectospagos',$data);
             $this->load->view('commons/footer');
-        }*/
+        }
     }
 
     public function editarNombre()
     {
-        /*$data['username'] = $this->session->userdata['logged_in']['username'];
+        $data['username'] = $this->session->userdata['logged_in']['username'];
         $nombre = $this->input->post('nuevo_nombre');
 
         $inversor = new Inversor();
 
-        if($inversor->editarDataEmprendedor($data['username'], 'nombre', $nombre))
+        if($inversor->editarDataUsuario($data['username'], 'nombre', $nombre))
         {
             $this->miCuenta();
         }
@@ -108,7 +138,7 @@ class InversorController extends CI_Controller
         {
             $error = new ErrorPropio();
             $error->Error_bd();
-        }*/
+        }
     }
 
     public function editarApellido()
@@ -116,9 +146,9 @@ class InversorController extends CI_Controller
         $data['username'] = $this->session->userdata['logged_in']['username'];
         $apellido = $this->input->post('nuevo_apellido');
 
-        $emprendedor = new Emprendedor();
+        $inversor = new Inversor();
 
-        if($emprendedor->editarDataEmprendedor($data['username'], 'apellido', $apellido))
+        if($inversor->editarDataUsuario($data['username'], 'apellido', $apellido))
         {
             $this->miCuenta();
         }
@@ -138,7 +168,7 @@ class InversorController extends CI_Controller
         $actual = $this->input->post('nueva_cont_1');
         $nueva = $this->input->post('nueva_cont_2');
 
-        $emprendedor = new Emprendedor();
+        $inversor = new Inversor();
 
         if ($this->form_validation->run() == FALSE)
         {
@@ -146,7 +176,7 @@ class InversorController extends CI_Controller
         }
         else
         {
-            if($emprendedor->editarContrasenaEmprendedor($data['username'], $actual, $nueva))
+            if($inversor->editarContrasena($data['username'], $actual, $nueva))
             {
                 $this->miCuenta();
             }
@@ -164,9 +194,9 @@ class InversorController extends CI_Controller
         $data['username'] = $this->session->userdata['logged_in']['username'];
         $tel = $this->input->post('nuevo_telefono');
 
-        $emprendedor = new Emprendedor();
+        $inversor = new Inversor();
 
-        if($emprendedor->editarDataEmprendedor($data['username'], 'telefono', $tel))
+        if($inversor->editarDataUsuario($data['username'], 'telefono', $tel))
         {
             $this->miCuenta();
         }
@@ -186,7 +216,7 @@ class InversorController extends CI_Controller
         $data['username'] = $this->session->userdata['logged_in']['username'];
         $mail = $this->input->post('nuevo_mail');
 
-        $emprendedor = new Emprendedor();
+        $inversor = new Inversor();
 
         if ($this->form_validation->run() == FALSE)
         {
@@ -194,7 +224,7 @@ class InversorController extends CI_Controller
         }
         else
         {
-            if($emprendedor->editarDataEmprendedor($data['username'], 'mail', $mail))
+            if($inversor->editarDataEmprendedor($data['username'], 'mail', $mail))
             {
                 $this->miCuenta();
             }

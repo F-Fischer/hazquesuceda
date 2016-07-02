@@ -38,7 +38,8 @@ class EmprendedorController extends CI_Controller
             $data['links'] = $this->pagination->create_links();
             $page = ($this->uri->segment(2)) ? $this->uri->segment(2) : 0;
 
-            $data['portfolio'] = $proyecto->getProyectos($config['per_page'],$page);
+            //ve proyectos finalizados
+            $data['portfolio'] = $proyecto->getProyectos('5', $config['per_page'],$page);
 
             $this->load->view('commons/header', $data);
             $this->load->view('emprendedor/verproyectos_emprendedor',$data);
@@ -50,11 +51,11 @@ class EmprendedorController extends CI_Controller
         }
     }
 
-    public function MiCuenta()
+    public function miCuenta()
     {
         $data['username'] = $this->session->userdata['logged_in']['username'];
         $emprendedor = new Emprendedor();
-        $datosMiCuenta = $emprendedor->getEmprendedor($data['username']);
+        $datosMiCuenta = $emprendedor->getUsuario($data['username']);
 
         if(!$datosMiCuenta)
         {
@@ -72,21 +73,22 @@ class EmprendedorController extends CI_Controller
         }
     }
 
-    public function MisProyectos ()
+    public function misProyectos ()
     {
         $data['username'] = $this->session->userdata['logged_in']['username'];
         $emprendedor = new Emprendedor();
         $result = $emprendedor->getIdByUsername($data['username']);
         $proyecto = new Proyecto();
+        $proyectos = $proyecto->getProyectosByUserId($result->ID_usuario);
 
-        if(!$proyecto)
+        if(!$proyectos)
         {
             $error = new ErrorPropio();
             $error->Error_bd();
         }
         else
         {
-            $data['proyectos'] = $proyecto->getProyectosByUserId($result->ID_usuario);
+            $data['proyectos'] = $proyectos;
             $this->load->view('commons/header', $data);
             $this->load->view('emprendedor/verproyectospropios',$data);
             $this->load->view('commons/footer');
@@ -272,7 +274,7 @@ class EmprendedorController extends CI_Controller
 
         $emprendedor = new Emprendedor();
 
-        if($emprendedor->editarDataEmprendedor($data['username'], 'nombre', $nombre))
+        if($emprendedor->editarDataUsuario($data['username'], 'nombre', $nombre))
         {
             $this->miCuenta();
         }
@@ -290,7 +292,7 @@ class EmprendedorController extends CI_Controller
 
         $emprendedor = new Emprendedor();
 
-        if($emprendedor->editarDataEmprendedor($data['username'], 'apellido', $apellido))
+        if($emprendedor->editarDataUsuario($data['username'], 'apellido', $apellido))
         {
             $this->miCuenta();
         }
@@ -318,7 +320,7 @@ class EmprendedorController extends CI_Controller
         }
         else
         {
-            if($emprendedor->editarContrasenaEmprendedor($data['username'], $actual, $nueva))
+            if($emprendedor->editarContrasena($data['username'], $actual, $nueva))
             {
                 $this->miCuenta();
             }
@@ -338,7 +340,7 @@ class EmprendedorController extends CI_Controller
 
         $emprendedor = new Emprendedor();
 
-        if($emprendedor->editarDataEmprendedor($data['username'], 'telefono', $tel))
+        if($emprendedor->editarDataUsuario($data['username'], 'telefono', $tel))
         {
             $this->miCuenta();
         }
@@ -366,7 +368,7 @@ class EmprendedorController extends CI_Controller
         }
         else
         {
-            if($emprendedor->editarDataEmprendedor($data['username'], 'mail', $mail))
+            if($emprendedor->editarDataUsuario($data['username'], 'mail', $mail))
             {
                 $this->miCuenta();
             }

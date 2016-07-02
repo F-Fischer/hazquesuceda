@@ -6,8 +6,8 @@
         <br>
         <br>
         <div class="col-lg-12">
-            <h1 class="page-header" style="font-size: 65px;">Proyectos
-                <small>en busca de una oportunidad...</small>
+            <h1 class="page-header" style="font-size: 65px;">Proyectos exitosos
+                <small>de la plataforma</small>
                 <br>
                 <br>
             </h1>
