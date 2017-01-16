@@ -14,7 +14,7 @@ class RegistroInversor extends CI_Controller
         $this->load->model('inversor');
         $this->load->model('rubro');
         $this->load->model('usuario');
-        $this->load->model('rubrointeres');
+        $this->load->model('RubroInteres');
         $this->load->library('form_validation');
         $this->load->library('calendar');
     }
@@ -85,7 +85,7 @@ class RegistroInversor extends CI_Controller
                     $ri->setIdRubro($rubro);
                     $ri->insertRubroInteres();
                 }
-                redirect('exito');
+                redirect('exitoinversor');
             }
         }
     }

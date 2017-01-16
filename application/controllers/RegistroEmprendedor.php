@@ -69,7 +69,7 @@ class RegistroEmprendedor extends CI_Controller
 
             if($e->insertEmprendedor())
             {
-                redirect('exito');
+                redirect('exitoemprendedor');
             }
         }
     }

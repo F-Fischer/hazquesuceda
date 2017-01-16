@@ -144,7 +144,7 @@
                     </button>
                     <h4 class="modal-title" id="myModalLabel">Términos y condiciones</h4>
                 </div>
-                <div class="modal-body">Acá van los términos y condiciones, en forma de texto plano, como acordamos con Marcelo.</div>
+                <div class="modal-body">Acá van los términos y condiciones, en forma de texto plano, tan pronto los redactemos jaja.</div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                 </div>

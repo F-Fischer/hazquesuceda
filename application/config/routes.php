@@ -50,10 +50,14 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 */
 
 $route['default_controller'] = 'login';
+$route['welcome'] = 'login';
 $route['BD_error'] = 'errorpropio/error_bd';
 $route['404_override'] = 'error';
 $route['translate_uri_dashes'] = FALSE;
-$route['exito'] = 'registroemprendedor/exito';
+$route['registroemprendedor'] = 'RegistroEmprendedor';
+$route['registroinversor'] = 'RegistroInversor';
+$route['exitoemprendedor'] = 'RegistroEmprendedor/exito';
+$route['exitoinversor'] = 'RegistroInversor/exito';
 $route['portfolio'] = 'portfolio';
 $route['portfolio/(:num)'] = 'portfolio';
 $route['adminproyectos'] = 'adminproyectos';
@@ -75,6 +79,7 @@ $route['emprendedor/editarapellido'] = 'EmprendedorController/editarApellido';
 $route['emprendedor/editarcontrasena'] = 'EmprendedorController/editarContrasena';
 $route['emprendedor/editartelefono'] = 'EmprendedorController/editarTelefono';
 $route['emprendedor/editarmail'] = 'EmprendedorController/editarMail';
+$route['registroemprendedor/registrar'] = 'RegistroEmprendedor/Registrar';
 
 //EMPRENDEDOR PROYECTO
 $route['proyecto/crearproyecto'] = 'ProyectoController/crearProyecto';
@@ -92,6 +97,7 @@ $route['inversor/editarapellido'] = 'InversorController/editarApellido';
 $route['inversor/editarcontrasena'] = 'InversorController/editarContrasena';
 $route['inversor/editartelefono'] = 'InversorController/editarTelefono';
 $route['inversor/editarmail'] = 'InversorController/editarMail';
+$route['registroinversor/registrar'] = 'RegistroInversor/Registrar';
 
 //ADMIN
 $route['admin'] = 'administradorcontroller/index';
