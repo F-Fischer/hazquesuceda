@@ -60,8 +60,10 @@ class Login extends CI_Controller
             $sess_array = array();
             foreach($result as $row)
             {
+
+                
                 $sess_array = array(
-                    'id' => $row->id,
+                    'id' => $row->ID_usuario,
                     'username' => $this->input->post('username'),
                     'rol' => $row->ID_rol
                 );

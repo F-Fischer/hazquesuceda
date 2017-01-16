@@ -8,7 +8,7 @@ class ProyectoController extends CI_Controller
         $this->load->library('form_validation');
         $this->load->model('proyecto');
         $this->load->model('emprendedor');
-        $this->load->model('multimediaproyecto');
+        $this->load->model('MultimediaProyecto');
         $this->load->model('rubro');
         $this->load->library('session');
     }

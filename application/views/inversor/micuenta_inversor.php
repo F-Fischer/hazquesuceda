@@ -171,7 +171,7 @@
 
 </div>
 <div id="popover-content-nombre" class="hide col-md-12">
-    <?php echo form_open('inversorcontroller/editarnombre'); ?>
+    <?php echo form_open('inversor/editarnombre'); ?>
     <input type="text" name="nuevo_nombre" class="form-control input-lg-12" placeholder="Ingrese el nuevo nombre" >
     <br>
     <div align="center">
@@ -181,7 +181,7 @@
 </div>
 
 <div id="popover-content-apellido" class="hide col-md-12">
-    <?php echo form_open('inversorcontroller/editarapellido'); ?>
+    <?php echo form_open('inversor/editarapellido'); ?>
     <input type="text" name="nuevo_apellido" class="form-control input-lg-12" placeholder="Ingrese el nuevo apellido" >
     <br>
     <div align="center">
@@ -192,7 +192,7 @@
 
 <div id="popover-content-contrasena" class="hide col-md-12">
     <?php echo validation_errors(); ?>
-    <?php echo form_open('inversorcontroller/editarcontrasena'); ?>
+    <?php echo form_open('inversor/editarcontrasena'); ?>
     <input type="password" name="nueva_cont_1" class="form-control input-lg-12" placeholder="Ingrese la contraseña actual " >
     <br>
     <input type="password" name="nueva_cont_2" class="form-control input-lg-12" placeholder="Ingrese la nueva contraseña " >
@@ -204,7 +204,7 @@
 </div>
 
 <div id="popover-content-telefono" class="hide col-md-12">
-    <?php echo form_open('inversorcontroller/editartelefono'); ?>
+    <?php echo form_open('inversor/editartelefono'); ?>
     <input type="text" name="nuevo_telefono" class="form-control input-lg-12" placeholder="Ingrese el nuevo telefono " >
     <br>
     <div align="center">
@@ -215,7 +215,7 @@
 
 <div id="popover-content-mail" class="hide col-md-12">
     <?php echo validation_errors(); ?>
-    <?php echo form_open('inversorcontroller/editarmail'); ?>
+    <?php echo form_open('inversor/editarmail'); ?>
     <input type="text" name="nuevo_mail" class="form-control input-lg-12" placeholder="Ingrese la nueva dirección de correo " >
     <br>
     <div align="center">

@@ -97,7 +97,7 @@ class Usuario extends CI_Model
     public function getIdByUsername($username)
     {
         $this -> db -> select('ID_usuario');
-        $this -> db -> from('hazquesuceda.usuario');
+        $this -> db -> from('usuario');
         $this -> db -> where('user_name', "$username");
 
         $query = $this->db->get();
@@ -120,7 +120,7 @@ class Usuario extends CI_Model
         $pass = $this->encrypt_decrypt('encrypt', $password);
 
         $this -> db -> select('ID_usuario, user_name, contrasena, ID_rol');
-        $this -> db -> from('hazquesuceda.usuario');
+        $this -> db -> from('usuario');
         $this -> db -> where('user_name', "$username");
         $this -> db -> where('contrasena',$pass);
         $query = $this -> db -> get();

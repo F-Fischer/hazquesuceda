@@ -77,78 +77,55 @@
             <h1>Haz que suceda!</h1>
             <hr>
             <p>Bienvenido al sitio donde aquellos con grandes ideas y aquellos con la capacidad de concretarlas se encuentran.</p>
-            <a href="#about" class="btn btn-primary btn-xl page-scroll">Conocer un poco más</a>
+            <a href="#services" class="btn btn-primary btn-xl page-scroll">Conocer un poco más</a>
         </div>
     </div>
 </header>
-
-<section class="bg-primary" id="about">
-    <div class="container">
-        <div class="row">
-            <div class="col-lg-8 col-lg-offset-2 text-center">
-                <h2 class="section-heading">Inicia sesión!</h2>
-                <hr class="light">
-                <p class="text-faded">Si ya estás registrado en la plataforma puedes iniciar sesión a continuación. De lo contrario puedes acudir a las opciones de la barra superior.</p>
-
-                <br>
-
-                    <?php echo validation_errors(); ?>
-                    <?php echo form_open('login'); ?>
-
-                    <label for="username">Username:</label>
-                    <input type="text" name="username" id="username" class="form-control input-lg" placeholder="Usuario" tabindex="1">
-                    <br/>
-                    <label for="password">Password:</label>
-                    <input type="password" name="password" id="password" class="form-control input-lg" placeholder="Contraseña" tabindex="1">
-
-                    <br/>
-                    <input type="submit" class="btn btn-default btn-xl wow tada" value="Login"/>
-                    </form>
-
-                </div>
-
-            </div>
-        </div>
-    </div>
-</section>
 
 <section id="services">
     <div class="container">
         <div class="row">
             <div class="col-lg-12 text-center">
-                <h2 class="section-heading">At Your Service</h2>
+                <h2 class="section-heading">¿De qué se trata todo esto?</h2>
                 <hr class="primary">
             </div>
         </div>
     </div>
     <div class="container">
         <div class="row">
-            <div class="col-lg-3 col-md-6 text-center">
+            <div class="col-lg-2 col-md-4 text-center">
                 <div class="service-box">
-                    <i class="fa fa-4x fa-diamond wow bounceIn text-primary"></i>
-                    <h3>Sturdy Templates</h3>
-                    <p class="text-muted">Our templates are updated regularly so they don't break.</p>
+                    <i class="fa fa-4x fa-lightbulb-o wow bounceIn text-primary"></i>
+                    <h3>Soy emprendedor</h3>
+                    <p class="text-muted">Tengo una gran idea.</p>
                 </div>
             </div>
-            <div class="col-lg-3 col-md-6 text-center">
+            <div class="col-lg-2 col-md-4 text-center">
                 <div class="service-box">
-                    <i class="fa fa-4x fa-paper-plane wow bounceIn text-primary" data-wow-delay=".1s"></i>
-                    <h3>Ready to Ship</h3>
-                    <p class="text-muted">You can use this theme as is, or you can make changes!</p>
+                    <i class="fa fa-4x fa-money wow bounceIn text-primary" data-wow-delay=".1s"></i>
+                    <h3>Necesito financiación</h3>
+                    <p class="text-muted">Para poder poner en marcha mi idea.</p>
                 </div>
             </div>
-            <div class="col-lg-3 col-md-6 text-center">
+            <div class="col-lg-2 col-md-4 text-center">
                 <div class="service-box">
-                    <i class="fa fa-4x fa-newspaper-o wow bounceIn text-primary" data-wow-delay=".2s"></i>
-                    <h3>Up to Date</h3>
-                    <p class="text-muted">We update dependencies to keep things fresh.</p>
+                    <i class="fa fa-4x fa-comments-o wow bounceIn text-primary" data-wow-delay=".2s"></i>
+                    <h3>Nos encontramos</h3>
+                    <p class="text-muted">Y charlamos sobre tu idea.</p>
                 </div>
             </div>
-            <div class="col-lg-3 col-md-6 text-center">
+            <div class="col-lg-2 col-md-4 text-center">
                 <div class="service-box">
-                    <i class="fa fa-4x fa-heart wow bounceIn text-primary" data-wow-delay=".3s"></i>
-                    <h3>Made with Love</h3>
-                    <p class="text-muted">You have to make your websites with love these days!</p>
+                    <i class="fa fa-4x fa-briefcase wow bounceIn text-primary" data-wow-delay=".2s"></i>
+                    <h3>Busco un proyecto</h3>
+                    <p class="text-muted">En el cual invertir.</p>
+                </div>
+            </div>
+            <div class="col-lg-2 col-md-4 text-center">
+                <div class="service-box">
+                    <i class="fa fa-4x fa-user wow bounceIn text-primary" data-wow-delay=".3s"></i>
+                    <h3>Soy inversor</h3>
+                    <p class="text-muted">Tengo dinero y me gustaría invertirlo en grandes proyectos.</p>
                 </div>
             </div>
         </div>
@@ -164,10 +141,10 @@
                     <div class="portfolio-box-caption">
                         <div class="portfolio-box-caption-content">
                             <div class="project-category text-faded">
-                                Category
+                                Rubro
                             </div>
                             <div class="project-name">
-                                Project Name
+                                Industrial
                             </div>
                         </div>
                     </div>
@@ -179,10 +156,10 @@
                     <div class="portfolio-box-caption">
                         <div class="portfolio-box-caption-content">
                             <div class="project-category text-faded">
-                                Category
+                                Rubro
                             </div>
                             <div class="project-name">
-                                Project Name
+                                Franquicias
                             </div>
                         </div>
                     </div>
@@ -194,10 +171,10 @@
                     <div class="portfolio-box-caption">
                         <div class="portfolio-box-caption-content">
                             <div class="project-category text-faded">
-                                Category
+                                Rubro
                             </div>
                             <div class="project-name">
-                                Project Name
+                                Económico
                             </div>
                         </div>
                     </div>
@@ -209,10 +186,10 @@
                     <div class="portfolio-box-caption">
                         <div class="portfolio-box-caption-content">
                             <div class="project-category text-faded">
-                                Category
+                                Rubro
                             </div>
                             <div class="project-name">
-                                Project Name
+                                Agropecuario
                             </div>
                         </div>
                     </div>
@@ -224,10 +201,10 @@
                     <div class="portfolio-box-caption">
                         <div class="portfolio-box-caption-content">
                             <div class="project-category text-faded">
-                                Category
+                                Rubro
                             </div>
                             <div class="project-name">
-                                Project Name
+                                Servicios
                             </div>
                         </div>
                     </div>
@@ -239,10 +216,10 @@
                     <div class="portfolio-box-caption">
                         <div class="portfolio-box-caption-content">
                             <div class="project-category text-faded">
-                                Category
+                                Rubro
                             </div>
                             <div class="project-name">
-                                Project Name
+                                Manufacturas
                             </div>
                         </div>
                     </div>
@@ -250,32 +227,69 @@
             </div>
         </div>
     </div>
-</section>
-
-<aside class="bg-dark">
-    <div class="container text-center">
-        <div class="call-to-action">
-            <h2>Free Download at Start Bootstrap!</h2>
-            <a href="#" class="btn btn-default btn-xl wow tada">Download Now!</a>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 text-center">
+                <br>
+                <br>
+                <h3 class="section-heading">¡Y muchos rubros más!</h3>
+                <br>
+                <br>
+            </div>
         </div>
     </div>
-</aside>
+</section>
+
+<section class="bg-primary" id="about">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12 text-center">
+                <h2 class="section-heading">El equipo de trabajo</h2>
+                <hr class="light">
+            </div>
+        </div>
+    </div>
+    <div class="container">
+        <div class="row" align="center">
+            <div class="col-sm-6">
+                <img class="img-circle img-responsive img-center" src="../uploads/fran.jpg" style="max-height: 345px">
+                <h2>Francisco Fischer</h2>
+                <p>Estudiante de Ingeniería de Sistemas en Universidad Católica de Córdoba.</p>
+                <h4>
+                    <a href="https://www.linkedin.com/in/francisco-fischer-73993978" style="color: black" target="_blank">
+                        Sobre Fran...
+                    </a>
+                </h4>
+            </div>
+            <div class="col-sm-6">
+                <img class="img-circle img-responsive img-center" src="../uploads/caro.jpg" style="max-height: 345px">
+                <h2>Carolina Bottino</h2>
+                <p>Estudiante de Ingeniería de Sistemas en Universidad Católica de Córdoba.</p>
+                <h4>
+                    <a href="https://www.linkedin.com/in/carolina-bottino-5214309b" style="color: black" target="_blank">
+                        Sobre Caro...
+                    </a>
+                </h4>
+        </div>
+        </div>
+    </div>
+</section>
 
 <section id="contact">
     <div class="container">
         <div class="row">
             <div class="col-lg-8 col-lg-offset-2 text-center">
-                <h2 class="section-heading">Let's Get In Touch!</h2>
+                <h2 class="section-heading">¡Nos mantengamos en contacto!</h2>
                 <hr class="primary">
-                <p>Ready to start your next project with us? That's great! Give us a call or send us an email and we will get back to you as soon as possible!</p>
+                <p>Tu opinión nos interesa. Si tenés una sugerencia, no dudes en hacernosla llegar!</p>
             </div>
             <div class="col-lg-4 col-lg-offset-2 text-center">
-                <i class="fa fa-phone fa-3x wow bounceIn"></i>
-                <p>123-456-6789</p>
+                <i class="fa fa-facebook-square fa-3x wow bounceIn"></i>
+                <p><a href="https://www.facebook.com/hqsinstitucional" target="_blank">página de facebook</a></p>
             </div>
             <div class="col-lg-4 text-center">
                 <i class="fa fa-envelope-o fa-3x wow bounceIn" data-wow-delay=".1s"></i>
-                <p><a href="mailto:your-email@your-domain.com">feedback@startbootstrap.com</a></p>
+                <p><a href="mailto:soporte@hazquesuceda.org" target="_blank">soporte@hazquesuceda.org</a></p>
             </div>
         </div>
     </div>
