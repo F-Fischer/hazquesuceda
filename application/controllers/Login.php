@@ -54,14 +54,13 @@ class Login extends CI_Controller
 
         //query the database
         $result = $this->Usuario->login($username, $password);
+        $habilitado = $this->Usuario->devolverHabilitado($username);
 
-        if($result)
+        if($result && ($habilitado == 1))
         {
             $sess_array = array();
             foreach($result as $row)
             {
-
-                
                 $sess_array = array(
                     'id' => $row->ID_usuario,
                     'username' => $this->input->post('username'),

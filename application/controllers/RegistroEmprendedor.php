@@ -69,6 +69,7 @@ class RegistroEmprendedor extends CI_Controller
 
             if($e->insertEmprendedor())
             {
+                $this->send_email($mail, $username, $password);
                 redirect('exitoemprendedor');
             }
         }
@@ -112,6 +113,37 @@ class RegistroEmprendedor extends CI_Controller
             return true;
         }
 
+    }
+
+    public function send_email($email, $username, $password) {
+        $to = $email;
+        $subject = "Bienvenido a Haz que suceda!";
+
+        $message = "
+                    <html>
+                        <head>
+                            <title>HTML email</title>
+                        </head>
+                        <body>
+                            <div class=\"jumbotron\">
+                              <h1>Bienvenido a Haz que suceda!</h1>
+                              <label>Tu usuario es: <strong>" . $username. " </strong></label>
+                              <br>
+                              <label>Y tu contraseña es: <strong>" . $password . " </strong></label>
+                              <p><a href=\"http://www.hazquesuceda.org/activar/". $username ."\" >Activar mi cuenta!</a></p>
+                            </div>
+                        </body>
+                    </html>
+                    ";
+
+        // Always set content-type when sending HTML email
+        $headers = "MIME-Version: 1.0" . "\r\n";
+        $headers .= "Content-type:text/html;charset=UTF-8" . "\r\n";
+
+        // More headers
+        $headers .= 'From: <soporte@hazquesuceda.org>' . "\r\n";
+
+        mail($to,$subject,$message,$headers);
     }
 }
 

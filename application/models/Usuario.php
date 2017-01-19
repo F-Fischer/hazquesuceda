@@ -69,16 +69,16 @@ class Usuario extends CI_Model
 
     public function devolverIdRol($variable)
     {
-        $consulta = $this->db->get_where('usuario',array('usuario'=>$variable));
+        $consulta = $this->db->get_where('usuario',array('user_name'=>$variable));
         $row = $consulta->row(1);
-        $idRol = $row->idRol;
+        $idRol = $row->ID_rol;
 
         return $idRol;
     }
 
     public function devolverHabilitado($variable)
     {
-        $consulta = $this->db->get_where('usuario',array('usuario'=>$variable));
+        $consulta = $this->db->get_where('usuario',array('user_name'=>$variable));
         $row = $consulta->row(1);
         $habilitado = $row->habilitado;
 
@@ -87,7 +87,7 @@ class Usuario extends CI_Model
 
     public function devolverId($variable)
     {
-        $consulta = $this->db->get_where('usuario',array('usuario'=>$variable));
+        $consulta = $this->db->get_where('usuario',array('user_name'=>$variable));
         $row = $consulta->row(1);
         $id = $row->id;
 
