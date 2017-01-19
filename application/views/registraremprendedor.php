@@ -99,7 +99,7 @@
             $js = 'onclick="btnRegistrarEmprendedor.disabled = !this.checked"';
 
             echo '<br>'.form_checkbox($data,'accept',FALSE,$js).form_label(' He leído los
-                    <a data-toggle="modal" data-target="#myModal"> términos y condiciones</a>
+                    <a href="#" data-toggle="modal" data-target="#myModal"> términos y condiciones</a>
                     de la plataforma.');
 
             $data = array(
@@ -134,7 +134,6 @@
 
 
     <!-- PARA LOS TERMINOS Y CONDICIONES -->
-
     <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
         <div class="modal-dialog" role="document">
             <div class="modal-content">

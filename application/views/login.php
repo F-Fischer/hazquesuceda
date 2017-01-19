@@ -38,7 +38,6 @@
 
 <nav id="mainNav" class="navbar navbar-default navbar-fixed-top">
     <div class="container-fluid">
-        <!-- Brand and toggle get grouped for better mobile display -->
         <div class="navbar-header">
             <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
                 <span class="sr-only">Toggle navigation</span>
@@ -48,12 +47,10 @@
             </button>
             <a class="navbar-brand page-scroll" href="#page-top">Haz que suceda!</a>
         </div>
-
-        <!-- Collect the nav links, forms, and other content for toggling -->
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <ul class="nav navbar-nav navbar-right">
                 <li>
-                    <a href="#" id="popover">Ingresar</a>
+                    <a href="#" data-toggle="modal" data-target="#myModal">Ingresar</a>
                 </li>
                 <li>
                     <a class="page-scroll" href="registroemprendedor" >Quiero ser emprendedor</a>
@@ -66,9 +63,7 @@
                 </li>
             </ul>
         </div>
-        <!-- /.navbar-collapse -->
     </div>
-    <!-- /.container-fluid -->
 </nav>
 
 <header>
@@ -93,7 +88,7 @@
     </div>
     <div class="container">
         <div class="row">
-            <div class="col-lg-2 col-md-4 text-center">
+            <div class="col-lg-offset-1 col-md-offset-2 col-lg-2 col-md-4 text-center">
                 <div class="service-box">
                     <i class="fa fa-4x fa-lightbulb-o wow bounceIn text-primary"></i>
                     <h3>Soy emprendedor</h3>
@@ -295,23 +290,31 @@
     </div>
 </section>
 
-<div id="popover-head" class="hide col-md-12" align="center">Iniciar sesión</div>
-<div id="popover-content" class="hide col-md-12">
-    <?php echo validation_errors(); ?>
-    <?php echo form_open('login'); ?>
-
-    <label for="username">Username:</label>
-    <input type="text" name="username" id="username" class="form-control input-lg-12" placeholder="Usuario" tabindex="1">
-    <br/>
-    <label for="password">Password:</label>
-    <input type="password" name="password" id="password" class="form-control input-lg-12" placeholder="Contraseña" tabindex="1">
-
-    <br/>
-    <div align="center">
-        <input type="submit" class="btn btn-default btn-xl wow tada" value="Login"/>
+<div>
+    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header" align="center">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="myModalLabel">Inicia sesión</h4>
+                </div>
+                <?php echo validation_errors(); ?>
+                <?php echo form_open('login'); ?>
+                <div class="modal-body">
+                    <label for="username">Usuario:</label>
+                    <input type="text" name="username" id="username" class="form-control input-lg-12" placeholder="Usuario" tabindex="1">
+                    <br/>
+                    <label for="password">Contraseña:</label>
+                    <input type="password" name="password" id="password" class="form-control input-lg-12" placeholder="Contraseña" tabindex="1">
+                </div>
+                <div class="modal-footer">
+                    <a href="#" data-dismiss="modal">Volver</a>
+                    <input type="submit" class="btn btn-default wow tada" value="Vamos!"/>
+                </div>
+                </form>
+            </div>
+        </div>
     </div>
-    </form>
-
 </div>
 
 <!-- jQuery -->
@@ -327,18 +330,6 @@
 
 <!-- Custom Theme JavaScript -->
 <script src="<?php echo base_url('assets/js/creative.js'); ?>"></script>
-
-<script>
-        $('#popover').popover({
-            html : true,
-            title: function() {
-                return $("#popover-head").html();
-            },
-            content: function() {
-                return $("#popover-content").html();
-            }
-        });
-</script>
 
 </body>
 
