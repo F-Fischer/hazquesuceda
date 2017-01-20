@@ -54,6 +54,13 @@ class RegistroEmprendedor extends CI_Controller
         $password =  $this->input->post('password');
         $newsletter = $this->input->post('newsletter');
 
+        if($newsletter == true) {
+            $newsletter = 1;
+        }
+        else {
+            $newsletter = 0;
+        }
+
         if ($this->form_validation->run() == FALSE)
         {
             $data['username'] =  null;
@@ -67,7 +74,7 @@ class RegistroEmprendedor extends CI_Controller
             $e = new Emprendedor();
             $e->setEmprendedor($nombre,$apellido,$telefono,$mail,$fechaNacimiento,$password,$username,$newsletter);
 
-            if($e->insertEmprendedor())
+            if($e->insertarUsuario())
             {
                 $this->send_email($mail, $username, $password);
                 redirect('exitoemprendedor');

@@ -48,12 +48,16 @@ class RegistroInversor extends CI_Controller
         $mail = $this->input->post('mail');
         $fechaNacimiento = $this->input->post('fecha_nacimiento');
         $username =  $this->input->post('username');
-        $password =  hash('sha256',$this->input->post('password'));
+        $password =  $this->input->post('password');
         $newsletter = $this->input->post('newsletter');
-
         $rubroInteres = $this->input->post('rubroSel');
 
-
+        if($newsletter == true) {
+            $newsletter = 1;
+        }
+        else {
+            $newsletter = 0;
+        }
 
         if ($this->form_validation->run() == FALSE)
         {
@@ -71,16 +75,18 @@ class RegistroInversor extends CI_Controller
 
             $e->setInversor($nombre,$apellido,$telefono,$mail,$fechaNacimiento,$password,$username,$newsletter);
 
-            if($e->insertInversor())
+            if($e->insertarUsuario())
             {
                 $ri = new RubroInteres();
                 $idUsuario = $e->getIdByUsername($username);
                 $ri->setIdUsuario($idUsuario->ID_usuario);
+
                 foreach($rubroInteres as $rubro)
                 {
                     $ri->setIdRubro($rubro);
                     $ri->insertRubroInteres();
                 }
+
                 $this->send_email($mail, $username, $password);
                 redirect('exitoinversor');
             }

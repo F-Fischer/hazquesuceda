@@ -14,7 +14,6 @@ class HabilitarUsuario extends CI_Controller
         $this->load->model('usuario');
     }
 
-
     public function index(){
         $data['username'] = null;
         $username = ($this->uri->segment(2));

@@ -19,6 +19,33 @@ class Usuario extends CI_Model
     private $contrasena;
     private $newsLetter;
 
+    public function insertarUsuario()
+    {
+        $date=new DateTime(); //this returns the current date time
+        $result = $date->format('Y-m-d-H-i-s');
+
+        $data = array(
+            'nombre' => $this->getNombre(),
+            'apellido' => $this->getApellido(),
+            'telefono' => $this->getTelefono(),
+            'mail' => $this->getMail(),
+            'fecha_nacimiento' => $this->getFechaNacimiento(),
+            'ID_rol' => $this->getIdRol(),
+            'contrasena' => $this->getContrasena(),
+            'fecha_alta' => $result,
+            'fecha_baja' => $result,
+            'habilitado' => 0,
+            'user_name' => $this->getUserName(),
+            'recibir_newsletter' => $this->getNewsLetter(),
+        );
+
+        if($this->db->insert('usuario',$data))
+        {
+            return true;
+        }
+
+        return false;
+    }
 
     public function getUsuario($user_name)
     {

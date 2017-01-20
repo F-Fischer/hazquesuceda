@@ -27,32 +27,6 @@ class Inversor extends Usuario
         $this->setNewsLetter($newsletter);
     }
 
-    public function insertInversor()
-    {
-        $data = array(
-            'nombre' => $this->getNombre(),
-            'apellido' => $this->getApellido(),
-            'telefono' => $this->getTelefono(),
-            'mail' => $this->getMail(),
-            'fecha_nacimiento' => $this->getFechaNacimiento(),
-            'ID_rol' => $this->getIdRol(),
-            'contrasena' => $this->getContrasena(),
-            'fecha_alta' => $this->getFechaNacimiento(),
-            'fecha_baja' => $this->getFechaNacimiento(),
-            'habilitado' => 0,
-            'user_name' => $this->getUserName(),
-            'recibir_newsletter' => 0
-        );
-
-        if($this->db->insert('usuario',$data))
-        {
-            return true;
-        }
-
-        return false;
-    }
-
-
     public function getIdByUsername($username)
     {
         $this->db->select('ID_usuario');
