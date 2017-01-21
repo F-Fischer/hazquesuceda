@@ -107,3 +107,6 @@ $route['admin/clausurarproyecto'] = 'AdministradorController/clausurarproyecto';
 $route['admin/rechazarproyecto'] = 'AdministradorController/rechazarproyecto';
 $route['users'] = 'AdministradorController/users';
 $route['micuenta/editarnombre'] = 'EmprendedorController/editarNombre';
+
+//SISTEMA
+$route['clausuraautomatica'] = 'TareasAutomaticas/clausurarProyectosDelDia';

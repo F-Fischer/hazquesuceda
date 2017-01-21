@@ -36,9 +36,9 @@ class Proyecto extends CI_Model
         return false;
     }
 
-    function getAllProyectos (){
-        $this->db->select('ID_proyecto, nombre, descripcion, cant_veces_pago');
-        $this->db->where('ID_estado',3);
+    public function getAllProyectos (){
+        $this->db->select('ID_proyecto, nombre, descripcion, cant_veces_pago, fecha_baja');
+        $this->db->where('ID_estado', 3);
         $query = $this->db->get('proyecto');
 
         if($query->num_rows() > 0)
@@ -58,7 +58,11 @@ class Proyecto extends CI_Model
 
         if($result->ID_estado == 1)
         {
-            $this->db->set('ID_estado',3);
+            $date=new DateTime(); //this returns the current date time
+            $result = $date->format('Y-m-d-H-i-s');
+
+            $this->db->set('ID_estado', 3);
+            $this->db->set('fecha_ultima_modificacion', $result);
             $this->db->where('ID_proyecto',$idProyecto);
             $this->db->update('proyecto');
 
@@ -79,7 +83,14 @@ class Proyecto extends CI_Model
 
         if($result->ID_estado == 3)
         {
-            $this->db->delete('proyecto', array('ID_proyecto' => $idProyecto));
+            $date=new DateTime(); //this returns the current date time
+            $result = $date->format('Y-m-d-H-i-s');
+
+            $this->db->set('ID_estado', 4);
+            $this->db->set('fecha_ultima_modificacion', $result);
+            $this->db->where('ID_proyecto',$idProyecto);
+            $this->db->update('proyecto');
+
             return true;
         }
         else
@@ -97,7 +108,14 @@ class Proyecto extends CI_Model
 
         if($result->ID_estado == 1)
         {
-            $this->db->delete('proyecto', array('ID_proyecto' => $idProyecto));
+            $date=new DateTime(); //this returns the current date time
+            $result = $date->format('Y-m-d-H-i-s');
+
+            $this->db->set('ID_estado', 2);
+            $this->db->set('fecha_ultima_modificacion', $result);
+            $this->db->where('ID_proyecto',$idProyecto);
+            $this->db->update('proyecto');
+
             return true;
         }
         else
