@@ -43,10 +43,16 @@ class AdministradorController extends CI_Controller
     public function aceptarProyecto()
     {
         $idProyecto = $this->input->get('idProyecto');
+        $proyecto = new Proyecto();
 
-        $p = new Proyecto();
-        if($p->activarProyecto($idProyecto))
+        if($proyecto->activarProyecto($idProyecto))
         {
+            $p = $proyecto->getProyectoByIdBasico($idProyecto);
+
+            $usuario = new Usuario();
+            $u = $usuario->getUsuarioById($p[0]->ID_usuario_emprendedor);
+
+            $this->send_email_proyecto_activo($u[0]->mail, $p[0]->nombre);
             echo 'Proyecto activo';
         }
         else
@@ -83,5 +89,43 @@ class AdministradorController extends CI_Controller
         {
             return false;
         }
+    }
+
+    public function send_email_proyecto_activo ($email, $nombre) {
+        $to = $email;
+        $subject = "Tu proyecto en Haz que suceda!";
+
+        $message = "
+                    <html>
+                        <head>
+                            <title>HTML email</title>
+                        </head>
+                        <body>
+                            <div class=\"jumbotron\">
+                              <h1>Felicitaciones!</h1>
+                              <p>
+                                  Nuestro administrador a aprobado tu proyecto <strong>" . $nombre. " </strong>.
+                                  Nuestros inversores ya pueden verlo.
+                              </p>
+                              <label>¡Exitos a ti y a tu proyecto!</label>
+                              <p>
+                                  Gracias por confiar en nosotros.
+                              </p>
+                              <p>
+                                  El equipo de Haz que suceda!
+                              </p>
+                            </div>
+                        </body>
+                    </html>
+                    ";
+
+        // Always set content-type when sending HTML email
+        $headers = "MIME-Version: 1.0" . "\r\n";
+        $headers .= "Content-type:text/html;charset=UTF-8" . "\r\n";
+
+        // More headers
+        $headers .= 'From: <soporte@hazquesuceda.org>' . "\r\n";
+
+        mail($to,$subject,$message,$headers);
     }
 }

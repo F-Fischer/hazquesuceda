@@ -48,6 +48,19 @@ class Proyecto extends CI_Model
 
         return false;
     }
+
+    public function getProyectoByIdBasico ($id) {
+        $this->db->select('ID_proyecto, ID_usuario_emprendedor, nombre');
+        $this->db->where('ID_proyecto', $id);
+        $query = $this->db->get('proyecto');
+
+        if($query->num_rows() > 0)
+        {
+            return $query->result();
+        }
+
+        return false;
+    }
     
     public function activarProyecto($idProyecto)
     {

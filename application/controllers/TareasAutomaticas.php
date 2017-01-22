@@ -58,14 +58,14 @@ class TareasAutomaticas extends CI_Controller
                 $u = new Usuario();
                 $usuario = $u->getUsuarioById($proyecto->ID_usuario_emprendedor);
 
-                $this->send_email($usuario[0]->mail, $proyecto->nombre, $diasRestantes);
+                $this->send_email_recordatorio($usuario[0]->mail, $proyecto->nombre, $diasRestantes);
             }
         }
 
         echo 'recordatorios enviados';
     }
 
-    public function send_email($email, $nombre, $diasRestantes) {
+    public function send_email_recordatorio ($email, $nombre, $diasRestantes) {
         $to = $email;
         $subject = "Tu proyecto en Haz que suceda!";
 

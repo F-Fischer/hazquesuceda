@@ -1,7 +1,7 @@
 $(document).ready(function(){
 
     $('body').on('click','.aceptar', function(){
-        if(confirm('Desea aceptar este proyecto?')) {
+        if(confirm('Desea activar este proyecto? Recuerde que esto implica que el proyecto será visible para todos los inversores de la plataforma.')) {
             var idProyecto = $(this).attr('value');
             $.ajax({
                 url: 'admin/aceptarproyecto',
