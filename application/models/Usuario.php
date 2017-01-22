@@ -50,7 +50,21 @@ class Usuario extends CI_Model
     public function getUsuario($user_name)
     {
         $this->db->select('user_name, nombre, apellido, mail, telefono, contrasena');
-        $this->db->where('user_name',$user_name);
+        $this->db->where('user_name', $user_name);
+        $query = $this->db->get('usuario');
+
+        if($query->num_rows() > 0)
+        {
+            return $query->result();
+        }
+
+        return false;
+    }
+
+    public function getUsuarioById($id)
+    {
+        $this->db->select('user_name, nombre, apellido, mail');
+        $this->db->where('ID_usuario', $id);
         $query = $this->db->get('usuario');
 
         if($query->num_rows() > 0)
