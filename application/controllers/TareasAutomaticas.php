@@ -11,28 +11,25 @@ class TareasAutomaticas extends CI_Controller
     function __construct()
     {
         parent::__construct();
-        $this->load->model('proyecto');
+        $this->load->model('Proyecto');
     }
 
     public function clausurarProyectosDelDia()
     {
         $p = new Proyecto();
         $proyectos = $p->getAllProyectos();
-        $date = new DateTime(); //this returns the current date time
-        $hoy = $date->format('Y-m-d-H-i-s');
+        $date = new DateTime();
+        $hoy = $date->format('Y-m-d');
 
-        echo $proyectos[0]->getFechaBaja();
+        foreach ($proyectos as $proyecto)
+        {
+            if($proyecto->fecha_baja == $hoy)
+            {
+                $p->clausurarProyecto($proyecto->ID_proyecto);
+            }
+        }
 
-//        foreach ($proyectos as $proyecto)
-//        {
-//            echo $proyecto->fecha_baja;
-////            if($proyecto->fecha_baja == $hoy)
-////            {
-////                $proyecto->clausurarProyecto($proyecto->ID_proyecto);
-////            }
-//        }
-
-        //echo 'estado de proyectos actualizados';
+        echo 'estado de proyectos actualizados';
     }
 
 }
