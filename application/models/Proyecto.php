@@ -259,7 +259,23 @@ class Proyecto extends CI_Model
         }
 
         return false;
+    }
 
+    public function getProyectosByRubro ($id_rubro, $estado)
+    {
+        // es importante que la cant_visitas sea el primer atributo en el get,
+        // porque es el que se usa para ordenar en el controlador
+        $this->db->select('cant_visitas, ID_proyecto, nombre, descripcion');
+        $this->db->where('ID_rubro_proyecto', $id_rubro);
+        $this->db->where('ID_estado', $estado);
+        $query = $this->db->get('proyecto');
+
+        if($query->num_rows() > 0)
+        {
+            return $query->result();
+        }
+
+        return false;
     }
 
     public function getProyectosPagosByUserId ($id)

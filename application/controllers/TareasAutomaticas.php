@@ -13,6 +13,7 @@ class TareasAutomaticas extends CI_Controller
         parent::__construct();
         $this->load->model('Proyecto');
         $this->load->model('Usuario');
+        $this->load->model('RubroInteres');
     }
 
     public function clausurarProyectosDelDia()
@@ -83,6 +84,109 @@ class TareasAutomaticas extends CI_Controller
                               </p>
                               <br>
                               <label>¡Ingresa a la plataforma y renueva tu proyecto!</label>
+                            </div>
+                        </body>
+                    </html>
+                    ";
+
+        // Always set content-type when sending HTML email
+        $headers = "MIME-Version: 1.0" . "\r\n";
+        $headers .= "Content-type:text/html;charset=UTF-8" . "\r\n";
+
+        // More headers
+        $headers .= 'From: <soporte@hazquesuceda.org>' . "\r\n";
+
+        mail($to,$subject,$message,$headers);
+    }
+
+    public function newsletterInversor ()
+    {
+        $usuario = new Usuario();
+        $usuarios = $usuario->getUsuariosPorRol(3);
+
+        // para cada usuario inversor
+        foreach ($usuarios as $u)
+        {
+            // busco los rubros que le interesan
+            $rubro_interes = new RubroInteres();
+            $rubros = $rubro_interes->getRubroInteresPorUsuario($u->ID_usuario);
+
+            $proyecto = new Proyecto();
+            $proyectos = array();
+
+            // para cada uno de esos rubros...
+            foreach ($rubros as $r)
+            {
+                if($r)
+                {
+                    // busco los proyectos que corresponden al mismo, y que estan activos
+                    $p = $proyecto->getProyectosByRubro($r->ID_rubro, 3);
+
+                    foreach ($p as $pp)
+                    {
+                        array_push($proyectos, $pp);
+                    }
+                }
+            }
+
+//            echo '=====>>>>>>> antes del sort ---- ';
+//
+//            foreach ($proyectos as $p)
+//            {
+//                echo $p->cant_visitas.' , ';
+//            }
+//
+//            echo '=====>>>>>>> despues del sort ---- ';
+
+            // ordeno los proyectos segun cantidad de visitas
+            arsort($proyectos);
+
+//            foreach ($proyectos as $p)
+//            {
+//                echo $p->cant_visitas.' , ';
+//            }
+            
+            // le mando los 5 proyectos mas populares
+            $proy_div = '<div>';
+
+            $cont = 0;
+            foreach ($proyectos as $p)
+            {
+                $proy_div = $proy_div.'<div><h3>'.$p->nombre.'</h3>'.'<p>'.$p->descripcion.'</p></div>';
+                $cont++;
+
+                if($cont >= 5)
+                {
+                    break;
+                }
+            }
+
+            $proy_div = $proy_div.'</div>';
+            $this->send_newsletter($u->mail, $proy_div);
+        }
+
+        echo 'newsletter enviados';
+    }
+
+    public function send_newsletter ($email, $div_proyectos) {
+        $to = $email;
+        $subject = "newsletter";
+
+        $message = "
+                    <html>
+                        <head>
+                            <title>HTML email</title>
+                        </head>
+                        <body>
+                            <div class=\"jumbotron\">
+                              <h1>Tu newsletter de Haz que suceda!</h1>
+                              <p>
+                                  Te traemos los proyectos más populares de nuestra plataforma,
+                                  según los rubros que te interesan.
+                              </p>
+                              <br>
+                              <label>Los proyectos más populares de este mes son...</label>
+                              ". $div_proyectos ."
                             </div>
                         </body>
                     </html>
