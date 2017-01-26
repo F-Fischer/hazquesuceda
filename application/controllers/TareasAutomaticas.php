@@ -197,7 +197,7 @@ class TareasAutomaticas extends CI_Controller
         $proyectos = $p->getProyectosFinalizados();
 
         $date = date('Y-m-d');
-        $date = strtotime("+365 days", strtotime($date));
+        $date = strtotime("-1 year", strtotime($date));
         $final = date("Y-m-d", $date);
 
         foreach ($proyectos as $proyecto)
