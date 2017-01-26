@@ -28,6 +28,7 @@ class Login extends CI_Controller
 
         if( $result == FALSE)
         {
+            $data['username'] = null;
             $this->load->view('login');
         }
         else
@@ -49,12 +50,29 @@ class Login extends CI_Controller
 
     function check_database($password)
     {
-        //Field validation succeeded.  Validate against database
         $username = $this->input->post('username');
 
-        //query the database
+        if(!$username)
+        {
+            $this->form_validation->set_message('check_database', 'Olvidó ingresar su usuario.');
+            return false;
+        }
+
         $result = $this->Usuario->login($username, $password);
+
+        if(!$result)
+        {
+            $this->form_validation->set_message('check_database', 'Vuelva a ingresar sus datos.');
+            return false;
+        }
+
         $habilitado = $this->Usuario->devolverHabilitado($username);
+
+        if($habilitado == 0)
+        {
+            $this->form_validation->set_message('check_database', 'Su usuario no se encuentra habilitado. Revise su casilla de correo.');
+            return false;
+        }
 
         if($result && ($habilitado == 1))
         {
