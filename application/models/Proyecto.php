@@ -224,6 +224,20 @@ class Proyecto extends CI_Model
         return false;
     }
 
+    public function getProyectosFinalizados ()
+    {
+        $this->db->select('ID_proyecto, fecha_baja');
+        $this->db->where('ID_estado', 5);
+        $query = $this->db->get('proyecto');
+
+        if($query->num_rows() > 0)
+        {
+            return $query->result();
+        }
+
+        return false;
+    }
+
     function getPDFbyIdProyecto ($id)
     {
         $this->db->select('path as pdf');

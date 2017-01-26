@@ -194,7 +194,7 @@ class TareasAutomaticas extends CI_Controller
     public function borrarProyectos()
     {
         $p = new Proyecto();
-        $proyectos = $p->getAllProyectos();
+        $proyectos = $p->getProyectosFinalizados();
 
         $date = date('Y-m-d');
         $date = strtotime("+365 days", strtotime($date));
