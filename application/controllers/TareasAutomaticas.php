@@ -191,4 +191,24 @@ class TareasAutomaticas extends CI_Controller
         mail($to,$subject,$message,$headers);
     }
 
+    public function borrarProyectos()
+    {
+        $p = new Proyecto();
+        $proyectos = $p->getAllProyectos();
+
+        $date = date('Y-m-d');
+        $date = strtotime("+365 days", strtotime($date));
+        $final = date("Y-m-d", $date);
+
+        foreach ($proyectos as $proyecto)
+        {
+            if($proyecto->fecha_baja == $final)
+            {
+                $p->borrarProyecto($proyecto->ID_proyecto);
+            }
+        }
+
+        echo 'estado de proyectos actualizados';
+    }
+
 }
