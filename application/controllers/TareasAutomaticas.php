@@ -200,11 +200,14 @@ class TareasAutomaticas extends CI_Controller
         $date = strtotime("-1 year", strtotime($date));
         $final = date("Y-m-d", $date);
 
-        foreach ($proyectos as $proyecto)
+        if($proyectos)
         {
-            if($proyecto->fecha_baja == $final)
+            foreach ($proyectos as $proyecto)
             {
-                $p->borrarProyecto($proyecto->ID_proyecto);
+                if($proyecto->fecha_baja == $final)
+                {
+                    $p->borrarProyecto($proyecto->ID_proyecto);
+                }
             }
         }
 
