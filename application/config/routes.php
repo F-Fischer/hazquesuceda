@@ -112,3 +112,4 @@ $route['micuenta/editarnombre'] = 'EmprendedorController/editarNombre';
 $route['clausuraautomatica'] = 'TareasAutomaticas/clausurarProyectosDelDia';
 $route['recordatorio'] = 'TareasAutomaticas/recordatorioDeClausura';
 $route['newsletter'] = 'TareasAutomaticas/newsletterInversor';
+$route['borrarproyectos'] = 'TareasAutomaticas/borrarProyectos';

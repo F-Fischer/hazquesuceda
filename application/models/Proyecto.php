@@ -112,6 +112,31 @@ class Proyecto extends CI_Model
         }
     }
 
+    public function borrarProyecto($idProyecto)
+    {
+        $this->db->select('ID_estado');
+        $this->db->where('ID_proyecto',$idProyecto);
+        $query = $this->db->get('proyecto');
+        $result = $query->row();
+
+        if($result->ID_estado == 5)
+        {
+            $date=new DateTime(); //this returns the current date time
+            $result = $date->format('Y-m-d-H-i-s');
+
+            $this->db->set('ID_estado', 6);
+            $this->db->set('fecha_ultima_modificacion', $result);
+            $this->db->where('ID_proyecto',$idProyecto);
+            $this->db->update('proyecto');
+
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
+
     public function rechazarProyecto($idProyecto)
     {
         $this->db->select('ID_estado');
@@ -194,6 +219,20 @@ class Proyecto extends CI_Model
             {
                 return $query;
             }
+        }
+
+        return false;
+    }
+
+    public function getProyectosFinalizados ()
+    {
+        $this->db->select('ID_proyecto, fecha_baja');
+        $this->db->where('ID_estado', 5);
+        $query = $this->db->get('proyecto');
+
+        if($query->num_rows() > 0)
+        {
+            return $query->result();
         }
 
         return false;
