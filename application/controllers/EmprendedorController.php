@@ -83,8 +83,9 @@ class EmprendedorController extends CI_Controller
 
         if(!$proyectos)
         {
-            $error = new ErrorPropio();
-            $error->Error_bd();
+            $this->load->view('commons/header', $data);
+            $this->load->view('emprendedor/verproyectospropios_sin',$data);
+            $this->load->view('commons/footer');
         }
         else
         {

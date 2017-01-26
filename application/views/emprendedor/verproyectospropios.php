@@ -1,4 +1,5 @@
 <script src="<?php echo base_url('assets/js/jquery.dataTables.min.js'); ?>"></script>
+<script src="<?php echo base_url('assets/js/emprendedor/acciones.proyectos.js'); ?>"></script>
 <link rel="stylesheet" href="<?php echo base_url('assets/css/jquery.dataTables.min.css'); ?>">
 <div class="container-fluid">
     <div class="highlight" align="center">
@@ -52,10 +53,10 @@
                         foreach($proyectos as $p)
                         {
                             echo '<tr><td>'.$p->ID_proyecto.'</td><td>'.$p->nombre.'</td><td>'.$p->descripcion.'</td><td>'.$p->cant_veces_pago.'</td><td>
-                             <button type="button" class="btn btn-default" id="btnModificar'.$p->ID_proyecto.'"> <span class="glyphicon glyphicon-pencil"></span></button>
-                             <button type="button" class="btn btn-default" id="btnClausurar'.$p->ID_proyecto.'"> <span class="glyphicon glyphicon-remove"></span></button>
-                             <button type="button" class="btn btn-default" id="btnRenovar'.$p->ID_proyecto.'"> <span class="glyphicon glyphicon-repeat"></span></button>
-                             <button type="button" class="btn btn-default" id="btnFinalizar'.$p->ID_proyecto.'"> <span class="glyphicon glyphicon-ok"></span></button>
+                             <button type="button" title="Modificar" class="btn btn-default modificar" id="btnModificar'.$p->ID_proyecto.'" value="'.$p->ID_proyecto.'"> <span class="glyphicon glyphicon-pencil"></span></button>
+                             <button type="button" title="Clausurar" class="btn btn-default clausurar" id="btnClausurar'.$p->ID_proyecto.'" value="'.$p->ID_proyecto.'"> <span class="glyphicon glyphicon-remove"></span></button>
+                             <button type="button" title="Renovar" class="btn btn-default renovar" id="btnRenovar'.$p->ID_proyecto.'" value="'.$p->ID_proyecto.'"> <span class="glyphicon glyphicon-repeat"></span></button>
+                             <button type="button" title="Finalizar" class="btn btn-default finalizar" id="btnFinalizar'.$p->ID_proyecto.'" value="'.$p->ID_proyecto.'"> <span class="glyphicon glyphicon-ok"></span></button>
                              </td></tr>';
 
                         }

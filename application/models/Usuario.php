@@ -188,6 +188,20 @@ class Usuario extends CI_Model
         return false;
     }
 
+    public function getUsuariosPorRol ($id_rol)
+    {
+        $this->db->select('ID_usuario, user_name, nombre, apellido, mail');
+        $this->db->where('ID_rol', $id_rol);
+        $query = $this->db->get('usuario');
+
+        if($query->num_rows() > 0)
+        {
+            return $query->result();
+        }
+
+        return false;
+    }
+
     public function encrypt_decrypt($action, $string)
     {
         $output = false;

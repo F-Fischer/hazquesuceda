@@ -71,4 +71,18 @@ class RubroInteres extends CI_Model
         }
     }
 
+    public function getRubroInteresPorUsuario ($id_usuario)
+    {
+        $this->db->select('ID_usuario, ID_rubro');
+        $this->db->where('ID_usuario', $id_usuario);
+        $query = $this->db->get('rubro_interes');
+
+        if($query->num_rows() > 0)
+        {
+            return $query->result();
+        }
+
+        return [];
+    }
+
 }
