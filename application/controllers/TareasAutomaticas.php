@@ -122,29 +122,18 @@ class TareasAutomaticas extends CI_Controller
                     // busco los proyectos que corresponden al mismo, y que estan activos
                     $p = $proyecto->getProyectosByRubro($r->ID_rubro, 3);
 
-                    foreach ($p as $pp)
+                    if($p)
                     {
-                        array_push($proyectos, $pp);
+                        foreach ($p as $pp)
+                        {
+                            array_push($proyectos, $pp);
+                        }
                     }
                 }
             }
 
-//            echo '=====>>>>>>> antes del sort ---- ';
-//
-//            foreach ($proyectos as $p)
-//            {
-//                echo $p->cant_visitas.' , ';
-//            }
-//
-//            echo '=====>>>>>>> despues del sort ---- ';
-
             // ordeno los proyectos segun cantidad de visitas
             arsort($proyectos);
-
-//            foreach ($proyectos as $p)
-//            {
-//                echo $p->cant_visitas.' , ';
-//            }
             
             // le mando los 5 proyectos mas populares
             $proy_div = '<div>';
