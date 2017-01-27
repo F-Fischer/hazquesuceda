@@ -41,4 +41,9 @@ class Inversor extends Usuario
         return false;
     }
 
+    public function loadProyectosPagos ()
+    {
+        $this->load->view('proyectospagos','refresh');
+    }
+
 }

@@ -224,6 +224,20 @@ class Proyecto extends CI_Model
         return false;
     }
 
+    function getProyectoByIdBis ($id)
+    {
+        $this->db->select('ID_proyecto, ID_usuario_emprendedor');
+        $this->db->where('ID_proyecto', $id);
+        $query = $this->db->get('proyecto');
+
+        if($query->num_rows() > 0)
+        {
+            return $query->result();
+        }
+
+        return false;
+    }
+
     public function getProyectosFinalizados ()
     {
         $this->db->select('ID_proyecto, fecha_baja');

@@ -14,6 +14,9 @@ class TareasAutomaticas extends CI_Controller
         $this->load->model('Proyecto');
         $this->load->model('Usuario');
         $this->load->model('RubroInteres');
+        $this->load->model('Pago');
+        $this->load->model('ErrorPropio');
+        $this->load->library('session');
     }
 
     public function clausurarProyectosDelDia()
@@ -212,6 +215,38 @@ class TareasAutomaticas extends CI_Controller
         }
 
         echo 'estado de proyectos actualizados';
+    }
+
+    public function informacionInversor()
+    {
+        if($this->session->userdata('logged_in'))
+        {
+            $data['username'] = $this->session->userdata['logged_in']['username'];
+            $inversor = new Usuario();
+            $id_inversor = $inversor->getIdByUsername($data['username']);
+            $idProyecto = $this->uri->segment(2);
+
+            $date = new DateTime();
+            $hoy = $date->format('Y-m-d');
+
+            $pago = new Pago();
+            $pago->generarPago($id_inversor, $hoy, $idProyecto);
+
+            if ($pago->registrarPago())
+            {
+                redirect('proyectospagos', 'refresh');
+            }
+            else
+            {
+                $error = new ErrorPropio();
+                $error->Error_bd();
+            }
+        }
+        else
+        {
+            $error = new ErrorPropio();
+            $error->Error_bd();
+        }
     }
 
 }
