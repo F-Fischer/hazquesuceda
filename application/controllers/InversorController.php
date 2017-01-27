@@ -83,8 +83,7 @@ class InversorController extends CI_Controller
 
         if(!$proyectos)
         {
-            $error = new ErrorPropio();
-            $error->Error_bd();
+            $data['proyectos'] = null;
         }
         else
         {
@@ -117,10 +116,11 @@ class InversorController extends CI_Controller
             }
 
             $data['proyectos'] = $proyectos;
-            $this->load->view('commons/header', $data);
-            $this->load->view('inversor/proyectospagos',$data);
-            $this->load->view('commons/footer');
         }
+
+        $this->load->view('commons/header', $data);
+        $this->load->view('inversor/proyectospagos',$data);
+        $this->load->view('commons/footer');
     }
 
     public function editarNombre()

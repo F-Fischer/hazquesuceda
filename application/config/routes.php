@@ -113,3 +113,4 @@ $route['clausuraautomatica'] = 'TareasAutomaticas/clausurarProyectosDelDia';
 $route['recordatorio'] = 'TareasAutomaticas/recordatorioDeClausura';
 $route['newsletter'] = 'TareasAutomaticas/newsletterInversor';
 $route['borrarproyectos'] = 'TareasAutomaticas/borrarProyectos';
+$route['infinversor/(:num)'] = 'TareasAutomaticas/informacionInversor';
