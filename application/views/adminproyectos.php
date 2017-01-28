@@ -1,9 +1,16 @@
+<style>
+    .banner {
+        background-image: url("assets/img/admin.jpg");
+    }
+</style>
+
 <script src="<?= base_url('assets/js/jquery-2.2.1.min.js');?>"></script>
 <div class="panel panel-default">
-    <br>
-    <br>
-    <br>
-    <div class="panel-heading">
+
+    <div class="panel-heading banner">
+        <br>
+        <br>
+        <br>
         <h4 class="title" align="center">¡Bienvenido <?php echo $username; ?>!</h4>
     </div>
 

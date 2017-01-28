@@ -1,14 +1,19 @@
+<style>
+    .banner {
+        background-image: url("assets/img/admin.jpg");
+    }
+</style>
+
 <script src="<?php echo base_url('assets/js/jquery.dataTables.min.js'); ?>"></script>
 <link rel="stylesheet" href="<?php echo base_url('assets/css/jquery.dataTables.min.css'); ?>">
 <div class="container-fluid">
 
     <div class="highlight" align="center">
-        <br>
-        <br>
-        <br>
-        <br>
-        <div class="col-lg-12">
-            <h1 class="page-header" style="font-size: 65px;">Usuarios
+        <div class="col-lg-12 banner">
+            <br>
+            <br>
+            <br>
+            <br><h1 class="page-header" style="font-size: 65px;">Usuarios
                 <br>
                 <br>
             </h1>

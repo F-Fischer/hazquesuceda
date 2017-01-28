@@ -1,7 +1,13 @@
+<style>
+    .banner {
+        background-image: url("assets/img/emp.jpg");
+    }
+</style>
+
 <body>
 <div class="container-fluid">
 
-    <div class="highlight" align="center">
+    <div class="highlight banner" align="center">
         <br>
         <br>
         <br>
