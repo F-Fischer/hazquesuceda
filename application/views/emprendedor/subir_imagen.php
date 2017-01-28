@@ -41,7 +41,7 @@
             }
             else if($warning)
             {
-                echo form_open_multipart('proyectocontroller/do_upload_img/'.$proyecto->ID_proyecto);
+                echo form_open_multipart('ProyectoController/do_upload_img/'.$proyecto->ID_proyecto);
 
                 echo "<div class=\"alert alert-warning\"><strong> Cuidado! </strong>".$warning."</div>";
                 echo "<input type='file' name='userfile' size='20' />";
@@ -50,7 +50,7 @@
 
                 echo form_close();
 
-                echo '<br>'.anchor('proyectocontroller/no_img_upload/'.$proyecto->ID_proyecto,'No tengo imágenes todavía');
+                echo '<br>'.anchor('ProyectoController/no_img_upload/'.$proyecto->ID_proyecto,'No tengo imágenes todavía');
                 echo '<h5> ó </h5>'.anchor(base_url().'/archivo/'.$proyecto->ID_proyecto,'Ya subí mis imágenes');
             }
             else if($special_case)
@@ -64,7 +64,7 @@
             }
             else
             {
-                echo form_open_multipart('proyectocontroller/do_upload_img'.'/'.$proyecto->ID_proyecto);
+                echo form_open_multipart('ProyectoController/do_upload_img'.'/'.$proyecto->ID_proyecto);
 
                 echo "<input type='file' name='userfile' size='20' />";
                 echo "<br>";
@@ -72,7 +72,7 @@
 
                 echo form_close();
 
-                echo '<br>'.anchor('proyectocontroller/no_img_upload/'.$proyecto->ID_proyecto,'No tengo imágenes todavía');
+                echo '<br>'.anchor('ProyectoController/no_img_upload/'.$proyecto->ID_proyecto,'No tengo imágenes todavía');
                 echo '<h5> ó </h5>'.anchor(base_url().'archivo/'.$proyecto->ID_proyecto,'Ya subí mis imágenes');
             }
             ?>

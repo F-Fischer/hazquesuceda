@@ -26,7 +26,7 @@
         <div class="col-md-6">
 
             <?php
-            echo form_open('proyectocontroller/crearProyecto');
+            echo form_open('ProyectoController/crearProyecto');
 
             echo '<div class="form-group">'.form_label('Título del proyecto ').form_error('nombre', '<div class="error" style="color:red; float: right;">', '</div>');
 

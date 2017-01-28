@@ -45,7 +45,7 @@
         }
         else
         {
-            echo form_open_multipart('proyectocontroller/do_upload_pdf'.'/'.$proyecto->ID_proyecto);
+            echo form_open_multipart('ProyectoController/do_upload_pdf'.'/'.$proyecto->ID_proyecto);
 
             echo "<input type='file' name='userfile' size='20' />";
             echo "<br>";
@@ -53,7 +53,7 @@
 
             echo form_close();
 
-            echo '<br>'.anchor('http://localhost/hazquesuceda/archivo/'.$proyecto->ID_proyecto.'/Proyecto_sin_archivo','No tengo pdf todavía');
+            echo '<br>'.anchor(base_url().'archivo/'.$proyecto->ID_proyecto.'/Proyecto_sin_archivo','No tengo pdf todavía');
         }
         ?>
 
