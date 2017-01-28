@@ -106,7 +106,7 @@
             <br>
             <br>
             <br>
-            <h1 class="page-header" style="font-size: 65px;">
+            <h1 class="page-header" style="font-size: 65px; color: white;">
                 Proyectos
                 <br>
                 <br>
