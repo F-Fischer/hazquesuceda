@@ -63,7 +63,7 @@ class Usuario extends CI_Model
 
     public function getUsuarioById($id)
     {
-        $this->db->select('user_name, nombre, apellido, mail');
+        $this->db->select('user_name, nombre, apellido, mail, telefono');
         $this->db->where('ID_usuario', $id);
         $query = $this->db->get('usuario');
 
@@ -190,7 +190,7 @@ class Usuario extends CI_Model
 
     public function getUsuariosPorRol ($id_rol)
     {
-        $this->db->select('ID_usuario, user_name, nombre, apellido, mail');
+        $this->db->select('ID_usuario, user_name, nombre, apellido');
         $this->db->where('ID_rol', $id_rol);
         $query = $this->db->get('usuario');
 

@@ -1,12 +1,18 @@
+<style>
+    .banner {
+        background-image: url("assets/img/emp.jpg");
+    }
+</style>
+
 <div class="container-fluid">
 
     <div class="highlight" align="center">
-        <br>
-        <br>
-        <br>
-        <br>
-        <div class="col-lg-12">
-            <h1 class="page-header" style="font-size: 65px;">Mi cuenta
+
+        <div class="col-lg-12 banner">
+            <br>
+            <br>
+            <br>
+            <br><h1 class="page-header" style="font-size: 65px; color: white;">Mi cuenta
 
                 <br>
                 <br>
