@@ -116,7 +116,7 @@
 
             <li role="presentation" ><a href="admin">Todos los proyectos</a></li>
             <li role="presentation" class="active"><a href="users">Usuarios</a></li>
-
+            <li role="presentation" ><a href="statistics">Estadísticas</a></li>
         </ul>
 
     </div>

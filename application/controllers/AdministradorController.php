@@ -14,6 +14,7 @@ class AdministradorController extends CI_Controller
         $this->load->model('Proyecto');
         $this->load->model('Emprendedor');
         $this->load->model('Usuario');
+        $this->load->model('Rubro');
         $this->load->library('session');
     }
 
@@ -127,5 +128,39 @@ class AdministradorController extends CI_Controller
         $headers .= 'From: <soporte@hazquesuceda.org>' . "\r\n";
 
         mail($to,$subject,$message,$headers);
+    }
+
+    public function statistics ()
+    {
+        $data['username'] = $this->session->userdata['logged_in']['username'];
+
+
+
+        $r = new Rubro();
+        $rubros = $r->getRubros();
+
+//        $array = array();
+
+        $array = '[ [\'Rubro\', \'Cantidad\'], ';
+
+        foreach ($rubros as $rubro)
+        {
+            $p = new Proyecto();
+            $proyectos = $p->getProyectosByRubro($rubro->ID_rubro, 3);
+            $cant = count($proyectos);
+
+//            $array[$rubro->nombre] = $cant;
+
+            $array = $array.'[\''.$rubro->nombre.'\','.$cant.'],';
+        }
+
+        $array = $array.']';
+
+//        $data['array'] = json_encode($array);
+        $data['array'] = $array;
+
+        $this->load->view('commons/header', $data);
+        $this->load->view('administrador/admin_graficas',$data);
+        $this->load->view('commons/footer');
     }
 }
