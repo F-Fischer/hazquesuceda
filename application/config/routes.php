@@ -85,6 +85,7 @@ $route['emprendedor/modificarproyecto'] = 'EmprendedorController/modificarProyec
 $route['emprendedor/finalizarproyecto'] = 'EmprendedorController/finalizarProyecto';
 $route['emprendedor/clausurarproyecto'] = 'EmprendedorController/clausurarProyecto';
 $route['registroemprendedor/registrar'] = 'RegistroEmprendedor/Registrar';
+$route['micuenta/editarnombre'] = 'EmprendedorController/editarNombre';
 
 //EMPRENDEDOR PROYECTO
 $route['proyecto/crearproyecto'] = 'ProyectoController/crearProyecto';
@@ -106,11 +107,11 @@ $route['registroinversor/registrar'] = 'RegistroInversor/Registrar';
 
 //ADMIN
 $route['admin'] = 'AdministradorController/index';
+$route['users'] = 'AdministradorController/users';
+$route['statistics'] = 'AdministradorController/statistics';
 $route['admin/aceptarproyecto'] = 'AdministradorController/aceptarProyecto';
 $route['admin/clausurarproyecto'] = 'AdministradorController/clausurarProyecto';
 $route['admin/rechazarproyecto'] = 'AdministradorController/rechazarProyecto';
-$route['users'] = 'AdministradorController/users';
-$route['micuenta/editarnombre'] = 'EmprendedorController/editarNombre';
 
 //SISTEMA
 $route['clausuraautomatica'] = 'TareasAutomaticas/clausurarProyectosDelDia';

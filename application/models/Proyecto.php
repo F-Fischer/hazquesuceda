@@ -37,7 +37,7 @@ class Proyecto extends CI_Model
     }
 
     public function getAllProyectos (){
-        $this->db->select('ID_proyecto, ID_usuario_emprendedor, nombre, descripcion, cant_veces_pago, fecha_baja');
+        $this->db->select('ID_proyecto, ID_usuario_emprendedor, nombre, descripcion, cant_veces_pago, fecha_baja, ID_rubro_proyecto');
         $this->db->where('ID_estado', 3);
         $query = $this->db->get('proyecto');
 

@@ -36,6 +36,26 @@
 
 <body id="page-top">
 
+<script>
+    window.fbAsyncInit = function() {
+        FB.init({
+            appId      : '1729054797349935',
+            cookie     : true,
+            xfbml      : true,
+            version    : 'v2.8'
+        });
+        FB.AppEvents.logPageView();
+    };
+
+    (function(d, s, id){
+        var js, fjs = d.getElementsByTagName(s)[0];
+        if (d.getElementById(id)) {return;}
+        js = d.createElement(s); js.id = id;
+        js.src = "//connect.facebook.net/en_US/sdk.js";
+        fjs.parentNode.insertBefore(js, fjs);
+    }(document, 'script', 'facebook-jssdk'));
+</script>
+
 <nav id="mainNav" class="navbar navbar-default navbar-fixed-top">
     <div class="container-fluid">
         <div class="navbar-header">
@@ -316,6 +336,25 @@
         </div>
     </div>
 </div>
+
+
+<!--<fb:login-button-->
+<!--    scope="public_profile,email"-->
+<!--    onlogin="checkLoginState();">-->
+<!--</fb:login-button>-->
+
+
+<script>
+    FB.getLoginStatus(function(response) {
+        statusChangeCallback(response);
+    });
+
+    function checkLoginState() {
+        FB.getLoginStatus(function(response) {
+            statusChangeCallback(response);
+        });
+    }
+</script>
 
 <!-- jQuery -->
 <script src="<?php echo base_url('assets/js/jquery.js'); ?>"></script>
