@@ -105,6 +105,7 @@ $route['registroinversor/registrar'] = 'RegistroInversor/Registrar';
 $route['admin'] = 'AdministradorController/index';
 $route['users'] = 'AdministradorController/users';
 $route['statistics'] = 'AdministradorController/statistics';
+$route['newletterempr'] = 'AdministradorController/newsletterEmprendedor';
 $route['admin/aceptarproyecto'] = 'AdministradorController/aceptarProyecto';
 $route['admin/clausurarproyecto'] = 'AdministradorController/clausurarProyecto';
 $route['admin/rechazarproyecto'] = 'AdministradorController/rechazarProyecto';

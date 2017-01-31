@@ -113,9 +113,10 @@
     <div class="col-md-3">
 
         <ul class="nav nav-pills nav-stacked" >
+            <li role="presentation" class="active"><a href="statistics">Estadísticas</a></li>
             <li role="presentation" ><a href="admin">Todos los proyectos</a></li>
             <li role="presentation" ><a href="users">Usuarios</a></li>
-            <li role="presentation" class="active"><a href="statistics">Estadísticas</a></li>
+            <li role="presentation" ><a href="newletterempr">Newsletter Emprendedor</a></li>
         </ul>
 
     </div>

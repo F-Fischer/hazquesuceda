@@ -17,6 +17,7 @@ class AdministradorController extends CI_Controller
         $this->load->model('Rubro');
         $this->load->model('Rol');
         $this->load->library('session');
+        $this->load->library('form_validation');
     }
 
     public function index()
@@ -175,5 +176,77 @@ class AdministradorController extends CI_Controller
         $this->load->view('commons/header', $data);
         $this->load->view('administrador/admin_graficas',$data);
         $this->load->view('commons/footer');
+    }
+
+    public function newsletterEmprendedor()
+    {
+        $this->form_validation->set_rules('titulo', 'inputTitulo', 'trim|required', array('required' => 'No ingreso título del artículo'));
+        $this->form_validation->set_rules('descripcion', 'inputDescripcion', 'trim|required',array('required' => 'No ingreso contenido'));
+
+        if ($this->form_validation->run() == FALSE)
+        {
+            $data['username'] = $this->session->userdata['logged_in']['username'];
+
+            $this->load->view('commons/header', $data);
+            $this->load->view('administrador/admin_newsletter_empr',$data);
+            $this->load->view('commons/footer');
+        }
+        else
+        {
+            $data['username'] = $this->session->userdata['logged_in']['username'];
+
+            $titulo = $_POST["titulo"];
+            $descripcion = $_POST["descripcion"];
+
+            $usuario = new Usuario();
+            $usuarios = $usuario->getUsuariosPorRol(2);
+
+            // para cada usuario emprendedor
+            foreach ($usuarios as $u)
+            {
+                if ($u->recibir_newsletter == 1)
+                {
+                    $this->send_newsletter_emprendedor($u->mail, $titulo, $descripcion);
+                }
+            }
+
+            $this->load->view('commons/header', $data);
+            $this->load->view('administrador/admin_newsletter_empr',$data);
+            $this->load->view('commons/footer');
+        }
+    }
+
+    public function send_newsletter_emprendedor ($email, $titulo, $descripcion) {
+        $to = $email;
+        $subject = "newsletter";
+
+        $message = "
+                    <html>
+                        <head>
+                            <title>HTML email</title>
+                        </head>
+                        <body>
+                            <div class=\"jumbotron\">
+                              <h1>Tu newsletter de Haz que suceda!</h1>
+                              <p>
+                                  Nos interesa tu proyecto, por eso te traemos un par de sugerencias
+                                  para que aumentes la cantidad de visitas.
+                              </p>
+                              <br>
+                              <h1>". $titulo ."</h1>
+                              <p> ". $descripcion ."</p>
+                            </div>
+                        </body>
+                    </html>
+                    ";
+
+        // Always set content-type when sending HTML email
+        $headers = "MIME-Version: 1.0" . "\r\n";
+        $headers .= "Content-type:text/html;charset=UTF-8" . "\r\n";
+
+        // More headers
+        $headers .= 'From: <soporte@hazquesuceda.org>' . "\r\n";
+
+        mail($to,$subject,$message,$headers);
     }
 }

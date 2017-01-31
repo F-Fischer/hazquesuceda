@@ -93,8 +93,6 @@
     }
 </style>
 
-<script src="<?php echo base_url('assets/js/jquery.dataTables.min.js'); ?>"></script>
-<link rel="stylesheet" href="<?php echo base_url('assets/css/jquery.dataTables.min.css'); ?>">
 <div class="container-fluid">
 
     <div class="highlight" align="center">
@@ -102,7 +100,9 @@
             <br>
             <br>
             <br>
-            <br><h1 class="page-header" style="font-size: 65px; color: white;">Usuarios
+            <br>
+            <h1 class="page-header" style="font-size: 65px; color: white;">
+                Newsletter al Emprendedor
                 <br>
                 <br>
             </h1>
@@ -115,8 +115,8 @@
         <ul class="nav nav-pills nav-stacked" >
             <li role="presentation" ><a href="statistics">Estadísticas</a></li>
             <li role="presentation" ><a href="admin">Todos los proyectos</a></li>
-            <li role="presentation" class="active"><a href="users">Usuarios</a></li>
-            <li role="presentation" ><a href="newletterempr">Newsletter Emprendedor</a></li>
+            <li role="presentation" ><a href="users">Usuarios</a></li>
+            <li role="presentation" class="active" ><a href="newletterempr">Newsletter Emprendedor</a></li>
         </ul>
 
     </div>
@@ -124,70 +124,46 @@
     <div class="col-md-9">
 
         <div class="panel panel-default">
-            <div class="panel-body">
+            <br>
+            <?php
+            echo form_open('AdministradorController/newsletterEmprendedor');
 
-                <table id="users"  class="table table-striped">
+            echo '<div class="form-group">'.form_label('Título del artículo: ').form_error('titulo', '<div class="error" style="color:red; float: right;">', '</div>');
 
-                    <thead>
-                    <tr>
-                        <th>ID Usuario</th>
-                        <th>Nombre</th>
-                        <th>Apellido</th>
-                        <th>Telefono</th>
-                        <th>Mail</th>
-                        <th>Fecha de nacimiento</th>
-                        <th>ID Rol</th>
-                        <th>Fecha Alta</th>
-                        <th>Fecha baja</th>
-                        <th>Habilitado</th>
-                        <th>User Name</th>
-                        <th>Newsletter</th>
-                        <th>Acciones</th>
-                    </tr>
-                    </thead>
+            $data = array (
+                'id' => 'inputTitulo',
+                'name' => 'titulo',
+                'class' => 'form-control',
+                'value' => set_value('titulo')
+            );
 
-                    <tbody>
+            echo form_input($data).'</div>';
 
-                    <?php
+            echo '<div class="form-group">'.form_label('Descripción ').form_error('descripcion', '<div class="error" style="color:red; float: right;">', '</div>');
 
-                    foreach($users as $u)
-                    {
-                        echo '<tr>
+            $data = array (
+                'id' => 'inputDescripcion',
+                'name' => 'descripcion',
+                'class' => 'form-control',
+                'value' => set_value('descripcion')
+            );
 
-                        <td>'.$u->ID_usuario.'</td>
-                        <td>'.$u->nombre.'</td>
-                        <td>'.$u->apellido.'</td>
-                        <td>'.$u->telefono.'</td>
-                        <td>'.$u->mail.'</td>
-                        <td>'.$u->fecha_nacimiento.'</td>
-                        <td>'.$u->ID_rol.'</td>
-                        <td>'.$u->fecha_alta.'</td>
-                        <td>'.$u->fecha_baja.'</td>
-                        <td>'.$u->habilitado.'</td>
-                        <td>'.$u->user_name.'</td>
-                        <td>'.$u->recibir_newsletter.'</td>
-                        <td></td>
-                        </tr>';
-                    }
+            echo form_textarea($data).'</div>';
 
-                    ?>
+            echo '<div class="form-group">'.form_error('rubro', '<div class="error" style="color:red; float: right;">', '</div>');
 
-                    </tbody>
+            $data = array(
+                'id' => 'btnEnviarNewsletter',
+                'class' => 'btn btn-default',
+                'value' => 'Enviar newsletter',
+            );
 
-                </table>
+            echo '<br>'.form_submit($data,'Enviar newsletter');
 
-            </div>
+            echo form_close();
+            ?>
+
         </div>
 
     </div>
-
 </div>
-<script>
-
-    $(document).ready(function() {
-        $('#users').DataTable( {
-            "scrollX": true
-        } );
-    } );
-
-</script>
