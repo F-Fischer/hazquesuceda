@@ -127,30 +127,19 @@
                 <h3>Proyectos activos en la plataforma:</h3>
                 <div id="piechart_projects" style="width: 900px; height: 500px;"></div>
             </div>
+
             <div class="panel-body">
                 <h3>Usuarios registrados:</h3>
                 <div id="piechart_users" style="width: 900px; height: 500px;"></div>
             </div>
+
             <div class="panel-body">
                 <h3>Popularidad de proyectos:</h3>
                 <div id="barchart_values" style="width: 900px; height: 300px;"></div>
             </div>
-<!--            <div class="panel-body">-->
-<!--                <h3>Data:</h3>-->
-<!--                <div id="segundo">-->
-<!--                    --><?php
-//                    print_r($array);
-//                    ?>
-<!--                </div>-->
-<!--            </div>-->
-<!--            <div class="panel-body">-->
-<!--                <h3>Chart bis:</h3>-->
-<!--                <div id="chartbis" style="width: 900px; height: 500px;"></div>-->
-<!--            </div>-->
         </div>
 
     </div>
-
 </div>
 
 <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
@@ -160,34 +149,28 @@
     google.charts.setOnLoadCallback(drawChartProyectos);
     google.charts.setOnLoadCallback(drawChartUsuarios);
     google.charts.setOnLoadCallback(drawChartPopularidad);
+    google.charts.setOnLoadCallback(drawChartBis);
 
     function drawChartProyectos() {
-        var data = google.visualization.arrayToDataTable([
-            ['Rubro', 'Cantidad'],
-            ['Proyecto genérico', 11],
-            ['Franquicia', 2],
-            ['Social', 2],
-            ['Industrial', 2],
-            ['Económico', 7],
-            ['Servicios', 8],
-            ['Infraestructura', 7],
-            ['Manufacturero', 5],
-            ['Agropecuario', 15],
-            ['Comercial', 10]
-        ]);
+        var array = <?php echo json_encode($array_proyectos); ?>;
+        var data = google.visualization.arrayToDataTable(array);
+
+        var options = {
+            title: 'Rubros'
+        };
 
         var chart = new google.visualization.PieChart(document.getElementById('piechart_projects'));
 
-        chart.draw(data);
+        chart.draw(data, options);
     }
 
     function drawChartUsuarios() {
-        var data = google.visualization.arrayToDataTable([
-            ['Tipo', 'Cantidad'],
-            ['Emprendedor', 20],
-            ['Inversor', 60],
-            ['Admin', 1]
-        ]);
+        var array = <?php echo json_encode($array_usuarios); ?>;
+        var data = google.visualization.arrayToDataTable(array);
+
+        var options = {
+            title: 'Roles'
+        };
 
         var chart = new google.visualization.PieChart(document.getElementById('piechart_users'));
 
@@ -226,34 +209,6 @@
         };
         var chart = new google.visualization.BarChart(document.getElementById("barchart_values"));
         chart.draw(view, options);
-    }
-
-    function drawChartBis() {
-
-        var arr = [['Rubro', 'Cantidad'], ['primero', 50]];
-
-        var hola = <?php echo json_encode($array, JSON_HEX_TAG); ?>;
-        alert(typeof hola);
-
-//        var obj = {"segundo":"20","tercero":"30"};
-//        var ar = [];
-//        for (elem in obj) {
-//            arr.push([elem, obj[elem]]);
-//        }
-
-        var array = hola.split(",");
-
-        alert(array);
-
-        var data = google.visualization.arrayToDataTable(array);
-
-        var options = {
-            title: 'Rubros'
-        };
-
-        var chart = new google.visualization.PieChart(document.getElementById('chartbis'));
-
-        chart.draw(data, options);
     }
 
 </script>

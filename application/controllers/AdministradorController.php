@@ -15,6 +15,7 @@ class AdministradorController extends CI_Controller
         $this->load->model('Emprendedor');
         $this->load->model('Usuario');
         $this->load->model('Rubro');
+        $this->load->model('Rol');
         $this->load->library('session');
     }
 
@@ -134,30 +135,42 @@ class AdministradorController extends CI_Controller
     {
         $data['username'] = $this->session->userdata['logged_in']['username'];
 
-
-
+        // PROYECTOS
         $r = new Rubro();
         $rubros = $r->getRubros();
+        $array_proyectos[0] = array('Rubro','Cantidad');
 
-//        $array = array();
-
-        $array = '[ [\'Rubro\', \'Cantidad\'], ';
-
+        $i = 1;
         foreach ($rubros as $rubro)
         {
             $p = new Proyecto();
             $proyectos = $p->getProyectosByRubro($rubro->ID_rubro, 3);
             $cant = count($proyectos);
 
-//            $array[$rubro->nombre] = $cant;
-
-            $array = $array.'[\''.$rubro->nombre.'\','.$cant.'],';
+            $array_proyectos[$i] = array(($rubro->nombre), (int) $cant);
+            $i++;
         }
 
-        $array = $array.']';
+        $data['array_proyectos'] = $array_proyectos;
 
-//        $data['array'] = json_encode($array);
-        $data['array'] = $array;
+        // USUARIOS
+        $u = new Usuario();
+        $array_usuarios[0] = array('Tipo','Cantidad');
+        $r = new Rol();
+        $roles = $r->getRoles();
+
+        $i = 1;
+        foreach ($roles as $rol)
+        {
+
+            $usuarios = $u->getUsuariosPorRol($i);
+            $cant = count($usuarios);
+
+            $array_usuarios[$i] = array(($rol->nombre), (int) $cant);
+            $i++;
+        }
+
+        $data['array_usuarios'] = $array_usuarios;
 
         $this->load->view('commons/header', $data);
         $this->load->view('administrador/admin_graficas',$data);
