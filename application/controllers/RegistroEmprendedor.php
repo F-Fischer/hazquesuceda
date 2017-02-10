@@ -15,6 +15,7 @@ class RegistroEmprendedor extends CI_Controller
         $this->load->library('form_validation');
         $this->load->library('calendar');
         $this->load->model('emprendedor');
+        $this->load->model('Ubicacion');
     }
 
 
@@ -27,6 +28,18 @@ class RegistroEmprendedor extends CI_Controller
         $this->load->view('registraremprendedor');
         $this->load->view('commons/footer');
     }
+
+    public function getProvinciasLocalidad ()
+    {
+        $u = new Ubicacion();
+
+        $result['provincias'] = $u->getProvincias();
+        $result['localidades'] = $u->getLocalidades();
+
+        $jsonString = json_encode($result);
+        echo $jsonString;
+    }
+
 
     public function registrar(){
 
@@ -53,6 +66,8 @@ class RegistroEmprendedor extends CI_Controller
         $username =  $this->input->post('username');
         $password =  $this->input->post('password');
         $newsletter = $this->input->post('newsletter');
+        $provincia = $this->input->post('provincia');
+        $localidad = $this->input->post('localidad');
 
         if($newsletter == true) {
             $newsletter = 1;
@@ -72,7 +87,7 @@ class RegistroEmprendedor extends CI_Controller
         else
         {
             $e = new Emprendedor();
-            $e->setEmprendedor($nombre,$apellido,$telefono,$mail,$fechaNacimiento,$password,$username,$newsletter);
+            $e->setEmprendedor($nombre,$apellido,$telefono,$mail,$fechaNacimiento,$password,$username,$newsletter,$provincia,$localidad);
 
             if($e->insertarUsuario())
             {

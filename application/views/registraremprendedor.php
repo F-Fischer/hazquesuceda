@@ -1,5 +1,66 @@
 <div class="panel panel-default">
 
+    <script>
+
+
+        $(document).ready(function(){
+            var ProvLoc;
+            /*$("#txtUsername").focusout(function(){
+
+                $.ajax({
+                    type: "POST",
+                    url: "<?= base_url('RegistroInversor/validarUsuario')?>",
+                    data: {username: $("#txtUsername").val()},
+                    dataType: "text",
+                    cache:false,
+                    success:
+                        function(data){
+                            alert(data.respuesta);  //as a debugging message.
+                        }
+                });
+            });*/
+
+
+            $.ajax({
+                type: "GET",
+                url: "<?= base_url('RegistroEmprendedor/getProvinciasLocalidad')?>",
+                cache:false,
+                success:
+                    function(data){
+                        ProvLoc = JSON.parse(data);
+                        $.each(ProvLoc.provincias,function(index,value){
+                            $('#dpProvincia').append($('<option>').text(value.provincia).attr('value', value.id));
+                        });
+
+                        fillLocalitiesSelect(ProvLoc);
+                    }
+            });
+
+            $('#dpProvincia').on("change",function(){
+
+                fillLocalitiesSelect(ProvLoc);
+            });
+        });
+
+        function fillLocalitiesSelect (ProvLoc){
+            var id = $("#dpProvincia option:selected" ).val();
+
+            $('#dpLocalidad')
+                .find('option')
+                .remove()
+                .end();
+
+            $.each(ProvLoc.localidades, function(index,value){
+                if(value.id_provincia == id){
+                    $('#dpLocalidad').append($('<option>').text(value.localidad).attr('value', value.id));
+                }
+
+            });
+        }
+
+    </script>
+
+
     <div class="panel-heading">Bienvenido a Haz que suceda!</div>
 
     <div class="panel-body">
@@ -63,6 +124,24 @@
 
             echo form_input($data).'</div>';
 
+            echo '<div class="form-group">'.form_label('Provincia: ');
+
+            $data = array (
+                'id' => 'dpProvincia',
+                'name' => 'provincia',
+                'class' => 'form-control');
+
+            echo form_dropdown($data).'</div>';
+
+            echo '<div class="form-group">'.form_label('Localidad: ');
+
+            $data = array (
+                'id' => 'dpLocalidad',
+                'name' => 'localidad',
+                'class' => 'form-control');
+
+            echo form_dropdown($data).'</div>';
+            
             echo '<div class="form-group">'.form_label('Usuario: ').form_error('username', '<div class="error" style="color:red; float: right;">', '</div>');
 
             $data = array (

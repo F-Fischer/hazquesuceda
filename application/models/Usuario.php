@@ -18,6 +18,8 @@ class Usuario extends CI_Model
     private $fechaNacimiento;
     private $contrasena;
     private $newsLetter;
+    private $provincia;
+    private $localidad;
 
     public function insertarUsuario()
     {
@@ -37,6 +39,8 @@ class Usuario extends CI_Model
             'habilitado' => 0,
             'user_name' => $this->getUserName(),
             'recibir_newsletter' => $this->getNewsLetter(),
+            'provincia' => $this->getProvincia(),
+            'localidad' => $this->getLocalidad()
         );
 
         if($this->db->insert('usuario',$data))
@@ -255,6 +259,27 @@ class Usuario extends CI_Model
         return false;
     }
 
+
+    public function getProvincia()
+    {
+        return $this->provincia;
+    }
+
+    public function setProvincia($provincia)
+    {
+        $this->provincia = $provincia;
+    }
+
+    public function getLocalidad()
+    {
+        return $this->localidad;
+    }
+
+    public function setLocalidad($localidad)
+    {
+        $this->localidad = $localidad;
+    }
+
     /**
      * @return mixed
      */
@@ -294,6 +319,8 @@ class Usuario extends CI_Model
     {
         return $this->apellido;
     }
+
+
 
     /**
      * @param mixed $apellido

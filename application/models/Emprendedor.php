@@ -16,7 +16,7 @@ class Emprendedor extends Usuario
         $this->setIdRol(2);
     }
 
-    public function setEmprendedor($nombre,$apellido,$telefono,$mail,$fechaNacimiento,$password,$userName,$newsletter)
+    public function setEmprendedor($nombre,$apellido,$telefono,$mail,$fechaNacimiento,$password,$userName,$newsletter,$provincia,$localidad)
     {
         $this->setNombre($nombre);
         $this->setApellido($apellido);
@@ -26,6 +26,8 @@ class Emprendedor extends Usuario
         $this->setContrasena($password);
         $this->setUserName($userName);
         $this->setNewsLetter($newsletter);
+        $this->setProvincia($provincia);
+        $this->setLocalidad($localidad);
     }
 
     public function getIdEmprendedor($username)

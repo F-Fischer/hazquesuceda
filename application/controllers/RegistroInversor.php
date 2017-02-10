@@ -15,6 +15,7 @@ class RegistroInversor extends CI_Controller
         $this->load->model('rubro');
         $this->load->model('usuario');
         $this->load->model('RubroInteres');
+        $this->load->model('Ubicacion');
         $this->load->library('form_validation');
         $this->load->library('calendar');
     }
@@ -28,6 +29,17 @@ class RegistroInversor extends CI_Controller
         $this->load->view('commons/header', $data);
         $this->load->view('registroinversor',$data);
         $this->load->view('commons/footer');
+    }
+
+    public function getProvinciasLocalidad ()
+    {
+        $u = new Ubicacion();
+
+        $result['provincias'] = $u->getProvincias();
+        $result['localidades'] = $u->getLocalidades();
+
+        $jsonString = json_encode($result);
+        echo $jsonString;
     }
 
     public function registrar()
@@ -51,6 +63,8 @@ class RegistroInversor extends CI_Controller
         $password =  $this->input->post('password');
         $newsletter = $this->input->post('newsletter');
         $rubroInteres = $this->input->post('rubroSel');
+        $provincia = $this->input->post('provincia');
+        $localidad = $this->input->post('localidad');
 
         if($newsletter == true) {
             $newsletter = 1;
@@ -73,7 +87,7 @@ class RegistroInversor extends CI_Controller
         {
             $e = new Inversor();
 
-            $e->setInversor($nombre,$apellido,$telefono,$mail,$fechaNacimiento,$password,$username,$newsletter);
+            $e->setInversor($nombre,$apellido,$telefono,$mail,$fechaNacimiento,$password,$username,$newsletter,$provincia,$localidad);
 
             if($e->insertarUsuario())
             {
