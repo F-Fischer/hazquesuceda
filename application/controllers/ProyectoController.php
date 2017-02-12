@@ -96,20 +96,6 @@ class ProyectoController extends CI_Controller
         }
         else
         {
-            /*
-            //TODO: ver validacion, funciona mal
-            $youtube_url = $_POST["video"];
-
-            if (preg_match("/^((http\:\/\/){0,}(www\.){0,}(youtube\.com){1}|(youtu\.be){1}(\/watch\?v\=[^\s]){1})$/", $youtube_url) == 1)
-            {
-                echo "Valid";
-            }
-            else
-            {
-                echo "Invalid";
-            }
-            */
-
             $path = substr($_POST["video"],32);  // https://www.youtube.com/watch?v=Ibv2ZoLgcyg
             $url->setPath($path);
 
@@ -164,6 +150,10 @@ class ProyectoController extends CI_Controller
             $msg = 'El_archivo_se_ha_subido_correctamente';
 
             redirect('archivo/'.$id.'/'.$msg);
+        }
+        else
+        {
+            echo 'algo anda mal';
         }
     }
 
@@ -260,6 +250,11 @@ class ProyectoController extends CI_Controller
 
         if($this->upload->do_upload())
         {
+            $this->guardarPdfBD($bd_upload_path);
+        }
+        else
+        {
+            //borrar
             $this->guardarPdfBD($bd_upload_path);
         }
     }
