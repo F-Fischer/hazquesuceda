@@ -62,6 +62,31 @@ class Proyecto extends CI_Model
         return false;
     }
     
+    public function renovarProyecto ($idProyecto)
+    {
+        $this->db->select('ID_estado');
+        $this->db->where('ID_proyecto',$idProyecto);
+        $query = $this->db->get('proyecto');
+        $result = $query->row();
+
+        if($result->ID_estado == 4)
+        {
+            $date=new DateTime(); //this returns the current date time
+            $result = $date->format('Y-m-d-H-i-s');
+
+            $this->db->set('ID_estado', 1);
+            $this->db->set('fecha_ultima_modificacion', $result);
+            $this->db->where('ID_proyecto',$idProyecto);
+            $this->db->update('proyecto');
+
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
+    
     public function activarProyecto($idProyecto)
     {
         $this->db->select('ID_estado');
@@ -75,6 +100,31 @@ class Proyecto extends CI_Model
             $result = $date->format('Y-m-d-H-i-s');
 
             $this->db->set('ID_estado', 3);
+            $this->db->set('fecha_ultima_modificacion', $result);
+            $this->db->where('ID_proyecto',$idProyecto);
+            $this->db->update('proyecto');
+
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
+
+    public function finalizarProyecto($idProyecto)
+    {
+        $this->db->select('ID_estado');
+        $this->db->where('ID_proyecto',$idProyecto);
+        $query = $this->db->get('proyecto');
+        $result = $query->row();
+
+        if($result->ID_estado == 3)
+        {
+            $date=new DateTime(); //this returns the current date time
+            $result = $date->format('Y-m-d-H-i-s');
+
+            $this->db->set('ID_estado', 5);
             $this->db->set('fecha_ultima_modificacion', $result);
             $this->db->where('ID_proyecto',$idProyecto);
             $this->db->update('proyecto');

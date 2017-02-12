@@ -83,8 +83,9 @@ class EmprendedorController extends CI_Controller
 
         if(!$proyectos)
         {
-            $error = new ErrorPropio();
-            $error->Error_bd();
+            $this->load->view('commons/header', $data);
+            $this->load->view('emprendedor/verproyectospropios_sin',$data);
+            $this->load->view('commons/footer');
         }
         else
         {
@@ -379,6 +380,95 @@ class EmprendedorController extends CI_Controller
             }
         }
 
+    }
+
+    public function modificarProyecto ()
+    {
+        $idProyecto = $this->input->get('idProyecto');
+        $proyecto = new Proyecto();
+
+
+        $data['username'] = $this->session->userdata['logged_in']['username'];
+        $r = new Rubro();
+        $data['rubros'] = $r->getRubros();
+        $data['proyecto'] = $proyecto->getProyectoByIdBasico($idProyecto);
+
+        if(!$r->getRubros())
+        {
+            $error = new ErrorPropio();
+            $error->Error_bd();
+        }
+        else
+        {
+            $this->load->view('commons/header', $data);
+            $this->load->view('emprendedor/crear_proyecto',$data);
+            $this->load->view('commons/footer');
+        }
+
+
+    }
+
+    public function renovarProyecto ()
+    {
+        $idProyecto = $this->input->get('idProyecto');
+        $proyecto = new Proyecto();
+
+        if($proyecto->renovarProyecto($idProyecto))
+        {
+            $p = $proyecto->getProyectoByIdBasico($idProyecto);
+
+            $usuario = new Usuario();
+            $u = $usuario->getUsuarioById($p[0]->ID_usuario_emprendedor);
+
+            //$this->send_email_proyecto_por_renovar($u[0]->mail, $p[0]->nombre);
+            echo 'Se solicito renovacion';
+        }
+        else
+        {
+            echo 'Este proyecto no puede ser Renovado';
+        }
+    }
+
+    public function finalizarProyecto () 
+    {
+        $idProyecto = $this->input->get('idProyecto');
+        $proyecto = new Proyecto();
+
+        if($proyecto->finalizarProyecto($idProyecto))
+        {
+            $p = $proyecto->getProyectoByIdBasico($idProyecto);
+
+            $usuario = new Usuario();
+            $u = $usuario->getUsuarioById($p[0]->ID_usuario_emprendedor);
+
+            $this->send_email_proyecto_finalizado($u[0]->mail, $p[0]->nombre);
+            echo 'Se finalizo el proyecto';
+        }
+        else
+        {
+            echo 'Este proyecto no puede ser finalizado';
+        }
+    }
+
+    public function clausurarProyecto ()
+    {
+        $idProyecto = $this->input->get('idProyecto');
+        $proyecto = new Proyecto();
+
+        if($proyecto->clausurarProyecto($idProyecto))
+        {
+            $p = $proyecto->getProyectoByIdBasico($idProyecto);
+
+            $usuario = new Usuario();
+            $u = $usuario->getUsuarioById($p[0]->ID_usuario_emprendedor);
+
+            //$this->send_email_proyecto_finalizado($u[0]->mail, $p[0]->nombre);
+            echo 'Se clausuro el proyecto';
+        }
+        else
+        {
+            echo 'Este proyecto no puede ser clausurado';
+        }
     }
 
     public function validate_email($email)
