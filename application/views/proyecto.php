@@ -17,30 +17,34 @@
     </div>
 
     <div class="col-md-4">
-        <h3 style="color: #dd4814">Visitas: <span style="color: #0c0c0c"><?php echo $proyecto->cant_visitas; ?></span></h3>
+        <div>
+            <h3 style="color: #dd4814">Visitas: <span style="color: #0c0c0c"><?php echo $proyecto->cant_visitas; ?></span></h3>
+        </div>
 
-        <?php
-        if($proyecto->cant_veces_pago==0)
-        {
-            echo '<h3 style="color: #dd4814">No contactado</h3>';
-        }
-        else
-        {
-            echo '<h3 style="color: #dd4814">Evaluado <span style="color: #0c0c0c">'.$proyecto->cant_veces_pago.'</span> veces </h3>';
-        }
+        <div>
+            <h3 style="color: #dd4814">Días restantes: </t><span style="color: #0c0c0c"><?php echo $dias_restantes; ?></span></h3>
+        </div>
 
-        ?>
+        <div>
+            <?php
+            if($pdf)
+            {
+                echo '<h3 style="color: #dd4814">Para más información </h3>';
+                echo '<h4> <a style="color: #3284b7" target="_blank" href="'.base_url('/uploads/'.$pdf->pdf).'">Consulta el PDF</a> </h4>';
+            }
+            ?>
+        </div>
 
-        <h3 style="color: #dd4814">Días restantes: </t><span style="color: #0c0c0c"><?php echo $dias_restantes; ?></span></h3>
+        <br>
+        <br>
+        <br>
 
-        <?php
-        if($pdf)
-        {
-            echo '<h3 style="color: #dd4814">Para más información </h3>';
-            echo '<h4> <a style="color: #3284b7" target="_blank" href="'.base_url('/uploads/'.$pdf->pdf).'">Consulta el PDF</a> </h4>';
-        }
-        ?>
-
+        <div>
+            <a mp-mode="dftl" href="https://www.mercadopago.com/mla/checkout/start?pref_id=99395965-937bd220-05e3-47e2-bf16-f041764a067f" name="MP-payButton" class="btn btn-primary">Quiero invertir en este proyecto</a>
+            <script type="text/javascript">
+                (function(){function $MPC_load(){window.$MPC_loaded !== true && (function(){var s = document.createElement("script");s.type = "text/javascript";s.async = true;s.src = document.location.protocol+"//secure.mlstatic.com/mptools/render.js";var x = document.getElementsByTagName('script')[0];x.parentNode.insertBefore(s, x);window.$MPC_loaded = true;})();}window.$MPC_loaded !== true ? (window.attachEvent ?window.attachEvent('onload', $MPC_load) : window.addEventListener('load', $MPC_load, false)) : null;})();
+            </script>
+        </div>
     </div>
 
     <div class="col-md-12">
@@ -96,17 +100,6 @@
                 <span class="sr-only">Next</span>
             </a>
         </div>
-    </div>
-
-    <div class="col-md-12" align="center">
-        <br>
-        <br>
-
-        <a mp-mode="dftl" href="https://www.mercadopago.com/mla/checkout/start?pref_id=99395965-937bd220-05e3-47e2-bf16-f041764a067f" name="MP-payButton" class="btn btn-primary">Quiero conocer al emprendedor</a>
-        <script type="text/javascript">
-            (function(){function $MPC_load(){window.$MPC_loaded !== true && (function(){var s = document.createElement("script");s.type = "text/javascript";s.async = true;s.src = document.location.protocol+"//secure.mlstatic.com/mptools/render.js";var x = document.getElementsByTagName('script')[0];x.parentNode.insertBefore(s, x);window.$MPC_loaded = true;})();}window.$MPC_loaded !== true ? (window.attachEvent ?window.attachEvent('onload', $MPC_load) : window.addEventListener('load', $MPC_load, false)) : null;})();
-        </script>
-
     </div>
 
 </div>

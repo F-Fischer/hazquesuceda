@@ -147,17 +147,15 @@
                         <h3 class="panel-title"><?php echo $p->nombre; ?></h3>
                     </div>
                     <div class="panel-body">
-                        <h5><strong>Id Proyecto:</strong> <?php echo $p->ID_proyecto; ?></h5>
                         <h5><strong>Nombre:</strong> <?php echo $p->nombre; ?></h5>
-                        <h5><strong>Descripcion:</strong> <?php echo $p->descripcion; ?></h5>
-                        <h5><strong>Rubro:</strong> <?php echo $p->rubro; ?></h5>
-                        <h5><strong>PDF:</strong> <?php if($p->pdf){ echo '<a target="_blank" href="'.base_url().'uploads/'.$p->pdf->pdf.'">click aquí</a>'; } else { echo 'no posee.'; }  ?></h5>
-                        <h5><strong>Video:</strong> <?php if($p->video){ echo '<a target="_blank" href="https://www.youtube.com/watch?v='.$p->video->video.'">click aquí</a>'; } else { echo 'no posee.'; }  ?></h5>
-                        <h5><strong>Fecha de pago:</strong> <?php echo $p->fecha_pago; ?></h5>
                         <h5><strong>Emprendedor responsable:</strong> <?php echo $p->apellido_emprendedor.', '.$p->nombre_emprendedor; ?></h5>
                         <h5><strong>Teléfono:</strong> <?php echo $p->tel_emprendedor; ?></h5>
                         <h5><strong>E-mail:</strong> <?php echo $p->mail_emprendedor; ?></h5>
                         <h5><strong>Username:</strong> <?php echo $p->username_emprendedor; ?></h5>
+                        <h5><strong>Rubro:</strong> <?php echo $p->rubro; ?></h5>
+                        <h5><strong>PDF:</strong> <?php if($p->pdf){ echo '<a target="_blank" href="'.base_url().'uploads/'.$p->pdf->pdf.'">click aquí</a>'; } else { echo 'no posee.'; }  ?></h5>
+                        <h5><strong>Video:</strong> <?php if($p->video){ echo '<a target="_blank" href="https://www.youtube.com/watch?v='.$p->video->video.'">click aquí</a>'; } else { echo 'no posee.'; }  ?></h5>
+                        <h5><strong>Fecha de pago:</strong> <?php echo $p->fecha_pago; ?></h5>
                     </div>
                 </div>
 
