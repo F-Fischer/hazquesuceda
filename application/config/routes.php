@@ -86,6 +86,7 @@ $route['emprendedor/finalizarproyecto'] = 'EmprendedorController/finalizarProyec
 $route['emprendedor/clausurarproyecto'] = 'EmprendedorController/clausurarProyecto';
 $route['registroemprendedor/registrar'] = 'RegistroEmprendedor/Registrar';
 $route['micuenta/editarnombre'] = 'EmprendedorController/editarNombre';
+$route['descripcionemprendedor/(:num)'] = 'ProyectoController/descripcionProyectoEmprendedor';
 
 //EMPRENDEDOR PROYECTO
 $route['proyecto/crearproyecto'] = 'ProyectoController/crearProyecto';

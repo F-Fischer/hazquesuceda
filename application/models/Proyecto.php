@@ -245,7 +245,7 @@ class Proyecto extends CI_Model
 
     function getProyectoById ($id)
     {
-        $this->db->select('p.ID_proyecto, p.nombre as nombre, p.descripcion as descripcion, p.cant_visitas, p.cant_veces_pago, p.fecha_baja, r.nombre as rubro, m.path as youtube');
+        $this->db->select('p.ID_proyecto, p.nombre as nombre, p.descripcion as descripcion, p.cant_visitas, p.cant_veces_pago, p.fecha_alta, p.fecha_baja, r.nombre as rubro, m.path as youtube');
         $this->db->from('proyecto as p');
         $this->db->join('rubro as r', 'p.ID_rubro_proyecto = r.ID_rubro');
         $this->db->join('multimedia_proyectos as m', 'p.ID_proyecto = m.ID_proyecto');
@@ -259,7 +259,7 @@ class Proyecto extends CI_Model
         }
         else
         {
-            $this->db->select('p.ID_proyecto, p.nombre as nombre, p.descripcion as descripcion, p.cant_visitas, p.cant_veces_pago, p.fecha_baja, r.nombre as rubro');
+            $this->db->select('p.ID_proyecto, p.nombre as nombre, p.descripcion as descripcion, p.cant_visitas, p.cant_veces_pago, p.fecha_alta, p.fecha_baja, r.nombre as rubro');
             $this->db->from('proyecto as p');
             $this->db->join('rubro as r', 'p.ID_rubro_proyecto = r.ID_rubro');
             $this->db->where('p.ID_proyecto',$id);

@@ -311,4 +311,43 @@ class ProyectoController extends CI_Controller
             $this->load->view('commons/footer');
         }
     }
+
+    public function descripcionProyectoEmprendedor()
+    {
+        $data['username'] = $this->session->userdata['logged_in']['username'];
+        $id = $this->uri->segment(2);
+
+        if (!$id || !is_numeric($id))
+        {
+            $error = new ErrorPropio();
+            $error->Error_bd();
+        }
+
+        $proyecto = new Proyecto();
+        $proyecto->getProyectoById($id);
+        $resultado = $proyecto->getProyectoById($id);
+
+        if (!$resultado)
+        {
+            $error = new ErrorPropio();
+            $error->Error_bd();
+        }
+        else
+        {
+            $pdf = $proyecto->getPDFbyIdProyecto($id);
+            $imgs = $proyecto->getImgsByIdProyecto($id);
+            $dt1 = $resultado->fecha_alta;
+            $dt2 = $resultado->fecha_baja;
+
+            $data['proyecto'] = $resultado;
+            $data['pdf'] = $pdf;
+            $data['cant_img'] = count($imgs);
+            $data['imgs'] = $imgs;
+            $data['fecha_alta'] = $dt1;
+            $data['fecha_baja'] = $dt2;
+            $this->load->view('commons/header', $data);
+            $this->load->view('emprendedor/vip_emprendedor', $data);
+            $this->load->view('commons/footer');
+        }
+    }
 }
