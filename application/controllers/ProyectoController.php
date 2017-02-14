@@ -96,20 +96,6 @@ class ProyectoController extends CI_Controller
         }
         else
         {
-            /*
-            //TODO: ver validacion, funciona mal
-            $youtube_url = $_POST["video"];
-
-            if (preg_match("/^((http\:\/\/){0,}(www\.){0,}(youtube\.com){1}|(youtu\.be){1}(\/watch\?v\=[^\s]){1})$/", $youtube_url) == 1)
-            {
-                echo "Valid";
-            }
-            else
-            {
-                echo "Invalid";
-            }
-            */
-
             $path = substr($_POST["video"],32);  // https://www.youtube.com/watch?v=Ibv2ZoLgcyg
             $url->setPath($path);
 
@@ -164,6 +150,10 @@ class ProyectoController extends CI_Controller
             $msg = 'El_archivo_se_ha_subido_correctamente';
 
             redirect('archivo/'.$id.'/'.$msg);
+        }
+        else
+        {
+            echo 'algo anda mal';
         }
     }
 
@@ -262,6 +252,11 @@ class ProyectoController extends CI_Controller
         {
             $this->guardarPdfBD($bd_upload_path);
         }
+        else
+        {
+            //borrar
+            $this->guardarPdfBD($bd_upload_path);
+        }
     }
 
     public function descripcionProyecto()
@@ -313,6 +308,45 @@ class ProyectoController extends CI_Controller
             $data['imgs'] = $imgs;
             $this->load->view('commons/header', $data);
             $this->load->view('proyecto', $data);
+            $this->load->view('commons/footer');
+        }
+    }
+
+    public function descripcionProyectoEmprendedor()
+    {
+        $data['username'] = $this->session->userdata['logged_in']['username'];
+        $id = $this->uri->segment(2);
+
+        if (!$id || !is_numeric($id))
+        {
+            $error = new ErrorPropio();
+            $error->Error_bd();
+        }
+
+        $proyecto = new Proyecto();
+        $proyecto->getProyectoById($id);
+        $resultado = $proyecto->getProyectoById($id);
+
+        if (!$resultado)
+        {
+            $error = new ErrorPropio();
+            $error->Error_bd();
+        }
+        else
+        {
+            $pdf = $proyecto->getPDFbyIdProyecto($id);
+            $imgs = $proyecto->getImgsByIdProyecto($id);
+            $dt1 = $resultado->fecha_alta;
+            $dt2 = $resultado->fecha_baja;
+
+            $data['proyecto'] = $resultado;
+            $data['pdf'] = $pdf;
+            $data['cant_img'] = count($imgs);
+            $data['imgs'] = $imgs;
+            $data['fecha_alta'] = $dt1;
+            $data['fecha_baja'] = $dt2;
+            $this->load->view('commons/header', $data);
+            $this->load->view('emprendedor/vip_emprendedor', $data);
             $this->load->view('commons/footer');
         }
     }

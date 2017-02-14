@@ -58,7 +58,7 @@
                     <p><?php echo substr($p->descripcion, 0, 110); ?>...</p>
                     <form class="form-inline" data-wow-offset="0" align="center">
                         <div class="form-group">
-                            <a target="_blank" href="<?php echo base_url().'descripcion/'.$p->ID_proyecto; ?>" class="btn btn-primary" >Conocer más</a>
+                            <a target="_blank" href="<?php echo base_url().'descripcionemprendedor/'.$p->ID_proyecto; ?>" class="btn btn-primary" >Conocer más</a>
                         </div>
                     </form>
                  </div>

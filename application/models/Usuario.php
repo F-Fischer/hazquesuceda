@@ -18,6 +18,8 @@ class Usuario extends CI_Model
     private $fechaNacimiento;
     private $contrasena;
     private $newsLetter;
+    private $provincia;
+    private $localidad;
 
     public function insertarUsuario()
     {
@@ -37,6 +39,8 @@ class Usuario extends CI_Model
             'habilitado' => 0,
             'user_name' => $this->getUserName(),
             'recibir_newsletter' => $this->getNewsLetter(),
+            'provincia' => $this->getProvincia(),
+            'localidad' => $this->getLocalidad()
         );
 
         if($this->db->insert('usuario',$data))
@@ -178,7 +182,10 @@ class Usuario extends CI_Model
 
     public function getAllUsers()
     {
-        $query = $this->db->get('usuario');
+        $this->db->select('u.ID_usuario as ID_usuario, u.nombre as nombre, u.apellido as apellido, u.telefono as telefono, u.mail as mail, u.fecha_nacimiento as fecha_nacimiento, r.nombre as rol, u.fecha_alta as fecha_alta, u.fecha_baja as fecha_baja, u.habilitado as habilitado, u.user_name as user_name, u.recibir_newsletter as recibir_newsletter');
+        $this->db->from('usuario as u');
+        $this->db->join('rol as r', 'u.ID_rol = r.ID_rol');
+        $query = $this->db->get();
 
         if($query->num_rows() > 0)
         {
@@ -255,6 +262,27 @@ class Usuario extends CI_Model
         return false;
     }
 
+
+    public function getProvincia()
+    {
+        return $this->provincia;
+    }
+
+    public function setProvincia($provincia)
+    {
+        $this->provincia = $provincia;
+    }
+
+    public function getLocalidad()
+    {
+        return $this->localidad;
+    }
+
+    public function setLocalidad($localidad)
+    {
+        $this->localidad = $localidad;
+    }
+
     /**
      * @return mixed
      */
@@ -294,6 +322,8 @@ class Usuario extends CI_Model
     {
         return $this->apellido;
     }
+
+
 
     /**
      * @param mixed $apellido

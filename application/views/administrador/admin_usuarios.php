@@ -160,7 +160,7 @@
                         <td>'.$u->telefono.'</td>
                         <td>'.$u->mail.'</td>
                         <td>'.$u->fecha_nacimiento.'</td>
-                        <td>'.$u->ID_rol.'</td>
+                        <td>'.$u->rol.'</td>
                         <td>'.$u->fecha_alta.'</td>
                         <td>'.$u->fecha_baja.'</td>
                         <td>'.$u->habilitado.'</td>
