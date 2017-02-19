@@ -7,6 +7,7 @@
 <div class="container-fluid">
 
     <div class="highlight" align="center">
+
         <div class="col-lg-12 banner">
             <br>
             <br>
@@ -16,6 +17,7 @@
                 <br>
             </h1>
         </div>
+
     </div>
 
     <ul class="nav nav-tabs nav-justified">
@@ -71,8 +73,6 @@
 
             echo form_close();
             ?>
-
-            <a href=" <?php echo base_url('emprendedor'); ?>"> Volver </a>
 
         </div>
 

@@ -148,33 +148,54 @@ class EmprendedorController extends CI_Controller
     {
         $data['username'] = $this->session->userdata['logged_in']['username'];
         $id = $this->uri->segment(2);
+
         $proyecto = new Proyecto();
         $resultado = $proyecto->getProyectoBasicoById($id);
 
         if(!$resultado)
         {
-            //TODO: Tirar error que no existe ese proyecto
-        }
-
-        $multimedia = new MultimediaProyecto();
-        $cantImg = count($multimedia->imgPorProyecto($this->uri->segment(2)));
-
-        if($cantImg >= 3)
-        {
-            $data['error'] = 'Se ha alcanzado la cantidad máxima de imágenes para este proyecto';
+            $error = new ErrorPropio();
+            $error->Error_bd();
         }
         else
         {
-            $data['error'] = null;
-        }
+            $multimedia = new MultimediaProyecto();
+            $cantImg = count($multimedia->imgPorProyecto($id));
 
-        $data['proyecto'] = $resultado;
-        $data['cantimg'] = $cantImg;
-        $data['warning'] = null;
-        $data['special_case'] = null;
-        $this->load->view('commons/header', $data);
-        $this->load->view('emprendedor/subir_imagen',$data);
-        $this->load->view('commons/footer');
+            if($cantImg >= 3)
+            {
+                $data['error'] = 'Se ha alcanzado la cantidad máxima de imágenes para este proyecto';
+                $data['special_case'] = null;
+            }
+            else
+            {
+                $data['error'] = null;
+
+                if($cantImg == 0)
+                {
+                    $data['special_case'] = null;
+                }
+
+                $multimedia = $multimedia->specialCase($id);
+
+                if($cantImg == 1 && ($multimedia[0]->path == 'image-not-available.jpg'))
+                {
+                    var_dump('y aca');
+                    $data['special_case'] = 'si';
+                }
+                else
+                {
+                    $data['special_case'] = null;
+                }
+            }
+
+            $data['proyecto'] = $resultado;
+            $data['cantimg'] = $cantImg;
+            $data['warning'] = null;
+            $this->load->view('commons/header', $data);
+            $this->load->view('emprendedor/subir_imagen',$data);
+            $this->load->view('commons/footer');
+        }
     }
 
     public function subirArchivoProyecto ()

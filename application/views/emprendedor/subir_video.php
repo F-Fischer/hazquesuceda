@@ -7,11 +7,13 @@
 <div class="container-fluid">
 
     <div class="highlight" align="center">
+
         <div class="col-lg-12 banner">
             <br>
             <br>
             <br>
-            <br><h1 class="page-header" style="font-size: 65px; color: white;">Crear proyecto
+            <br>
+            <h1 class="page-header" style="font-size: 65px; color: white;">Crear proyecto
                 <br>
                 <br>
             </h1>
