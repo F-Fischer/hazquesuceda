@@ -25,9 +25,18 @@
             <h3 style="color: #dd4814">Fecha en la que fue creado: <span style="color: #0c0c0c"><?php echo $proyecto->fecha_alta; ?></span></h3>
         </div>
 
-        <div>
-            <h3 style="color: #dd4814">Fecha en la que consiguió financiación: <span style="color: #0c0c0c"><?php echo $proyecto->fecha_baja; ?></span></h3>
-        </div>
+        <?php
+
+        if($proyecto->ID_estado == 5)
+        {
+            ?>
+            <div>
+                <h3 style="color: #dd4814">Fecha en la que consiguió financiación: <span style="color: #0c0c0c"><?php echo $proyecto->fecha_baja; ?></span></h3>
+            </div>
+            <?php
+        }
+
+        ?>
 
         <div>
             <?php

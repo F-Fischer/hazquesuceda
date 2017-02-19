@@ -245,7 +245,7 @@ class Proyecto extends CI_Model
 
     function getProyectoById ($id)
     {
-        $this->db->select('p.ID_proyecto, p.nombre as nombre, p.descripcion as descripcion, p.cant_visitas, p.cant_veces_pago, p.fecha_alta, p.fecha_baja, r.nombre as rubro, m.path as youtube');
+        $this->db->select('p.ID_proyecto, p.nombre as nombre, p.descripcion as descripcion, p.cant_visitas, p.cant_veces_pago, p.fecha_alta, p.fecha_baja, r.nombre as rubro, m.path as youtube, p.ID_estado as ID_estado');
         $this->db->from('proyecto as p');
         $this->db->join('rubro as r', 'p.ID_rubro_proyecto = r.ID_rubro');
         $this->db->join('multimedia_proyectos as m', 'p.ID_proyecto = m.ID_proyecto');
@@ -352,9 +352,11 @@ class Proyecto extends CI_Model
 
     public function getProyectosByUserId ($id)
     {
-        $this->db->select('ID_proyecto, nombre, descripcion, cant_veces_pago');
+        $this->db->select('ID_proyecto, proyecto.nombre as nombre, proyecto.descripcion as descripcion, e.nombre as estado, cant_visitas, cant_veces_pago');
+        $this->db->from('proyecto');
+        $this->db->join('estados_proyecto as e', 'proyecto.ID_estado = e.ID_estado');
         $this->db->where('ID_usuario_emprendedor',$id);
-        $query = $this->db->get('proyecto');
+        $query = $this->db->get();
 
         if($query->num_rows() > 0)
         {
@@ -401,7 +403,7 @@ class Proyecto extends CI_Model
 
     function getProyectos ($estado, $limit,$start)
     {
-        $this->db->select('p.ID_proyecto as ID_proyecto, p.nombre as nombre, p.descripcion as descripcion, m.path as previs');
+        $this->db->select('p.ID_proyecto as ID_proyecto, p.nombre as nombre, p.descripcion as descripcion, p.ID_estado as ID_estado, m.path as previs');
         $this->db->from('proyecto as p');
         $this->db->join('multimedia_proyectos as m', 'p.ID_proyecto = m.ID_proyecto');
         $this->db->where('p.ID_estado',$estado);
@@ -473,15 +475,13 @@ class Proyecto extends CI_Model
         $this->db->select('p.ID_proyecto, p.nombre as nombre, p.descripcion as descripcion, p.cant_visitas, p.cant_veces_pago, p.fecha_alta, p.fecha_baja, r.nombre as rubro, m.path as youtube');
         $this->db->from('proyecto as p');
         $this->db->join('rubro as r', 'p.ID_rubro_proyecto = r.ID_rubro');
-        $this->db->join('multimedia_proyectos as m', 'p.ID_proyecto = m.ID_proyecto');
-        $this->db->where('p.ID_estado',3);
-        $this->db->where('m.tipo','previsualizacion');
-        $this->db->order_by('cant_veces_pago', $tipo);
-        $query = $this->db->get();
+        $this->db->where('p.ID_',$id);
+        $this->db->where('m.tipo','youtube');
+        $result = $this->db->get();
 
-        if($query->num_rows() > 0)
+        if($result)
         {
-            return $query->result();
+            return true;
         }
         else
         {
