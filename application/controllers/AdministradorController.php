@@ -136,6 +136,15 @@ class AdministradorController extends CI_Controller
     {
         $data['username'] = $this->session->userdata['logged_in']['username'];
 
+        //TOP 5 MAS PAGADOS
+        $p = new Proyecto();
+        $proyectos = $p->getTopCinco('asc');
+        $data['top_asc'] = $proyectos;
+
+        //TOP 5 MENOS PAGADOS
+        $proyectos = $p->getTopCinco('desc');
+        $data['top_desc'] = $proyectos;
+
         // PROYECTOS
         $r = new Rubro();
         $rubros = $r->getRubros();

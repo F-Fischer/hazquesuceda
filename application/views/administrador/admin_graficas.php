@@ -94,7 +94,6 @@
 </style>
 
 <div class="container-fluid">
-
     <div class="highlight" align="center">
         <div class="col-lg-12 banner">
             <br>
@@ -111,18 +110,92 @@
     </div>
 
     <div class="col-md-3">
-
         <ul class="nav nav-pills nav-stacked" >
             <li role="presentation" class="active"><a href="statistics">Estadísticas</a></li>
             <li role="presentation" ><a href="admin">Todos los proyectos</a></li>
             <li role="presentation" ><a href="users">Usuarios</a></li>
             <li role="presentation" ><a href="newletterempr">Newsletter Emprendedor</a></li>
         </ul>
-
     </div>
 
     <div class="col-md-9">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3 class="panel-title">Top 5 de proyectos más pagos</h3>
+            </div>
+            <div class="panel-body">
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>Puesto</th>
+                            <th>Nombre</th>
+                            <th>Rubro</th>
+                            <th>VIP</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <?php
 
+                        for($i = 1; $i<=5; $i++)
+                        {
+                            echo '<tr>
+
+                            <td>'.$i.'</td>
+                            <td>'.$top_asc[$i]->nombre.'</td>
+                            <td>'.$top_asc[$i]->rubro.'</td>
+                            <td><a target="_blank" href="'.base_url().'descripcion/'.$top_asc[$i]->ID_proyecto.'" >Ver proyecto</a></td>
+
+                            </tr>';
+                        }
+
+                        ?>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="col-lg-offset-3 col-md-9">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3 class="panel-title">Top 5 de proyectos menos pagos</h3>
+            </div>
+            <div class="panel-body">
+                <p>*Tiene sentido este? porque hay muchos proyectos que nunca se pagaron, estaríamos poniendo 5 al azar...
+                    además la bd parece ignorar ese aspecto en las búsquedas. Igual se puede ver lo de la bd.</p>
+                <table class="table table-striped">
+                    <thead>
+                    <tr>
+                        <th>Puesto</th>
+                        <th>Nombre</th>
+                        <th>Rubro</th>
+                        <th>VIP</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <?php
+
+                    for($i = 1; $i<=5; $i++)
+                    {
+                        echo '<tr>
+
+                            <td>'.$i.'</td>
+                            <td>'.$top_desc[$i]->nombre.'</td>
+                            <td>'.$top_desc[$i]->rubro.'</td>
+                            <td><a target="_blank" href="'.base_url().'descripcion/'.$top_desc[$i]->ID_proyecto.'" >Ver proyecto</a></td>
+                            </tr>';
+                    }
+
+                    ?>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="col-lg-offset-3 col-md-9">
         <div class="panel panel-default">
             <div class="panel-body">
                 <h3>Proyectos activos en la plataforma:</h3>
@@ -139,7 +212,6 @@
                 <div id="barchart_values" style="width: 900px; height: 300px;"></div>
             </div>
         </div>
-
     </div>
 </div>
 
