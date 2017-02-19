@@ -134,7 +134,7 @@
 
                     <thead>
                     <tr>
-                        <th>Id Proyecto</th>
+                        <th>Descripción Completa</th>
                         <th>Nombre</th>
                         <th>Id de Usuario</th>
                         <th>Nombre de usuario</th>
@@ -153,7 +153,7 @@
                     {
                         echo '<tr>
 
-                        <td>'.$p->ID_proyecto.'</td>
+                        <td><a target="_blank" href="'.base_url().'descripcion/'.$p->ID_proyecto.'" >VIP</a></td>
                         <td>'.$p->proy_nombre.'</td>
                         <td>'.$p->user_id.'</td>
                         <td>'.$p->nombre.'</td>
