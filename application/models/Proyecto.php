@@ -475,13 +475,14 @@ class Proyecto extends CI_Model
         $this->db->select('p.ID_proyecto, p.nombre as nombre, p.descripcion as descripcion, p.cant_visitas, p.cant_veces_pago, p.fecha_alta, p.fecha_baja, r.nombre as rubro, m.path as youtube');
         $this->db->from('proyecto as p');
         $this->db->join('rubro as r', 'p.ID_rubro_proyecto = r.ID_rubro');
-        $this->db->where('p.ID_',$id);
-        $this->db->where('m.tipo','youtube');
-        $result = $this->db->get();
-
-        if($result)
+        $this->db->join('multimedia_proyectos as m', 'p.ID_proyecto = m.ID_proyecto');
+        $this->db->where('p.ID_estado',3);
+        $this->db->where('m.tipo','previsualizacion');
+        $this->db->order_by('cant_veces_pago', $tipo);
+        $query = $this->db->get();
+        if($query->num_rows() > 0)
         {
-            return true;
+            return $query->result();
         }
         else
         {
