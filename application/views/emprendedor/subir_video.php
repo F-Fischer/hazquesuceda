@@ -27,6 +27,12 @@
         <li role="presentation" class="disabled"><a>Archivo</a></li>
     </ul>
 
+    <div class="progress">
+        <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="width: 26%">
+            <span class="sr-only">40% Complete (success)</span>
+        </div>
+    </div>
+
     <div class="col-md-9">
 
         <div class="col-md-9">
@@ -38,7 +44,7 @@
             <?php
             echo form_open('proyectocontroller/subirVideo/'.$proyecto->ID_proyecto);
 
-            echo '<div class="form-group">'.form_label('Título del proyecto ').form_error('video', '<div class="error" style="color:red; float: right;">', '</div>');
+            echo '<div class="form-group">'.form_label('Url del video ').form_error('video', '<div class="error" style="color:red; float: right;">', '</div>');
 
             $data = array (
                 'id' => 'inputVideo',

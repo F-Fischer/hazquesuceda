@@ -26,6 +26,12 @@
         <li role="presentation" class="active"><a>Archivo</a></li>
     </ul>
 
+    <div class="progress">
+        <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="width: 75%">
+            <span class="sr-only">40% Complete (success)</span>
+        </div>
+    </div>
+
     <div class="col-md-9">
 
         <div class="form-group ">
