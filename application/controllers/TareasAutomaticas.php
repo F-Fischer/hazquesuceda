@@ -139,12 +139,12 @@ class TareasAutomaticas extends CI_Controller
             arsort($proyectos);
             
             // le mando los 5 proyectos mas populares
-            $proy_div = '<div>';
+            $proy_div = '<div class="row"><div class="col-sm-6 col-md-4"><div class="thumbnail">';
 
             $cont = 0;
             foreach ($proyectos as $p)
             {
-                $proy_div = $proy_div.'<div><h3>'.$p->nombre.'</h3>'.'<p>'.$p->descripcion.'</p></div>';
+                $proy_div = $proy_div.'<img src="'.base_url().'/uploads/'.$p->previs.'" alt="Responsive image" class="img-circle img-responsive" height="200" width="200"><div class="caption"><h3>'.$p->nombre.'</h3><p>'.substr($p->descripcion, 0, 100).'</p><p><a href="'.base_url().'descripcion/'.$p->ID_proyecto.'" class="btn btn-primary" role="button">Quiero ver más</a></p></div>';
                 $cont++;
 
                 if($cont >= 5)
@@ -153,7 +153,7 @@ class TareasAutomaticas extends CI_Controller
                 }
             }
 
-            $proy_div = $proy_div.'</div>';
+            $proy_div = $proy_div.'</div></div></div>';
             $this->send_newsletter($u->mail, $proy_div);
         }
 

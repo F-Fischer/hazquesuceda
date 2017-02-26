@@ -370,10 +370,13 @@ class Proyecto extends CI_Model
     {
         // es importante que la cant_visitas sea el primer atributo en el get,
         // porque es el que se usa para ordenar en el controlador
-        $this->db->select('cant_visitas, ID_proyecto, nombre, descripcion');
-        $this->db->where('ID_rubro_proyecto', $id_rubro);
-        $this->db->where('ID_estado', $estado);
-        $query = $this->db->get('proyecto');
+        $this->db->select('p.cant_visitas as cant_visitas, p.ID_proyecto as ID_proyecto, p.nombre as nombre, p.descripcion as descripcion, p.ID_estado as ID_estado, m.path as previs');
+        $this->db->from('proyecto as p');
+        $this->db->join('multimedia_proyectos as m', 'p.ID_proyecto = m.ID_proyecto');
+        $this->db->where('p.ID_estado',$estado);
+        $this->db->where('p.ID_rubro_proyecto', $id_rubro);
+        $this->db->where('m.tipo','previsualizacion');
+        $query = $this->db->get();
 
         if($query->num_rows() > 0)
         {
