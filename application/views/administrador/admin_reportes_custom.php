@@ -93,16 +93,15 @@
     }
 </style>
 
-<script src="<?php echo base_url('assets/js/jquery.dataTables.min.js'); ?>"></script>
-<link rel="stylesheet" href="<?php echo base_url('assets/css/jquery.dataTables.min.css'); ?>">
 <div class="container-fluid">
-
     <div class="highlight" align="center">
         <div class="col-lg-12 banner">
             <br>
             <br>
             <br>
-            <br><h1 class="page-header" style="font-size: 65px; color: white;">Usuarios
+            <br>
+            <h1 class="page-header" style="font-size: 65px; color: white;">
+                Reportes custom
                 <br>
                 <br>
             </h1>
@@ -111,84 +110,97 @@
     </div>
 
     <div class="col-md-3">
-
         <ul class="nav nav-pills nav-stacked" >
             <li role="presentation" ><a href="statistics">Estadísticas</a></li>
-            <li role="presentation" ><a href="reports">Reportes custom</a></li>
+            <li role="presentation" class="active"><a href="reports">Reportes custom</a></li>
             <li role="presentation" ><a href="admin">Todos los proyectos</a></li>
-            <li role="presentation" class="active"><a href="users">Usuarios</a></li>
+            <li role="presentation" ><a href="users">Usuarios</a></li>
             <li role="presentation" ><a href="newletterempr">Newsletter Emprendedor</a></li>
         </ul>
-
     </div>
 
     <div class="col-md-9">
-
         <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3 class="panel-title">Usuarios segun fecha:</h3>
+            </div>
             <div class="panel-body">
-
-                <table id="users"  class="table table-striped">
-
-                    <thead>
-                    <tr>
-                        <th>ID Usuario</th>
-                        <th>Nombre</th>
-                        <th>Apellido</th>
-                        <th>Telefono</th>
-                        <th>Mail</th>
-                        <th>Fecha de nacimiento</th>
-                        <th>ID Rol</th>
-                        <th>Fecha Alta</th>
-                        <th>Fecha baja</th>
-                        <th>Habilitado</th>
-                        <th>User Name</th>
-                        <th>Newsletter</th>
-                        <th>Acciones</th>
-                    </tr>
-                    </thead>
-
-                    <tbody>
+                <div>
 
                     <?php
+                    echo form_open('AdministradorController/usuariosPorFecha');
 
-                    foreach($users as $u)
-                    {
-                        echo '<tr>
+                    echo '<div class="form-group">'.form_label('Fecha desde: ').form_error('fecha_nacimiento', '<div class="error" style="color:red; float: right;">', '</div>');
 
-                        <td>'.$u->ID_usuario.'</td>
-                        <td>'.$u->nombre.'</td>
-                        <td>'.$u->apellido.'</td>
-                        <td>'.$u->telefono.'</td>
-                        <td>'.$u->mail.'</td>
-                        <td>'.$u->fecha_nacimiento.'</td>
-                        <td>'.$u->rol.'</td>
-                        <td>'.$u->fecha_alta.'</td>
-                        <td>'.$u->fecha_baja.'</td>
-                        <td>'.$u->habilitado.'</td>
-                        <td>'.$u->user_name.'</td>
-                        <td>'.$u->recibir_newsletter.'</td>
-                        <td></td>
-                        </tr>';
-                    }
+                    $data = array (
+                        'id' => 'txtFechaDesde',
+                        'type' => 'date',
+                        'name' => 'fecha_desde',
+                        'class' => 'form-control',
+                        'value' => set_value('fecha_desde'));
 
+                    echo form_input($data).'</div>';
+
+                    echo '<div class="form-group">'.form_label('Fecha hasta: ').form_error('fecha_nacimiento', '<div class="error" style="color:red; float: right;">', '</div>');
+
+                    $data = array (
+                        'id' => 'txtFechaHasta',
+                        'type' => 'date',
+                        'name' => 'fecha_hasta',
+                        'class' => 'form-control',
+                        'value' => set_value('fecha_hasta'));
+
+                    echo form_input($data).'</div>';
+
+                    $data = array(
+                        'id' => 'btnUsuariosPorFecha',
+                        'class' => 'btn btn-default',
+                        'value' => 'Generar reporte'
+                    );
+
+                    echo form_submit($data,'Generar reporte');
+
+                    echo form_close();
                     ?>
 
-                    </tbody>
-
-                </table>
-
+                </div>
+                <div id="barchart_users_date" style="width: 900px; height: 500px;"></div>
             </div>
         </div>
-
     </div>
 
 </div>
-<script>
 
-    $(document).ready(function() {
-        $('#users').DataTable( {
-            "scrollX": true
-        } );
-    } );
+<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+
+<script type="text/javascript">
+    google.charts.load('current', {'packages':['bar']});
+    google.charts.setOnLoadCallback(drawChartUsuariosPorFecha);
+
+
+    function drawChartUsuariosPorFecha() {
+        var data = google.visualization.arrayToDataTable([
+            ['Fecha', 'Inversores', 'Emprendedores'],
+            ['2014', 1000, 400],
+            ['2015', 1170, 460],
+            ['2016', 660, 1120],
+            ['2017', 1030, 540]
+        ]);
+
+//        var array = <?php //echo json_encode($array_usuarios_fecha); ?>//;
+//        var data = google.visualization.arrayToDataTable(array);
+
+
+        var options = {
+            chart: {
+                title: 'Registro de usuarios en la plataforma',
+                subtitle: 'Inversores y emprendedores',
+            }
+        };
+
+        var chart = new google.charts.Bar(document.getElementById('barchart_users_date'));
+
+        chart.draw(data, options);
+    }
 
 </script>

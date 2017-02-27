@@ -209,6 +209,21 @@ class Usuario extends CI_Model
         return false;
     }
 
+    public function getUsuariosPorFecha ($fecha_desde, $fecha_hasta)
+    {
+        $this->db->select('ID_usuario, ID_rol, fecha_alta');
+        $this->db->where('fecha_alta >=', $fecha_desde);
+        $this->db->where('fecha_alta <=', $fecha_hasta);
+        $query = $this->db->get('usuario');
+
+        if($query->num_rows() > 0)
+        {
+            return $query->result();
+        }
+
+        return false;
+    }
+
     public function encrypt_decrypt($action, $string)
     {
         $output = false;

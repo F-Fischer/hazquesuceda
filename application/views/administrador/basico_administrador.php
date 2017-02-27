@@ -118,6 +118,7 @@
 
         <ul class="nav nav-pills nav-stacked" >
             <li role="presentation" ><a href="statistics">Estadísticas</a></li>
+            <li role="presentation" ><a href="reports">Reportes custom</a></li>
             <li role="presentation" class="active"><a href="admin">Todos los proyectos</a></li>
             <li role="presentation" ><a href="users">Usuarios</a></li>
             <li role="presentation" ><a href="newletterempr">Newsletter Emprendedor</a></li>

@@ -172,7 +172,6 @@ class AdministradorController extends CI_Controller
         $i = 1;
         foreach ($roles as $rol)
         {
-
             $usuarios = $u->getUsuariosPorRol($i);
             $cant = count($usuarios);
 
@@ -185,6 +184,77 @@ class AdministradorController extends CI_Controller
         $this->load->view('commons/header', $data);
         $this->load->view('administrador/admin_graficas',$data);
         $this->load->view('commons/footer');
+    }
+
+    public function usuariosPorFecha()
+    {
+        $data['username'] = $this->session->userdata['logged_in']['username'];
+
+        $this->form_validation->set_rules('fecha_desde','Fecha desde', 'trim|required', array('required' => 'No seleccionó fecha de inicio'));
+        $this->form_validation->set_rules('fecha_hasta','Fecha hasta', 'trim|required', array('required' => 'No seleccionó fecha final'));
+
+        $fechaDesde = $this->input->post('fecha_desde');
+        $fechaHasta = $this->input->post('fecha_hasta');
+
+        if ($this->form_validation->run() == FALSE)
+        {
+            $data['username'] = $this->session->userdata['logged_in']['username'];
+
+            $this->load->view('commons/header', $data);
+            $this->load->view('administrador/admin_reportes_custom',$data);
+            $this->load->view('commons/footer');
+        }
+        else
+        {
+            $array_usuarios_fecha[0] = array('Fecha','Usuarios');
+
+            $u = new Usuario();
+            $usuarios = $u->getUsuariosPorFecha($fechaDesde, $fechaHasta);
+
+            echo ' --- usuarios: '.count($usuarios);
+
+            foreach ($usuarios as $usuario)
+            {
+                $mes = date("m",strtotime($usuario->fecha_alta));
+                $ano = date("y",strtotime($usuario->fecha_alta));
+//                echo ' - mes: '.$mes;
+                $fecha = $mes.'-'.$ano;
+
+                $esta = false;
+                $antes = 0;
+
+                for($i = 0; $i < count($array_usuarios_fecha); $i ++)
+                {
+                    if (in_array($fecha, $array_usuarios_fecha[$i]))
+                    {
+                        $esta = true;
+
+                        foreach($array_usuarios_fecha[$i] as $aux)
+                        {
+                            $antes = $aux;
+                        }
+
+                        $ahora = $antes + 1;
+                        $array_usuarios_fecha[$i] = array($fecha, $ahora);
+                    }
+                }
+
+                if(!$esta)
+                {
+//                    echo ' ==== agrego el '.$mes.' =====';
+                    array_push($array_usuarios_fecha, array($fecha, 1));
+                }
+            }
+
+//            var_dump($array_usuarios_fecha);
+
+            $data['array_usuarios_fecha'] = $array_usuarios_fecha;
+
+            $this->load->view('commons/header', $data);
+            $this->load->view('administrador/admin_reportes_custom',$data);
+            $this->load->view('commons/footer');
+
+        }
     }
 
     public function newsletterEmprendedor()

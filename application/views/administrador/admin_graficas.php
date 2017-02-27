@@ -112,6 +112,7 @@
     <div class="col-md-3">
         <ul class="nav nav-pills nav-stacked" >
             <li role="presentation" class="active"><a href="statistics">Estadísticas</a></li>
+            <li role="presentation" ><a href="reports">Reportes custom</a></li>
             <li role="presentation" ><a href="admin">Todos los proyectos</a></li>
             <li role="presentation" ><a href="users">Usuarios</a></li>
             <li role="presentation" ><a href="newletterempr">Newsletter Emprendedor</a></li>
@@ -192,27 +193,41 @@
                 </table>
             </div>
         </div>
-
     </div>
 
     <div class="col-lg-offset-3 col-md-9">
         <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3 class="panel-title">Proyectos activos en la plataforma:</h3>
+            </div>
             <div class="panel-body">
-                <h3>Proyectos activos en la plataforma:</h3>
                 <div id="piechart_projects" style="width: 900px; height: 500px;"></div>
-            </div>
-
-            <div class="panel-body">
-                <h3>Usuarios registrados:</h3>
-                <div id="piechart_users" style="width: 900px; height: 500px;"></div>
-            </div>
-
-            <div class="panel-body">
-                <h3>Popularidad de proyectos:</h3>
-                <div id="barchart_values" style="width: 900px; height: 300px;"></div>
             </div>
         </div>
     </div>
+
+    <div class="col-lg-offset-3 col-md-9">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3 class="panel-title">Usuarios registrados:</h3>
+            </div>
+            <div class="panel-body">
+                <div id="piechart_users" style="width: 900px; height: 500px;"></div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-lg-offset-3 col-md-9">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3 class="panel-title">Popularidad de proyectos:</h3>
+            </div>
+            <div class="panel-body">
+                <div id="barchart_values" style="width: 900px; height: 500px;"></div>
+            </div>
+        </div>
+    </div>
+
 </div>
 
 <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
@@ -222,7 +237,6 @@
     google.charts.setOnLoadCallback(drawChartProyectos);
     google.charts.setOnLoadCallback(drawChartUsuarios);
     google.charts.setOnLoadCallback(drawChartPopularidad);
-    google.charts.setOnLoadCallback(drawChartBis);
 
     function drawChartProyectos() {
         var array = <?php echo json_encode($array_proyectos); ?>;
