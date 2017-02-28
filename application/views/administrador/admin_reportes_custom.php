@@ -128,29 +128,35 @@
                 <div>
 
                     <?php
-                    echo form_open('AdministradorController/usuariosPorFecha');
 
-                    echo '<div class="form-group">'.form_label('Fecha desde: ').form_error('fecha_nacimiento', '<div class="error" style="color:red; float: right;">', '</div>');
+                    if($error)
+                    {
+                        echo "<div class=\"alert alert-danger\"><strong> Error! </strong>".$error."</div>";
+                    }
 
-                    $data = array (
+                    echo form_open('reports');
+
+                    echo '<div class="form-group">' . form_label('Fecha desde: ') . form_error('fecha_nacimiento', '<div class="error" style="color:red; float: right;">', '</div>');
+
+                    $data = array(
                         'id' => 'txtFechaDesde',
                         'type' => 'date',
                         'name' => 'fecha_desde',
                         'class' => 'form-control',
                         'value' => set_value('fecha_desde'));
 
-                    echo form_input($data).'</div>';
+                    echo form_input($data) . '</div>';
 
-                    echo '<div class="form-group">'.form_label('Fecha hasta: ').form_error('fecha_nacimiento', '<div class="error" style="color:red; float: right;">', '</div>');
+                    echo '<div class="form-group">' . form_label('Fecha hasta: ') . form_error('fecha_nacimiento', '<div class="error" style="color:red; float: right;">', '</div>');
 
-                    $data = array (
+                    $data = array(
                         'id' => 'txtFechaHasta',
                         'type' => 'date',
                         'name' => 'fecha_hasta',
                         'class' => 'form-control',
                         'value' => set_value('fecha_hasta'));
 
-                    echo form_input($data).'</div>';
+                    echo form_input($data) . '</div>';
 
                     $data = array(
                         'id' => 'btnUsuariosPorFecha',
@@ -158,9 +164,10 @@
                         'value' => 'Generar reporte'
                     );
 
-                    echo form_submit($data,'Generar reporte');
+                    echo form_submit($data, 'Generar reporte');
 
                     echo form_close();
+
                     ?>
 
                 </div>
@@ -171,6 +178,7 @@
 
 </div>
 
+<script type="text/javascript" src="<?php echo base_url('assets/js/admin/reportes.js'); ?>"></script>
 <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
 
 <script type="text/javascript">
@@ -179,17 +187,8 @@
 
 
     function drawChartUsuariosPorFecha() {
-        var data = google.visualization.arrayToDataTable([
-            ['Fecha', 'Inversores', 'Emprendedores'],
-            ['2014', 1000, 400],
-            ['2015', 1170, 460],
-            ['2016', 660, 1120],
-            ['2017', 1030, 540]
-        ]);
-
-//        var array = <?php //echo json_encode($array_usuarios_fecha); ?>//;
-//        var data = google.visualization.arrayToDataTable(array);
-
+        var array = <?php echo json_encode($array_usuarios_fecha); ?>;
+        var data = google.visualization.arrayToDataTable(array);
 
         var options = {
             chart: {

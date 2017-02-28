@@ -214,6 +214,7 @@ class Usuario extends CI_Model
         $this->db->select('ID_usuario, ID_rol, fecha_alta');
         $this->db->where('fecha_alta >=', $fecha_desde);
         $this->db->where('fecha_alta <=', $fecha_hasta);
+        $this->db->order_by('fecha_alta', 'asc');
         $query = $this->db->get('usuario');
 
         if($query->num_rows() > 0)

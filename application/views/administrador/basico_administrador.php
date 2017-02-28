@@ -182,7 +182,6 @@
 </div>
 <script>
 
-
     $(document).ready(function() {
         $('#todosLosProyectos').DataTable( {
             initComplete: function () {

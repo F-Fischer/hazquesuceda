@@ -190,15 +190,17 @@ class AdministradorController extends CI_Controller
     {
         $data['username'] = $this->session->userdata['logged_in']['username'];
 
-        $this->form_validation->set_rules('fecha_desde','Fecha desde', 'trim|required', array('required' => 'No seleccionó fecha de inicio'));
-        $this->form_validation->set_rules('fecha_hasta','Fecha hasta', 'trim|required', array('required' => 'No seleccionó fecha final'));
-
         $fechaDesde = $this->input->post('fecha_desde');
         $fechaHasta = $this->input->post('fecha_hasta');
 
-        if ($this->form_validation->run() == FALSE)
+        if($fechaDesde == null || $fechaHasta == null)
         {
             $data['username'] = $this->session->userdata['logged_in']['username'];
+
+            $array_usuarios_fecha[0] = array('Fecha','Usuarios');
+            $data['array_usuarios_fecha'] = $array_usuarios_fecha;
+
+            $data['error'] = 'Debe seleccionar fecha.';
 
             $this->load->view('commons/header', $data);
             $this->load->view('administrador/admin_reportes_custom',$data);
@@ -207,53 +209,49 @@ class AdministradorController extends CI_Controller
         else
         {
             $array_usuarios_fecha[0] = array('Fecha','Usuarios');
+            $meses = array();
+            $cantidades = array();
 
             $u = new Usuario();
             $usuarios = $u->getUsuariosPorFecha($fechaDesde, $fechaHasta);
-
-            echo ' --- usuarios: '.count($usuarios);
 
             foreach ($usuarios as $usuario)
             {
                 $mes = date("m",strtotime($usuario->fecha_alta));
                 $ano = date("y",strtotime($usuario->fecha_alta));
-//                echo ' - mes: '.$mes;
                 $fecha = $mes.'-'.$ano;
+                echo ' - fecha: '.$fecha;
 
-                $esta = false;
-                $antes = 0;
-
-                for($i = 0; $i < count($array_usuarios_fecha); $i ++)
+                if (in_array($fecha, $meses))
                 {
-                    if (in_array($fecha, $array_usuarios_fecha[$i]))
+                    for($i = 0; $i < count($meses); $i ++)
                     {
-                        $esta = true;
-
-                        foreach($array_usuarios_fecha[$i] as $aux)
+                        if($fecha == $meses[$i])
                         {
-                            $antes = $aux;
+                            $cantidades[$i] = $cantidades[$i] + 1;
                         }
-
-                        $ahora = $antes + 1;
-                        $array_usuarios_fecha[$i] = array($fecha, $ahora);
                     }
                 }
-
-                if(!$esta)
+                else
                 {
-//                    echo ' ==== agrego el '.$mes.' =====';
-                    array_push($array_usuarios_fecha, array($fecha, 1));
+                    array_push($meses, $fecha);
+                    array_push($cantidades, 1);
                 }
             }
 
-//            var_dump($array_usuarios_fecha);
+            $i = 0;
+            foreach($meses as $mes)
+            {
+                array_push($array_usuarios_fecha, array($mes, $cantidades[$i]));
+                $i++;
+            }
 
             $data['array_usuarios_fecha'] = $array_usuarios_fecha;
+            $data['error'] = null;
 
             $this->load->view('commons/header', $data);
             $this->load->view('administrador/admin_reportes_custom',$data);
             $this->load->view('commons/footer');
-
         }
     }
 
