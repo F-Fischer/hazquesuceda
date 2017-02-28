@@ -160,11 +160,26 @@
                         <td>'.$p->apellido.'</td>
                         <td id="nombreEstado'.$p->ID_proyecto.'">'.$p->nombre_estad.'</td>
                         <td>'.$p->fecha_alta.'</td>
-                        <td>
-                            <button type="button" title="Aceptar" class="btn btn-default aceptar" id="btnAceptar'.$p->ID_proyecto.'" value="'.$p->ID_proyecto.'"><span class="glyphicon glyphicon-ok"></span></button>
-                            <button type="button" title="Rechazar" class="btn btn-default rechazar" id="btnRechazar'.$p->ID_proyecto.'" value="'.$p->ID_proyecto.'"> <span class="glyphicon glyphicon-remove"></span></button>
-                            <button type="button" title="Clausurar" class="btn btn-default clausurar" id="btnClausurar'.$p->ID_proyecto.'" value="'.$p->ID_proyecto.'"> <span class="glyphicon glyphicon-ban-circle"></span></button></td>
-                        </tr>';
+                        <td>';
+
+                            switch ($p->nombre_estad)
+                            {
+                                case "solicitado":
+                                        echo '<button type="button" title="Aceptar" class="btn btn-default aceptar" id="btnAceptar'.$p->ID_proyecto.'" value="'.$p->ID_proyecto.'"><span class="glyphicon glyphicon-ok"></span></button>
+                                            <button type="button" title="Rechazar" class="btn btn-default rechazar" id="btnRechazar'.$p->ID_proyecto.'" value="'.$p->ID_proyecto.'"> <span class="glyphicon glyphicon-remove"></span></button>';
+                                    break;
+                                case "activo":
+                                        echo '<button type="button" title="Clausurar" class="btn btn-default clausurar" id="btnClausurar'.$p->ID_proyecto.'" value="'.$p->ID_proyecto.'"> <span class="glyphicon glyphicon-ban-circle"></span></button></td>';        
+                                    break;
+                                case "clausurado":
+                                        echo "Sin acciones disponibles";
+                                    break;
+                                case "finalizado":
+                                    echo "Sin acciones disponibles";
+                                    break;
+                            }
+                        echo '</tr>';
+
                     }
 
                     ?>
