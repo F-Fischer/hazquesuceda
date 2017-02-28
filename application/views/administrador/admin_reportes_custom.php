@@ -136,50 +136,6 @@
                     <br>
                     <br>
 
-                    <?php
-                    /*
-                    if($error)
-                    {
-                        echo "<div class=\"alert alert-danger\"><strong> Error! </strong>".$error."</div>";
-                    }
-
-                    echo form_open('reports');
-
-                    echo '<div class="form-group">' . form_label('Fecha desde: ') . form_error('fecha_nacimiento', '<div class="error" style="color:red; float: right;">', '</div>');
-
-                    $data = array(
-                        'id' => 'txtFechaDesdeU',
-                        'type' => 'date',
-                        'name' => 'fecha_desde',
-                        'class' => 'form-control',
-                        'value' => set_value('fecha_desde'));
-
-                    echo form_input($data) . '</div>';
-
-                    echo '<div class="form-group">' . form_label('Fecha hasta: ') . form_error('fecha_nacimiento', '<div class="error" style="color:red; float: right;">', '</div>');
-
-                    $data = array(
-                        'id' => 'txtFechaHastaU',
-                        'type' => 'date',
-                        'name' => 'fecha_hasta',
-                        'class' => 'form-control',
-                        'value' => set_value('fecha_hasta'));
-
-                    echo form_input($data) . '</div>';
-
-                    $data = array(
-                        'id' => 'btnUsuariosPorFecha',
-                        'class' => 'btn btn-default',
-                        'value' => 'Generar reporte'
-                    );
-
-                    echo form_submit($data, 'Generar reporte');
-
-                    echo form_close();
-
-                    */
-                    ?>
-
                 </div>
                 <div id="barchart_users_date" style="width: 900px; height: 500px;"></div>
             </div>
@@ -202,47 +158,6 @@
                     <br>
                     <br>
                     <br>
-
-                    <?php
-                    /*if($error)
-                    {
-                        echo "<div class=\"alert alert-danger\"><strong> Error! </strong>".$error."</div>";
-                    }
-
-                    echo form_open('reports');
-
-                    echo '<div class="form-group">' . form_label('Fecha desde: ') . form_error('fecha_nacimiento', '<div class="error" style="color:red; float: right;">', '</div>');
-
-                    $data = array(
-                        'id' => 'txtFechaDesde',
-                        'type' => 'date',
-                        'name' => 'fecha_desde',
-                        'class' => 'form-control',
-                        'value' => set_value('fecha_desde'));
-
-                    echo form_input($data) . '</div>';
-
-                    echo '<div class="form-group">' . form_label('Fecha hasta: ') . form_error('fecha_nacimiento', '<div class="error" style="color:red; float: right;">', '</div>');
-
-                    $data = array(
-                        'id' => 'txtFechaHasta',
-                        'type' => 'date',
-                        'name' => 'fecha_hasta',
-                        'class' => 'form-control',
-                        'value' => set_value('fecha_hasta'));
-
-                    echo form_input($data) . '</div>';
-
-                    $data = array(
-                        'id' => 'btnUsuariosPorFecha',
-                        'class' => 'btn btn-default',
-                        'value' => 'Generar reporte'
-                    );
-
-                    echo form_submit($data, 'Generar reporte');
-
-                    echo form_close();*/
-                    ?>
 
                 </div>
 

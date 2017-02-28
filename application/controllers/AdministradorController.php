@@ -192,11 +192,9 @@ class AdministradorController extends CI_Controller
 
         $array_usuarios_fecha[0] = array('Fecha','Usuarios');
         $data['array_usuarios_fecha'] = $array_usuarios_fecha;
-        $data['error'] = null;
 
         $array_proyectos_fecha[0] = array('Fecha','Proyectos');
         $data['array_proyectos_fecha'] = $array_proyectos_fecha;
-//        $data['error'] = null;
 
         $this->load->view('commons/header', $data);
         $this->load->view('administrador/admin_reportes_custom',$data);

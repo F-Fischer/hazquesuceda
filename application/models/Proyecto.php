@@ -212,6 +212,22 @@ class Proyecto extends CI_Model
         }
     }
 
+    function getProyectosPorFecha ($fecha_desde, $fecha_hasta)
+    {
+        $this->db->select('ID_proyecto, fecha_alta');
+        $this->db->where('fecha_alta >=', $fecha_desde);
+        $this->db->where('fecha_alta <=', $fecha_hasta);
+        $this->db->order_by('fecha_alta', 'asc');
+        $query = $this->db->get('usuario');
+
+        if($query->num_rows() > 0)
+        {
+            return $query->result();
+        }
+
+        return false;
+    }
+
     function getInfoBasicaProyectoByNombre ($nombre, $idUsuario)
     {
         $this->db->select('ID_proyecto, nombre, descripcion');
