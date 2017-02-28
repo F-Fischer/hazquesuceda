@@ -127,9 +127,84 @@
             <div class="panel-body">
                 <div>
 
-                    <?php
+                    <label>Fecha desde: </label>
+                    <input type="date" id="fecha_desde_u">
+                    <label>Fecha hasta: </label>
+                    <input type="date" id="fecha_hasta_u">
+                    <input type="button" id="reporte_usuarios" value="Generar reporte" class="btn btn-default">
+                    <br>
+                    <br>
+                    <br>
 
+                    <?php
+                    /*
                     if($error)
+                    {
+                        echo "<div class=\"alert alert-danger\"><strong> Error! </strong>".$error."</div>";
+                    }
+
+                    echo form_open('reports');
+
+                    echo '<div class="form-group">' . form_label('Fecha desde: ') . form_error('fecha_nacimiento', '<div class="error" style="color:red; float: right;">', '</div>');
+
+                    $data = array(
+                        'id' => 'txtFechaDesdeU',
+                        'type' => 'date',
+                        'name' => 'fecha_desde',
+                        'class' => 'form-control',
+                        'value' => set_value('fecha_desde'));
+
+                    echo form_input($data) . '</div>';
+
+                    echo '<div class="form-group">' . form_label('Fecha hasta: ') . form_error('fecha_nacimiento', '<div class="error" style="color:red; float: right;">', '</div>');
+
+                    $data = array(
+                        'id' => 'txtFechaHastaU',
+                        'type' => 'date',
+                        'name' => 'fecha_hasta',
+                        'class' => 'form-control',
+                        'value' => set_value('fecha_hasta'));
+
+                    echo form_input($data) . '</div>';
+
+                    $data = array(
+                        'id' => 'btnUsuariosPorFecha',
+                        'class' => 'btn btn-default',
+                        'value' => 'Generar reporte'
+                    );
+
+                    echo form_submit($data, 'Generar reporte');
+
+                    echo form_close();
+
+                    */
+                    ?>
+
+                </div>
+                <div id="barchart_users_date" style="width: 900px; height: 500px;"></div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-lg-offset-3 col-md-9">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3 class="panel-title">Proyectos segun fecha:</h3>
+            </div>
+            <div class="panel-body">
+                <div>
+
+                    <label>Fecha desde: </label>
+                    <input type="date" id="fecha_desde_p">
+                    <label>Fecha hasta: </label>
+                    <input type="date" id="fecha_hasta_p">
+                    <input type="button" id="reporte_proyectos" value="Generar reporte" class="btn btn-default">
+                    <br>
+                    <br>
+                    <br>
+
+                    <?php
+                    /*if($error)
                     {
                         echo "<div class=\"alert alert-danger\"><strong> Error! </strong>".$error."</div>";
                     }
@@ -166,12 +241,12 @@
 
                     echo form_submit($data, 'Generar reporte');
 
-                    echo form_close();
-
+                    echo form_close();*/
                     ?>
 
                 </div>
-                <div id="barchart_users_date" style="width: 900px; height: 500px;"></div>
+
+                <div id="barchart_projects_date" style="width: 900px; height: 500px;"></div>
             </div>
         </div>
     </div>
@@ -184,7 +259,7 @@
 <script type="text/javascript">
     google.charts.load('current', {'packages':['bar']});
     google.charts.setOnLoadCallback(drawChartUsuariosPorFecha);
-
+    google.charts.setOnLoadCallback(drawChartProyectosPorFecha);
 
     function drawChartUsuariosPorFecha() {
         var array = <?php echo json_encode($array_usuarios_fecha); ?>;
@@ -198,6 +273,22 @@
         };
 
         var chart = new google.charts.Bar(document.getElementById('barchart_users_date'));
+
+        chart.draw(data, options);
+    }
+
+    function drawChartProyectosPorFecha() {
+        var array = <?php echo json_encode($array_proyectos_fecha); ?>;
+        var data = google.visualization.arrayToDataTable(array);
+
+        var options = {
+            chart: {
+                title: 'Popularidad de proyectos en la plataforma',
+                subtitle: 'Medida según cantidad de visitas',
+            }
+        };
+
+        var chart = new google.charts.Bar(document.getElementById('barchart_projects_date'));
 
         chart.draw(data, options);
     }

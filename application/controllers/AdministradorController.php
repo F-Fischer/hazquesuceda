@@ -186,73 +186,86 @@ class AdministradorController extends CI_Controller
         $this->load->view('commons/footer');
     }
 
-    public function usuariosPorFecha()
+    public function reportesCustom()
     {
         $data['username'] = $this->session->userdata['logged_in']['username'];
 
-        $fechaDesde = $this->input->post('fecha_desde');
-        $fechaHasta = $this->input->post('fecha_hasta');
+        $array_usuarios_fecha[0] = array('Fecha','Usuarios');
+        $data['array_usuarios_fecha'] = $array_usuarios_fecha;
+        $data['error'] = null;
 
-        if($fechaDesde == null || $fechaHasta == null)
+        $array_proyectos_fecha[0] = array('Fecha','Proyectos');
+        $data['array_proyectos_fecha'] = $array_proyectos_fecha;
+//        $data['error'] = null;
+
+        $this->load->view('commons/header', $data);
+        $this->load->view('administrador/admin_reportes_custom',$data);
+        $this->load->view('commons/footer');
+    }
+
+    public function usuariosPorFecha ()
+    {
+        $fechaDesde = $this->input->post('fecha_desde_u');
+        $fechaHasta = $this->input->post('fecha_hasta_u');
+
+        $array_usuarios_fecha[0] = array('Fecha','Usuarios');
+        $meses = array();
+        $cantidades = array();
+
+        $u = new Usuario();
+        $usuarios = $u->getUsuariosPorFecha($fechaDesde, $fechaHasta);
+
+        foreach ($usuarios as $usuario)
         {
-            $data['username'] = $this->session->userdata['logged_in']['username'];
+            $mes = date("m",strtotime($usuario->fecha_alta));
+            $ano = date("y",strtotime($usuario->fecha_alta));
+            $fecha = $mes.'-'.$ano;
 
-            $array_usuarios_fecha[0] = array('Fecha','Usuarios');
-            $data['array_usuarios_fecha'] = $array_usuarios_fecha;
-
-            $data['error'] = 'Debe seleccionar fecha.';
-
-            $this->load->view('commons/header', $data);
-            $this->load->view('administrador/admin_reportes_custom',$data);
-            $this->load->view('commons/footer');
-        }
-        else
-        {
-            $array_usuarios_fecha[0] = array('Fecha','Usuarios');
-            $meses = array();
-            $cantidades = array();
-
-            $u = new Usuario();
-            $usuarios = $u->getUsuariosPorFecha($fechaDesde, $fechaHasta);
-
-            foreach ($usuarios as $usuario)
+            if (in_array($fecha, $meses))
             {
-                $mes = date("m",strtotime($usuario->fecha_alta));
-                $ano = date("y",strtotime($usuario->fecha_alta));
-                $fecha = $mes.'-'.$ano;
-                echo ' - fecha: '.$fecha;
-
-                if (in_array($fecha, $meses))
+                for($i = 0; $i < count($meses); $i ++)
                 {
-                    for($i = 0; $i < count($meses); $i ++)
+                    if($fecha == $meses[$i])
                     {
-                        if($fecha == $meses[$i])
-                        {
-                            $cantidades[$i] = $cantidades[$i] + 1;
-                        }
+                        $cantidades[$i] = $cantidades[$i] + 1;
                     }
                 }
-                else
-                {
-                    array_push($meses, $fecha);
-                    array_push($cantidades, 1);
-                }
             }
-
-            $i = 0;
-            foreach($meses as $mes)
+            else
             {
-                array_push($array_usuarios_fecha, array($mes, $cantidades[$i]));
-                $i++;
+                array_push($meses, $fecha);
+                array_push($cantidades, 1);
             }
-
-            $data['array_usuarios_fecha'] = $array_usuarios_fecha;
-            $data['error'] = null;
-
-            $this->load->view('commons/header', $data);
-            $this->load->view('administrador/admin_reportes_custom',$data);
-            $this->load->view('commons/footer');
         }
+
+        $i = 0;
+        foreach($meses as $mes)
+        {
+            array_push($array_usuarios_fecha, array($mes, $cantidades[$i]));
+            $i++;
+        }
+
+        $data = array(
+            'respuesta' => json_encode($array_usuarios_fecha)
+        );
+
+        echo json_encode($data);
+    }
+
+    public function proyectosPorFecha ()
+    {
+        $fechaDesde = $this->input->post('fecha_desde_p');
+        $fechaHasta = $this->input->post('fecha_hasta_p');
+
+        $array_proyectos_fecha[0] = array('Fecha','Usuarios');
+        $array_proyectos_fecha[1] = array($fechaDesde, 5);
+        $array_proyectos_fecha[2] = array($fechaHasta, 9);
+
+        $data = array(
+            'respuesta' => json_encode($array_proyectos_fecha)
+        );
+
+        echo json_encode($data);
     }
 
     public function newsletterEmprendedor()
