@@ -220,7 +220,7 @@
     <div class="col-lg-offset-3 col-md-9">
         <div class="panel panel-default">
             <div class="panel-heading">
-                <h3 class="panel-title">Popularidad de proyectos:</h3>
+                <h3 class="panel-title">Popularidad de rubros:</h3>
             </div>
             <div class="panel-body">
                 <div id="barchart_values" style="width: 900px; height: 500px;"></div>
@@ -265,19 +265,10 @@
     }
 
     function drawChartPopularidad() {
-        var data = google.visualization.arrayToDataTable([
-            ["Rubro", "Visitas", { role: "style" } ],
-            ["Proyecto genérico", 8, "color: #cc00ff"],
-            ["Franquicia", 10, "color: #ff3399"],
-            ["Social", 19, "color: #ff0000"],
-            ["Industrial", 21, "color: #ff9933"],
-            ["Económico", 21, "color: #ffff66"],
-            ["Servicios", 28, "color: #ccff66"],
-            ["Infraestructura", 30, "color: #33ccff"],
-            ["Manufacturero", 2, "color: #0000ff"],
-            ["Agropecuario", 79, "color: #cc6699"],
-            ["Comercial", 5, "color: #800000"]
-        ]);
+        var array1 = ["Rubro", "Inversores interesados", { role: "style" } ];
+        var array2 = <?php echo json_encode($array_popularidad); ?>;
+        array2[0] = array1;
+        var data = google.visualization.arrayToDataTable(array2);
 
         var view = new google.visualization.DataView(data);
         view.setColumns([0, 1,
@@ -288,9 +279,7 @@
             2]);
 
         var options = {
-            title: "Popularidad medida según visitas de cada proyecto en la plataforma",
-            width: 600,
-            height: 400,
+            title: "Popularidad medida según rubros preferidos por inversores",
             bar: {groupWidth: "95%"},
             legend: { position: "none" },
         };

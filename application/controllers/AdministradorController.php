@@ -15,6 +15,7 @@ class AdministradorController extends CI_Controller
         $this->load->model('Emprendedor');
         $this->load->model('Usuario');
         $this->load->model('Rubro');
+        $this->load->model('RubroInteres');
         $this->load->model('Rol');
         $this->load->library('session');
         $this->load->library('form_validation');
@@ -181,6 +182,34 @@ class AdministradorController extends CI_Controller
 
         $data['array_usuarios'] = $array_usuarios;
 
+        // POPULARIDAD DE RUBROS
+        $r = new Rubro();
+        $rubros = $r->getRubros();
+        $array_popularidad[0] = array();
+
+        $i = 1;
+        foreach ($rubros as $rubro)
+        {
+            $ri = new RubroInteres();
+            $interes = $ri->getRubroInteres($rubro->ID_rubro);
+
+            if($interes)
+            {
+                $cant = count($interes);
+            }
+            else
+            {
+                $cant = 0;
+            }
+
+            $array_popularidad[$i] = array(($rubro->nombre), (int) $cant, "color: #33ccff");
+            $i++;
+        }
+
+        $data['array_popularidad'] = $array_popularidad;
+
+//        var_dump($array_popularidad);
+//
         $this->load->view('commons/header', $data);
         $this->load->view('administrador/admin_graficas',$data);
         $this->load->view('commons/footer');
