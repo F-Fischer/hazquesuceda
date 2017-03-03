@@ -17,6 +17,7 @@ class AdministradorController extends CI_Controller
         $this->load->model('Rubro');
         $this->load->model('RubroInteres');
         $this->load->model('Rol');
+        $this->load->model('Provincia');
         $this->load->library('session');
         $this->load->library('form_validation');
     }
@@ -208,8 +209,32 @@ class AdministradorController extends CI_Controller
 
         $data['array_popularidad'] = $array_popularidad;
 
-//        var_dump($array_popularidad);
-//
+        // PROVINCIAS
+        $pro = new Provincia();
+        $provincias = $pro->getProvincias();
+
+        $array_provincias[0] = array('Provincia', 'Usuarios registrados');
+
+        $i = 1;
+        foreach ($provincias as $provincia)
+        {
+            $usuarios = $u->getUsuariosPorProvincia($provincia->ID_provincia);
+
+            if($usuarios)
+            {
+                $cant = count($usuarios);
+            }
+            else
+            {
+                $cant = 0;
+            }
+
+            $array_provincias[$i] = array(($provincia->nombre), (int) $cant);
+            $i++;
+        }
+
+        $data['array_provincias'] = $array_provincias;
+
         $this->load->view('commons/header', $data);
         $this->load->view('administrador/admin_graficas',$data);
         $this->load->view('commons/footer');

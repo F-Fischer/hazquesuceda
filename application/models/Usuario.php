@@ -225,6 +225,20 @@ class Usuario extends CI_Model
         return false;
     }
 
+    public function getUsuariosPorProvincia ($id_provincia)
+    {
+        $this->db->select('ID_usuario, provincia as ID_provincia');
+        $this->db->where('provincia', $id_provincia);
+        $query = $this->db->get('usuario');
+
+        if($query->num_rows() > 0)
+        {
+            return $query->result();
+        }
+
+        return false;
+    }
+
     public function encrypt_decrypt($action, $string)
     {
         $output = false;

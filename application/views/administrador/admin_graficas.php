@@ -228,15 +228,27 @@
         </div>
     </div>
 
+    <div class="col-lg-offset-3 col-md-9">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3 class="panel-title">Ubicación de usuarios por provincias:</h3>
+            </div>
+            <div class="panel-body">
+                <div id="regions_div" style="width: 900px; height: 500px;"></div>
+            </div>
+        </div>
+    </div>
+
 </div>
 
 <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
 
 <script type="text/javascript">
-    google.charts.load('current', {'packages':['corechart']});
+    google.charts.load('current', {'packages':['corechart', 'geochart']});
     google.charts.setOnLoadCallback(drawChartProyectos);
     google.charts.setOnLoadCallback(drawChartUsuarios);
     google.charts.setOnLoadCallback(drawChartPopularidad);
+    google.charts.setOnLoadCallback(drawRegionsMap);
 
     function drawChartProyectos() {
         var array = <?php echo json_encode($array_proyectos); ?>;
@@ -285,6 +297,24 @@
         };
         var chart = new google.visualization.BarChart(document.getElementById("barchart_values"));
         chart.draw(view, options);
+    }
+
+    function drawRegionsMap() {
+        var array = <?php echo json_encode($array_provincias); ?>;
+        var data = google.visualization.arrayToDataTable(array);
+
+        var options = {
+            region: 'AR',
+            resolution: 'provinces',
+            defaultColor: '#ffffff',
+            keepAspectRatio: true,
+            tooltip:{trigger:'selection'},
+            width:900,height:500
+        };
+
+        var chart = new google.visualization.GeoChart(document.getElementById('regions_div'));
+
+        chart.draw(data, options);
     }
 
 </script>
