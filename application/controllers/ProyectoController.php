@@ -270,6 +270,13 @@ class ProyectoController extends CI_Controller
             $error->Error_bd();
         }
 
+        $CI = &get_instance();
+        $CI->config->load("mercadopago", TRUE);
+        $config = $CI->config->item('mercadopago');
+
+        $this->load->library('Mercadopago', $config);
+        $accessToken = $this->mercadopago->get_access_token();
+
         $proyecto = new Proyecto();
         $proyecto->getProyectoById($id);
         $resultado = $proyecto->getProyectoById($id);
@@ -301,11 +308,27 @@ class ProyectoController extends CI_Controller
             $pdf = $proyecto->getPDFbyIdProyecto($id);
             $imgs = $proyecto->getImgsByIdProyecto($id);
 
+            $preference_data = array(
+                "items" => array(
+                    array(
+                        "title" => $resultado->nombre,
+                        "id_proyecto" => $resultado->ID_proyecto,
+                        "currency_id" => "ARS",
+                        "quantity" => 1,
+                        "unit_price" => 1
+                    )
+                )
+            );
+
+            $preference = $this->mercadopago->create_preference($preference_data);
+
             $data['proyecto'] = $resultado;
             $data['dias_restantes'] = $diasRestantes;
             $data['pdf'] = $pdf;
             $data['cant_img'] = count($imgs);
             $data['imgs'] = $imgs;
+            $data['mp_preference'] = $preference;
+            $data['token'] = $accessToken;
             $this->load->view('commons/header', $data);
             $this->load->view('proyecto', $data);
             $this->load->view('commons/footer');

@@ -40,10 +40,8 @@
         <br>
 
         <div>
-            <a mp-mode="dftl" href="https://www.mercadopago.com/mla/checkout/start?pref_id=99395965-937bd220-05e3-47e2-bf16-f041764a067f" name="MP-payButton" class="btn btn-primary">Quiero invertir en este proyecto</a>
-            <script type="text/javascript">
-                (function(){function $MPC_load(){window.$MPC_loaded !== true && (function(){var s = document.createElement("script");s.type = "text/javascript";s.async = true;s.src = document.location.protocol+"//secure.mlstatic.com/mptools/render.js";var x = document.getElementsByTagName('script')[0];x.parentNode.insertBefore(s, x);window.$MPC_loaded = true;})();}window.$MPC_loaded !== true ? (window.attachEvent ?window.attachEvent('onload', $MPC_load) : window.addEventListener('load', $MPC_load, false)) : null;})();
-            </script>
+            <a href="<?php echo $mp_preference["response"]["sandbox_init_point"]; ?>" name="MP-Checkout" class="btn btn-primary">Quiero invertir en este proyecto</a>
+            <script type="text/javascript" src="//resources.mlstatic.com/mptools/render.js"></script>
         </div>
     </div>
 
