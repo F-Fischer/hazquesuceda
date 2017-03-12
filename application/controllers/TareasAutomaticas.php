@@ -139,12 +139,22 @@ class TareasAutomaticas extends CI_Controller
             arsort($proyectos);
             
             // le mando los 5 proyectos mas populares
-            $proy_div = '<div class="row"><div class="col-sm-6 col-md-4"><div class="thumbnail">';
+            $proy_div = '';
 
             $cont = 0;
             foreach ($proyectos as $p)
             {
-                $proy_div = $proy_div.'<img src="'.base_url().'/uploads/'.$p->previs.'" alt="Responsive image" class="img-circle img-responsive" height="200" width="200"><div class="caption"><h3>'.$p->nombre.'</h3><p>'.substr($p->descripcion, 0, 100).'</p><p><a href="'.base_url().'descripcion/'.$p->ID_proyecto.'" class="btn btn-primary" role="button">Quiero ver más</a></p></div>';
+                $proy_div = $proy_div.'<tr>
+						<td align="center" valign="center" width="50%" >
+							<img src="'.base_url().'/uploads/'.$p->previs.'" alt="Responsive image" height="200" width="200">
+						</td>
+						<td align="center" valign="center" width="50%" >
+							<h3 style="font-family: \'Courier New\', Courier, monospace;">'.$p->nombre.'</h3>
+							<p style="font-family: \'Courier New\', Courier, monospace;">'.substr($p->descripcion, 0, 200).'</p>
+							<a href="'.base_url().'descripcion/'.$p->ID_proyecto.'" role="button" style="background-color: #4CAF50;border: none;color: white;padding: 15px 32px;text-align: center;text-decoration: none;display: inline-block;font-size: 16px;">conocer mas</a>
+						</td>
+					</tr>';
+
                 $cont++;
 
                 if($cont >= 5)
@@ -153,7 +163,6 @@ class TareasAutomaticas extends CI_Controller
                 }
             }
 
-            $proy_div = $proy_div.'</div></div></div>';
             $this->send_newsletter($u->mail, $proy_div);
         }
 
@@ -164,24 +173,66 @@ class TareasAutomaticas extends CI_Controller
         $to = $email;
         $subject = "newsletter";
 
-        $message = "
-                    <html>
-                        <head>
-                            <title>HTML email</title>
-                        </head>
-                        <body>
-                            <div class=\"jumbotron\">
-                              <h1>Tu newsletter de Haz que suceda!</h1>
-                              <p>
-                                  Te traemos los proyectos más populares de nuestra plataforma,
-                                  según los rubros que te interesan.
-                              </p>
-                              <br>
-                              <label>Los proyectos más populares de este mes son...</label>
-                              ". $div_proyectos ."
+        $message = "<html>
+                    <div role=\"document\">
+
+                        <!-- HEADER FUCSIA -->
+                        <div style=\"margin:0; padding:0; width:100%!important\">
+                            <table width=\"100%\" border=\"0\" align=\"center\" cellpadding=\"0\" cellspacing=\"0\" style=\"border-spacing:0\">
+                                <tbody>
+                                    <tr bgcolor=\"#c7207e\">
+                                        <td align=\"center\" valign=\"top\" width=\"50%\" style=\"font-family:'Helvetica Neue',Helvetica,Arial,sans-serif;color:#dfa9ca;font-size:12px;line-height:50px;border-collapse:collapse;\">
+                                            Haz que suceda!
+                                        </td>
+
+                                        <td align=\"center\" valign=\"top\" width=\"50%\" style=\"font-family:'Helvetica Neue',Helvetica,Arial,sans-serif;color:#dfa9ca;font-size:12px;line-height:50px;border-collapse:collapse;\">
+                                            Newsletter
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <!-- HEADER NARANJA -->
+                        <div style=\"margin:0; padding:0; width:100%!important\">
+                            <table width=\"100%\" border=\"0\" align=\"center\" cellpadding=\"0\" cellspacing=\"0\" style=\"border-spacing:0\">
+                                <tbody>
+                                    <tr bgcolor=\"#ea4056\">
+                                        <td width=\"25%\"></td>
+                                        <td align=\"center\" valign=\"top\" width=\"50%\" style=\"font-family: 'Copperplate','Copperplate Gothic Light',sans-serif;color:white;font-size:20px;line-height:100px;border-collapse:collapse;\">
+                                            Te traemos tu newsletter de Haz que suceda!
+                                        </td>
+                                        <td width=\"25%\"></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <!-- CUERPO, LISTADO DE PROYECTOS -->
+                        <div style=\"margin:0; padding:0; width:100%!important\">
+                            <div>
+                                <table width=\"100%\" border=\"0\" align=\"center\" cellpadding=\"0\" cellspacing=\"0\" style=\"border-spacing:0\">
+                                    <tbody>
+                                          ". $div_proyectos ."
+                                    </tbody>
+                                </table>
                             </div>
-                        </body>
-                    </html>
+                        </div>
+
+                        <!-- FOOTER CELESTE -->
+                        <div style=\"margin:0; padding:0; width:100%!important\" >
+                            <table width=\"100%\" border=\"0\" align=\"center\" cellpadding=\"0\" cellspacing=\"0\" style=\"border-spacing:0\">
+                                <tbody>
+                                    <tr bgcolor=\"#4daaa5\">
+                                        <td align=\"center\" valign=\"top\" width=\"50%\" style=\"font-family:'Helvetica Neue',Helvetica,Arial,sans-serif;color:white;font-size:20px;line-height:100px;border-collapse:collapse;\" > ... </td>
+                                        <td align=\"center\" valign=\"top\" width=\"50%\" style=\"font-family:'Helvetica Neue',Helvetica,Arial,sans-serif;color:white;font-size:20px;line-height:100px;border-collapse:collapse;\" > ... </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                    </div>
+                </html>
                     ";
 
         // Always set content-type when sending HTML email

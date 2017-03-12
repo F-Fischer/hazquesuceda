@@ -18,31 +18,71 @@ class AdministradorController extends CI_Controller
         $this->load->model('RubroInteres');
         $this->load->model('Rol');
         $this->load->model('Provincia');
+        $this->load->model('ErrorPropio');
+        $this->load->model('Permisos');
         $this->load->library('session');
         $this->load->library('form_validation');
+    }
+
+    public function validateUrl()
+    {
+        $username = $this->session->userdata['logged_in']['username'];
+        $data['username'] = $username;
+        $url = $this->uri->segment(1);
+
+        $u = new Usuario();
+        $usuario = $u->getRolByUsername($username);
+        $rol = $usuario[0]->ID_rol;
+
+        $p = new Permisos();
+        $permiso = $p->getPermiso($rol, $url);
+
+        if($permiso)
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
     }
 
     public function index()
     {
         $data['username'] = $this->session->userdata['logged_in']['username'];
-        $p = new Proyecto();
-        $data['proyectos'] = $p->getAllProyectosAdmin();
 
-        $this->load->view('commons/header', $data);
-        $this->load->view('administrador/basico_administrador',$data);
-        $this->load->view('commons/footer');
+        if($this->validateUrl())
+        {
+            $p = new Proyecto();
+            $data['proyectos'] = $p->getAllProyectosAdmin();
+
+            $this->load->view('commons/header', $data);
+            $this->load->view('administrador/basico_administrador',$data);
+            $this->load->view('commons/footer');
+        }
+        else
+        {
+            echo 'sin permisos';
+        }
     }
     
     public function users()
     {
         $data['username'] = $this->session->userdata['logged_in']['username'];
-        $u = new Usuario();
-        $data['users'] = $u->getAllUsers();
 
-        $this->load->view('commons/header', $data);
-        $this->load->view('administrador/admin_usuarios',$data);
-        $this->load->view('commons/footer');
+        if($this->validateUrl())
+        {
+            $u = new Usuario();
+            $data['users'] = $u->getAllUsers();
 
+            $this->load->view('commons/header', $data);
+            $this->load->view('administrador/admin_usuarios',$data);
+            $this->load->view('commons/footer');
+        }
+        else
+        {
+            echo 'sin permisos';
+        }
     }
     
     public function aceptarProyecto()
@@ -138,121 +178,137 @@ class AdministradorController extends CI_Controller
     {
         $data['username'] = $this->session->userdata['logged_in']['username'];
 
-        //TOP 5 MAS PAGADOS
-        $p = new Proyecto();
-        $proyectos = $p->getTopCinco('asc');
-        $data['top_asc'] = $proyectos;
-
-        //TOP 5 MENOS PAGADOS
-        $proyectos = $p->getTopCinco('desc');
-        $data['top_desc'] = $proyectos;
-
-        // PROYECTOS
-        $r = new Rubro();
-        $rubros = $r->getRubros();
-        $array_proyectos[0] = array('Rubro','Cantidad');
-
-        $i = 1;
-        foreach ($rubros as $rubro)
+        if($this->validateUrl())
         {
+            $u = new Usuario();
+
+            //TOP 5 MAS PAGADOS
             $p = new Proyecto();
-            $proyectos = $p->getProyectosByRubro($rubro->ID_rubro, 3);
-            $cant = count($proyectos);
+            $proyectos = $p->getTopCinco('asc');
+            $data['top_asc'] = $proyectos;
 
-            $array_proyectos[$i] = array(($rubro->nombre), (int) $cant);
-            $i++;
-        }
+            //TOP 5 MENOS PAGADOS
+            $proyectos = $p->getTopCinco('desc');
+            $data['top_desc'] = $proyectos;
 
-        $data['array_proyectos'] = $array_proyectos;
+            // PROYECTOS
+            $r = new Rubro();
+            $rubros = $r->getRubros();
+            $array_proyectos[0] = array('Rubro','Cantidad');
 
-        // USUARIOS
-        $u = new Usuario();
-        $array_usuarios[0] = array('Tipo','Cantidad');
-        $r = new Rol();
-        $roles = $r->getRoles();
-
-        $i = 1;
-        foreach ($roles as $rol)
-        {
-            $usuarios = $u->getUsuariosPorRol($i);
-            $cant = count($usuarios);
-
-            $array_usuarios[$i] = array(($rol->nombre), (int) $cant);
-            $i++;
-        }
-
-        $data['array_usuarios'] = $array_usuarios;
-
-        // POPULARIDAD DE RUBROS
-        $r = new Rubro();
-        $rubros = $r->getRubros();
-        $array_popularidad[0] = array();
-
-        $i = 1;
-        foreach ($rubros as $rubro)
-        {
-            $ri = new RubroInteres();
-            $interes = $ri->getRubroInteres($rubro->ID_rubro);
-
-            if($interes)
+            $i = 1;
+            foreach ($rubros as $rubro)
             {
-                $cant = count($interes);
-            }
-            else
-            {
-                $cant = 0;
+                $p = new Proyecto();
+                $proyectos = $p->getProyectosByRubro($rubro->ID_rubro, 3);
+                $cant = count($proyectos);
+
+                $array_proyectos[$i] = array(($rubro->nombre), (int) $cant);
+                $i++;
             }
 
-            $array_popularidad[$i] = array(($rubro->nombre), (int) $cant, "color: #33ccff");
-            $i++;
-        }
+            $data['array_proyectos'] = $array_proyectos;
 
-        $data['array_popularidad'] = $array_popularidad;
+            // USUARIOS
+            $u = new Usuario();
+            $array_usuarios[0] = array('Tipo','Cantidad');
+            $r = new Rol();
+            $roles = $r->getRoles();
 
-        // PROVINCIAS
-        $pro = new Provincia();
-        $provincias = $pro->getProvincias();
-
-        $array_provincias[0] = array('Provincia', 'Usuarios registrados');
-
-        $i = 1;
-        foreach ($provincias as $provincia)
-        {
-            $usuarios = $u->getUsuariosPorProvincia($provincia->ID_provincia);
-
-            if($usuarios)
+            $i = 1;
+            foreach ($roles as $rol)
             {
+                $usuarios = $u->getUsuariosPorRol($i);
                 $cant = count($usuarios);
+
+                $array_usuarios[$i] = array(($rol->nombre), (int) $cant);
+                $i++;
             }
-            else
+
+            $data['array_usuarios'] = $array_usuarios;
+
+            // POPULARIDAD DE RUBROS
+            $r = new Rubro();
+            $rubros = $r->getRubros();
+            $array_popularidad[0] = array();
+
+            $i = 1;
+            foreach ($rubros as $rubro)
             {
-                $cant = 0;
+                $ri = new RubroInteres();
+                $interes = $ri->getRubroInteres($rubro->ID_rubro);
+
+                if($interes)
+                {
+                    $cant = count($interes);
+                }
+                else
+                {
+                    $cant = 0;
+                }
+
+                $array_popularidad[$i] = array(($rubro->nombre), (int) $cant, "color: #33ccff");
+                $i++;
             }
 
-            $array_provincias[$i] = array(($provincia->nombre), (int) $cant);
-            $i++;
+            $data['array_popularidad'] = $array_popularidad;
+
+            // PROVINCIAS
+            $pro = new Provincia();
+            $provincias = $pro->getProvincias();
+
+            $array_provincias[0] = array('Provincia', 'Usuarios registrados');
+
+            $i = 1;
+            foreach ($provincias as $provincia)
+            {
+                $usuarios = $u->getUsuariosPorProvincia($provincia->ID_provincia);
+
+                if($usuarios)
+                {
+                    $cant = count($usuarios);
+                }
+                else
+                {
+                    $cant = 0;
+                }
+
+                $array_provincias[$i] = array(($provincia->nombre), (int) $cant);
+                $i++;
+            }
+
+            $data['array_provincias'] = $array_provincias;
+
+            $this->load->view('commons/header', $data);
+            $this->load->view('administrador/admin_graficas',$data);
+            $this->load->view('commons/footer');
         }
-
-        $data['array_provincias'] = $array_provincias;
-
-        $this->load->view('commons/header', $data);
-        $this->load->view('administrador/admin_graficas',$data);
-        $this->load->view('commons/footer');
+        else
+        {
+            echo 'sin permisos';
+        }
     }
 
     public function reportesCustom()
     {
         $data['username'] = $this->session->userdata['logged_in']['username'];
 
-        $array_usuarios_fecha[0] = array('Fecha','Usuarios');
-        $data['array_usuarios_fecha'] = $array_usuarios_fecha;
+        if($this->validateUrl())
+        {
+            $array_usuarios_fecha[0] = array('Fecha','Usuarios');
+            $data['array_usuarios_fecha'] = $array_usuarios_fecha;
 
-        $array_proyectos_fecha[0] = array('Fecha','Proyectos');
-        $data['array_proyectos_fecha'] = $array_proyectos_fecha;
+            $array_proyectos_fecha[0] = array('Fecha','Proyectos');
+            $data['array_proyectos_fecha'] = $array_proyectos_fecha;
 
-        $this->load->view('commons/header', $data);
-        $this->load->view('administrador/admin_reportes_custom',$data);
-        $this->load->view('commons/footer');
+            $this->load->view('commons/header', $data);
+            $this->load->view('administrador/admin_reportes_custom',$data);
+            $this->load->view('commons/footer');
+        }
+        else
+        {
+            echo 'sin permisos';
+        }
     }
 
     public function usuariosPorFecha ()

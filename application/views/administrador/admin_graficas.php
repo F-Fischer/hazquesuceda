@@ -241,6 +241,17 @@
 
 </div>
 
+<script type="text/javascript">
+
+    var username = <?php if($username) { echo 1; } else { echo 0; } ?>;
+
+    if(username == 0)
+    {
+        window.location.href = "<?php echo base_url(); ?>";
+    }
+
+</script>
+
 <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
 
 <script type="text/javascript">
