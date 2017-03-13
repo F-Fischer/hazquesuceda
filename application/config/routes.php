@@ -51,6 +51,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 $route['default_controller'] = 'login';
 $route['welcome'] = 'login';
+$route['login/(:any)'] = 'login';
 $route['BD_error'] = 'errorpropio/error_bd';
 $route['404_override'] = 'error';
 $route['translate_uri_dashes'] = FALSE;

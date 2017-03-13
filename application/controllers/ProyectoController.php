@@ -285,86 +285,95 @@ class ProyectoController extends CI_Controller
 
     public function descripcionProyecto()
     {
-        $data['username'] = $this->session->userdata['logged_in']['username'];
-
-        if($this->validateUrl())
+        if(!isset($_SESSION['logged_in']))
         {
-            $id = $this->uri->segment(2);
-
-            if (!$id || !is_numeric($id))
-            {
-                $error = new ErrorPropio();
-                $error->Error_bd();
-            }
-
-            $CI = &get_instance();
-            $CI->config->load("mercadopago", TRUE);
-            $config = $CI->config->item('mercadopago');
-
-            $this->load->library('Mercadopago', $config);
-            $accessToken = $this->mercadopago->get_access_token();
-
-            $proyecto = new Proyecto();
-            $proyecto->getProyectoById($id);
-            $resultado = $proyecto->getProyectoById($id);
-
-            if (!$resultado)
-            {
-                $error = new ErrorPropio();
-                $error->Error_bd();
-            }
-            else
-            {
-                //sumo una visita! :)
-                $nuevasVisitas = intval($resultado->cant_visitas) + 1;
-                $proyecto->sumarVisitas($id, $nuevasVisitas);
-
-                $dt1 = $resultado->fecha_baja;
-                $dt1 = date('d', strtotime($dt1));
-                $dt2 = date('d');
-
-                if($dt1>$dt2)
-                {
-                    $diasRestantes = $dt1 - $dt2;
-                }
-                else
-                {
-                    $diasRestantes = 30 - ($dt2 - $dt1);
-                }
-
-                $pdf = $proyecto->getPDFbyIdProyecto($id);
-                $imgs = $proyecto->getImgsByIdProyecto($id);
-
-                $preference_data = array(
-                    "items" => array(
-                        array(
-                            "title" => $resultado->nombre,
-                            "id_proyecto" => $resultado->ID_proyecto,
-                            "currency_id" => "ARS",
-                            "quantity" => 1,
-                            "unit_price" => 1
-                        )
-                    )
-                );
-
-                $preference = $this->mercadopago->create_preference($preference_data);
-
-                $data['proyecto'] = $resultado;
-                $data['dias_restantes'] = $diasRestantes;
-                $data['pdf'] = $pdf;
-                $data['cant_img'] = count($imgs);
-                $data['imgs'] = $imgs;
-                $data['mp_preference'] = $preference;
-                $data['token'] = $accessToken;
-                $this->load->view('commons/header', $data);
-                $this->load->view('proyecto', $data);
-                $this->load->view('commons/footer');
-            }
+            $this->load->view('login');
         }
         else
         {
-            echo 'sin permisos';
+            $data['username'] = $this->session->userdata['logged_in']['username'];
+
+            if($this->validateUrl())
+            {
+                $id = $this->uri->segment(2);
+
+                if (!$id || !is_numeric($id))
+                {
+                    $error = new ErrorPropio();
+                    $error->Error_bd();
+                }
+
+                $CI = &get_instance();
+                $CI->config->load("mercadopago", TRUE);
+                $config = $CI->config->item('mercadopago');
+
+                $this->load->library('Mercadopago', $config);
+                $accessToken = $this->mercadopago->get_access_token();
+
+                $proyecto = new Proyecto();
+                $proyecto->getProyectoById($id);
+                $resultado = $proyecto->getProyectoById($id);
+
+                if (!$resultado)
+                {
+                    $error = new ErrorPropio();
+                    $error->Error_bd();
+                }
+                else
+                {
+                    //sumo una visita! :)
+                    $nuevasVisitas = intval($resultado->cant_visitas) + 1;
+                    $proyecto->sumarVisitas($id, $nuevasVisitas);
+
+                    $dt1 = $resultado->fecha_baja;
+                    $dt1 = date('d', strtotime($dt1));
+                    $dt2 = date('d');
+
+                    if($dt1>$dt2)
+                    {
+                        $diasRestantes = $dt1 - $dt2;
+                    }
+                    else
+                    {
+                        $diasRestantes = 30 - ($dt2 - $dt1);
+                    }
+
+                    $pdf = $proyecto->getPDFbyIdProyecto($id);
+                    $imgs = $proyecto->getImgsByIdProyecto($id);
+
+                    $preference_data = array(
+                        "items" => array(
+                            array(
+                                "title" => $resultado->nombre,
+                                "id_proyecto" => $resultado->ID_proyecto,
+                                "currency_id" => "ARS",
+                                "quantity" => 1,
+                                "unit_price" => 1
+                            )
+                        )
+                    );
+
+                    $preference = $this->mercadopago->create_preference($preference_data);
+
+                    $data['proyecto'] = $resultado;
+                    $data['dias_restantes'] = $diasRestantes;
+                    $data['pdf'] = $pdf;
+                    $data['cant_img'] = count($imgs);
+                    $data['imgs'] = $imgs;
+                    $data['mp_preference'] = $preference;
+                    $data['token'] = $accessToken;
+                    $this->load->view('commons/header', $data);
+                    $this->load->view('proyecto', $data);
+                    $this->load->view('commons/footer');
+                }
+            }
+            else
+            {
+                echo 'sin permisos';
+            }
+
         }
+
     }
 
     public function descripcionProyectoEmprendedor()
