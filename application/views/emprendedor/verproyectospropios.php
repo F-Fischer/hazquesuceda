@@ -56,6 +56,7 @@
 
                         <?php
 
+                        /*var_dump($proyectos);*/
                         foreach($proyectos as $p)
                         {
                             echo '<tr>
@@ -64,13 +65,28 @@
                                  <td>'.$p->estado.'</td>
                                  <td>'.$p->cant_visitas.'</td>
                                  <td>'.$p->cant_veces_pago.'</td>
-                                 <td>
-                                     <button type="button" title="Modificar" class="btn btn-default modificar" id="btnModificar'.$p->ID_proyecto.'" value="'.$p->ID_proyecto.'"> <span class="glyphicon glyphicon-pencil"></span></button>
+                                 <td>';
+
+                                switch ($p->estado)
+                                {
+                                    case "activo":
+                                     echo '<button type="button" title="Modificar" class="btn btn-default modificar" id="btnModificar'.$p->ID_proyecto.'" value="'.$p->ID_proyecto.'"> <span class="glyphicon glyphicon-pencil"></span></button>
                                      <button type="button" title="Clausurar" class="btn btn-default clausurar" id="btnClausurar'.$p->ID_proyecto.'" value="'.$p->ID_proyecto.'"> <span class="glyphicon glyphicon-remove"></span></button>
                                      <button type="button" title="Renovar" class="btn btn-default renovar" id="btnRenovar'.$p->ID_proyecto.'" value="'.$p->ID_proyecto.'"> <span class="glyphicon glyphicon-repeat"></span></button>
-                                     <button type="button" title="Finalizar" class="btn btn-default finalizar" id="btnFinalizar'.$p->ID_proyecto.'" value="'.$p->ID_proyecto.'"> <span class="glyphicon glyphicon-ok"></span></button>
-                                 </td>
-                             </tr>';
+                                     <button type="button" title="Finalizar" class="btn btn-default finalizar" id="btnFinalizar'.$p->ID_proyecto.'" value="'.$p->ID_proyecto.'"> <span class="glyphicon glyphicon-ok"></span></button>';
+                                        break;
+                                    case "finalizado":
+                                        echo "No hay acciones disponibles";
+                                        break;
+                                    case "clausurado":
+                                        echo '<button type="button" title="Renovar" class="btn btn-default renovar" id="btnRenovar'.$p->ID_proyecto.'" value="'.$p->ID_proyecto.'"> <span class="glyphicon glyphicon-repeat"></span></button>';
+                                        break;
+                                    case "solicitado":
+                                        break;
+
+                                }
+                            echo '</td>
+                            </tr>';
 
                         }
 
