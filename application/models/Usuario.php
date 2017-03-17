@@ -112,6 +112,20 @@ class Usuario extends CI_Model
         return false;
     }
 
+    public function getRolByUsername ($username)
+    {
+        $this->db->select('ID_rol');
+        $this->db->where('user_name', $username);
+        $query = $this->db->get('usuario');
+
+        if($query->num_rows() > 0)
+        {
+            return $query->result();
+        }
+
+        return false;
+    }
+
     public function devolverIdRol($variable)
     {
         $consulta = $this->db->get_where('usuario',array('user_name'=>$variable));

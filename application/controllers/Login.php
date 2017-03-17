@@ -14,6 +14,7 @@ class Login extends CI_Controller
     {
         parent::__construct();
         $this->load->model('Usuario', '', TRUE);
+        $this->load->model('Permisos');
         $this->load->library('session');
     }
 
@@ -92,6 +93,29 @@ class Login extends CI_Controller
         else
         {
             $this->form_validation->set_message('check_database', 'Usuario o contraseña incorrecto.');
+            return false;
+        }
+    }
+
+    public function validateUrl()
+    {
+        $username = $this->session->userdata['logged_in']['username'];
+        $data['username'] = $username;
+        $url = $this->uri->segment(1);
+
+        $u = new Usuario();
+        $usuario = $u->getRolByUsername($username);
+        $rol = $usuario[0]->ID_rol;
+
+        $p = new Permisos();
+        $permiso = $p->getPermiso($rol, $url);
+
+        if($permiso)
+        {
+            return true;
+        }
+        else
+        {
             return false;
         }
     }
