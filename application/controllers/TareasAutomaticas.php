@@ -276,12 +276,13 @@ class TareasAutomaticas extends CI_Controller
             $inversor = new Usuario();
             $id_inversor = $inversor->getIdByUsername($data['username']);
             $idProyecto = $this->uri->segment(2);
+            $idMP = $this->uri->segment(3);
 
             $date = new DateTime();
             $hoy = $date->format('Y-m-d');
 
             $pago = new Pago();
-            $pago->generarPago($id_inversor, $hoy, $idProyecto);
+            $pago->generarPago($id_inversor, $hoy, $idProyecto, $idMP);
 
             if ($pago->registrarPago())
             {

@@ -120,4 +120,4 @@ $route['clausuraautomatica'] = 'TareasAutomaticas/clausurarProyectosDelDia';
 $route['recordatorio'] = 'TareasAutomaticas/recordatorioDeClausura';
 $route['newsletter'] = 'TareasAutomaticas/newsletterInversor';
 $route['borrarproyectos'] = 'TareasAutomaticas/borrarProyectos';
-$route['pagar/(:num)'] = 'TareasAutomaticas/informacionInversor';
+$route['pagar/(:num)/(:num)'] = 'TareasAutomaticas/informacionInversor';

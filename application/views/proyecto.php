@@ -40,7 +40,7 @@
         <br>
 
         <div>
-            <a href="<?php echo $mp_preference["response"]["sandbox_init_point"]; ?>" name="MP-Checkout" class="btn btn-primary">Quiero invertir en este proyecto</a>
+            <a href="<?php echo $mp_preference["response"]["sandbox_init_point"]; ?>" name="MP-Checkout" class="btn btn-primary" onreturn="execute_my_onreturn" >Quiero invertir en este proyecto</a>
             <script type="text/javascript" src="//resources.mlstatic.com/mptools/render.js"></script>
         </div>
     </div>
@@ -101,3 +101,18 @@
     </div>
 
 </div>
+
+<script type="text/javascript">
+    function execute_my_onreturn (data) {
+        if (data.collection_status=='approved')
+        {
+            window.location.replace("<?php echo base_url().'pagar/'.$proyecto->ID_proyecto.'/'; ?>" + data.collection_id);
+        }
+        else
+        {
+            alert('La transacción no se ha completado. Intente nuevamente.');
+        }
+    }
+</script>
+
+
