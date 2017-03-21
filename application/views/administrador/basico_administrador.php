@@ -135,11 +135,9 @@
 
                     <thead>
                     <tr>
-                        <th>Descripción Completa</th>
                         <th>Nombre</th>
-                        <th>Id de Usuario</th>
-                        <th>Nombre de usuario</th>
-                        <th>Apellido de usuario</th>
+                        <th>Código de emprendedor</th>
+                        <th>Apellido, nombre</th>
                         <th>Estado</th>
                         <th>Fecha Alta</th>
                         <th>Acciones</th>
@@ -154,11 +152,9 @@
                     {
                         echo '<tr>
 
-                        <td><a target="_blank" href="'.base_url().'descripcion/'.$p->ID_proyecto.'" >VIP</a></td>
-                        <td>'.$p->proy_nombre.'</td>
+                        <td><a target="_blank" href="'.base_url().'descripcion/'.$p->ID_proyecto.'" >'.$p->proy_nombre.'</a></td>
                         <td>'.$p->user_id.'</td>
-                        <td>'.$p->nombre.'</td>
-                        <td>'.$p->apellido.'</td>
+                        <td>'.$p->apellido.', '.$p->nombre.'</td>
                         <td id="nombreEstado'.$p->ID_proyecto.'">'.$p->nombre_estad.'</td>
                         <td>'.$p->fecha_alta.'</td>
                         <td>';

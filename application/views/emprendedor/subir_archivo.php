@@ -32,9 +32,9 @@
         </div>
     </div>
 
-    <div class="col-md-9">
+    <div class="col-lg-offset-3 col-md-6">
 
-        <div class="form-group ">
+        <div class="form-group">
             <h4>Usted subirá un archivo para el proyecto: <?php echo $proyecto->nombre; ?></h4>
         </div>
 

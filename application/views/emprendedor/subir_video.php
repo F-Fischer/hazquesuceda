@@ -33,9 +33,9 @@
         </div>
     </div>
 
-    <div class="col-md-9">
+    <div class="col-lg-offset-3 col-md-6">
 
-        <div class="col-md-9">
+        <div>
 
             <div class="form-group ">
                 <h4>Ingrese a continuación la url del video para el proyecto: <?php echo $proyecto->nombre; ?></h4>
@@ -72,7 +72,7 @@
 
             <br>
             <br>
-            <div class="form-group ">
+            <div>
                 <h5>* Querido emprendedor, por el momento sólo admitimos videos de YouTube. Disculpe las molestias.</h5>
             </div>
 

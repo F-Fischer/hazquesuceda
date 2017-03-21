@@ -160,18 +160,16 @@
     <div class="col-lg-offset-3 col-md-9">
         <div class="panel panel-default">
             <div class="panel-heading">
-                <h3 class="panel-title">Top 5 de proyectos menos pagos</h3>
+                <h3 class="panel-title">Top 5 de proyectos más antiguos y menos visitados</h3>
             </div>
             <div class="panel-body">
-                <p>*Tiene sentido este? porque hay muchos proyectos que nunca se pagaron, estaríamos poniendo 5 al azar...
-                    además la bd parece ignorar ese aspecto en las búsquedas. Igual se puede ver lo de la bd.</p>
                 <table class="table table-striped">
                     <thead>
                     <tr>
                         <th>Puesto</th>
                         <th>Nombre</th>
                         <th>Rubro</th>
-                        <th>VIP</th>
+                        <th>Descripción completa</th>
                     </tr>
                     </thead>
                     <tbody>

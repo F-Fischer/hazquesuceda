@@ -176,11 +176,11 @@ class TareasAutomaticas extends CI_Controller
         $message = "<html>
                     <div role=\"document\">
 
-                        <!-- HEADER FUCSIA -->
+                        <!-- HEADER GRIS -->
                         <div style=\"margin:0; padding:0; width:100%!important\">
                             <table width=\"100%\" border=\"0\" align=\"center\" cellpadding=\"0\" cellspacing=\"0\" style=\"border-spacing:0\">
                                 <tbody>
-                                    <tr bgcolor=\"#c7207e\">
+                                    <tr bgcolor=\"#D8D8D8\">
                                         <td align=\"center\" valign=\"top\" width=\"50%\" style=\"font-family:'Helvetica Neue',Helvetica,Arial,sans-serif;color:#dfa9ca;font-size:12px;line-height:50px;border-collapse:collapse;\">
                                             Haz que suceda!
                                         </td>
@@ -197,9 +197,9 @@ class TareasAutomaticas extends CI_Controller
                         <div style=\"margin:0; padding:0; width:100%!important\">
                             <table width=\"100%\" border=\"0\" align=\"center\" cellpadding=\"0\" cellspacing=\"0\" style=\"border-spacing:0\">
                                 <tbody>
-                                    <tr bgcolor=\"#ea4056\">
+                                    <tr bgcolor=\"#FF8000\">
                                         <td width=\"25%\"></td>
-                                        <td align=\"center\" valign=\"top\" width=\"50%\" style=\"font-family: 'Copperplate','Copperplate Gothic Light',sans-serif;color:white;font-size:20px;line-height:100px;border-collapse:collapse;\">
+                                        <td align=\"center\" valign=\"top\" width=\"50%\" style=\"font-family: 'Copperplate','Copperplate Gothic Light',sans-serif;color:white;font-size:15px;line-height:100px;border-collapse:collapse;\">
                                             Te traemos tu newsletter de Haz que suceda!
                                         </td>
                                         <td width=\"25%\"></td>
@@ -219,11 +219,15 @@ class TareasAutomaticas extends CI_Controller
                             </div>
                         </div>
 
-                        <!-- FOOTER CELESTE -->
+                        <!-- FOOTER GRIS Y NARANJA -->
                         <div style=\"margin:0; padding:0; width:100%!important\" >
                             <table width=\"100%\" border=\"0\" align=\"center\" cellpadding=\"0\" cellspacing=\"0\" style=\"border-spacing:0\">
                                 <tbody>
-                                    <tr bgcolor=\"#4daaa5\">
+                                    <tr bgcolor=\"#D8D8D8\">
+                                        <td align=\"center\" valign=\"top\" width=\"50%\" style=\"font-family:'Helvetica Neue',Helvetica,Arial,sans-serif;color:white;font-size:20px;line-height:100px;border-collapse:collapse;\" > ... </td>
+                                        <td align=\"center\" valign=\"top\" width=\"50%\" style=\"font-family:'Helvetica Neue',Helvetica,Arial,sans-serif;color:white;font-size:20px;line-height:100px;border-collapse:collapse;\" > ... </td>
+                                    </tr>
+                                    <tr bgcolor=\"#FF8000\">
                                         <td align=\"center\" valign=\"top\" width=\"50%\" style=\"font-family:'Helvetica Neue',Helvetica,Arial,sans-serif;color:white;font-size:20px;line-height:100px;border-collapse:collapse;\" > ... </td>
                                         <td align=\"center\" valign=\"top\" width=\"50%\" style=\"font-family:'Helvetica Neue',Helvetica,Arial,sans-serif;color:white;font-size:20px;line-height:100px;border-collapse:collapse;\" > ... </td>
                                     </tr>

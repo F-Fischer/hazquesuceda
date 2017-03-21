@@ -33,9 +33,9 @@
         </div>
     </div>
 
-    <div class="col-lg-offset-3 col-md-12">
+    <div class="col-lg-offset-3 col-md-6">
 
-        <div class="col-md-6">
+        <div>
 
             <?php
             echo form_open('proyecto/crearproyecto');

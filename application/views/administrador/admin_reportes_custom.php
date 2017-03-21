@@ -142,30 +142,6 @@
         </div>
     </div>
 
-    <div class="col-lg-offset-3 col-md-9">
-        <div class="panel panel-default">
-            <div class="panel-heading">
-                <h3 class="panel-title">Proyectos segun fecha:</h3>
-            </div>
-            <div class="panel-body">
-                <div>
-
-                    <label>Fecha desde: </label>
-                    <input type="date" id="fecha_desde_p">
-                    <label>Fecha hasta: </label>
-                    <input type="date" id="fecha_hasta_p">
-                    <input type="button" id="reporte_proyectos" value="Generar reporte" class="btn btn-default">
-                    <br>
-                    <br>
-                    <br>
-
-                </div>
-
-                <div id="barchart_projects_date" style="width: 900px; height: 500px;"></div>
-            </div>
-        </div>
-    </div>
-
 </div>
 
 <script type="text/javascript" src="<?php echo base_url('assets/js/admin/reportes.js'); ?>"></script>
@@ -174,7 +150,6 @@
 <script type="text/javascript">
     google.charts.load('current', {'packages':['bar']});
     google.charts.setOnLoadCallback(drawChartUsuariosPorFecha);
-    google.charts.setOnLoadCallback(drawChartProyectosPorFecha);
 
     function drawChartUsuariosPorFecha() {
         var array = <?php echo json_encode($array_usuarios_fecha); ?>;
@@ -191,21 +166,4 @@
 
         chart.draw(data, options);
     }
-
-    function drawChartProyectosPorFecha() {
-        var array = <?php echo json_encode($array_proyectos_fecha); ?>;
-        var data = google.visualization.arrayToDataTable(array);
-
-        var options = {
-            chart: {
-                title: 'Popularidad de proyectos en la plataforma',
-                subtitle: 'Medida según cantidad de visitas',
-            }
-        };
-
-        var chart = new google.charts.Bar(document.getElementById('barchart_projects_date'));
-
-        chart.draw(data, options);
-    }
-
 </script>

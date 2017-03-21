@@ -188,7 +188,7 @@ class AdministradorController extends CI_Controller
             $data['top_asc'] = $proyectos;
 
             //TOP 5 MENOS PAGADOS
-            $proyectos = $p->getTopCinco('desc');
+            $proyectos = $p->getTopCincoDown();
             $data['top_desc'] = $proyectos;
 
             // PROYECTOS
@@ -297,9 +297,6 @@ class AdministradorController extends CI_Controller
         {
             $array_usuarios_fecha[0] = array('Fecha','Usuarios');
             $data['array_usuarios_fecha'] = $array_usuarios_fecha;
-
-            $array_proyectos_fecha[0] = array('Fecha','Proyectos');
-            $data['array_proyectos_fecha'] = $array_proyectos_fecha;
 
             $this->load->view('commons/header', $data);
             $this->load->view('administrador/admin_reportes_custom',$data);

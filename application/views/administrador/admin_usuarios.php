@@ -131,9 +131,8 @@
 
                     <thead>
                     <tr>
-                        <th>ID Usuario</th>
-                        <th>Nombre</th>
-                        <th>Apellido</th>
+                        <th>Código identificador</th>
+                        <th>Apellido, Nombre</th>
                         <th>Telefono</th>
                         <th>Mail</th>
                         <th>Fecha de nacimiento</th>
@@ -142,7 +141,7 @@
                         <th>Fecha baja</th>
                         <th>Habilitado</th>
                         <th>User Name</th>
-                        <th>Newsletter</th>
+                        <th>Recibe Newsletter</th>
                         <th>Acciones</th>
                     </tr>
                     </thead>
@@ -153,11 +152,12 @@
 
                     foreach($users as $u)
                     {
-                        echo '<tr>
+                        if($u->habilitado == 1) { $u->habilitado = 'Si'; } else { $u->habilitado = 'No'; }
+                        if($u->recibir_newsletter == 1) { $u->recibir_newsletter = 'Si'; } else { $u->recibir_newsletter = 'No'; }
 
+                        echo '<tr>
                         <td>'.$u->ID_usuario.'</td>
-                        <td>'.$u->nombre.'</td>
-                        <td>'.$u->apellido.'</td>
+                        <td>'.$u->apellido.', '.$u->nombre.'</td>
                         <td>'.$u->telefono.'</td>
                         <td>'.$u->mail.'</td>
                         <td>'.$u->fecha_nacimiento.'</td>

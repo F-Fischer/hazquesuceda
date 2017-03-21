@@ -246,6 +246,7 @@ class ProyectoController extends CI_Controller
             $data['warning'] = 'La imagen no pudo subirse, verifique que sea formato .jpg.';
             $data['proyecto'] = $resultado;
             $data['cantimg'] = $cantImg;
+            $data['special_case'] = null;
             $this->load->view('commons/header', $data);
             $this->load->view('emprendedor/subir_imagen',$data);
             $this->load->view('commons/footer');
