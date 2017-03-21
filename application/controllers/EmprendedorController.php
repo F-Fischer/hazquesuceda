@@ -444,7 +444,7 @@ class EmprendedorController extends CI_Controller
         echo json_encode($data);
     }
 
-    public function finalizarProyecto () 
+    public function finalizarProyecto ()
     {
         $idProyecto = $this->input->get('idProyecto');
         $proyecto = new Proyecto();
@@ -484,7 +484,7 @@ class EmprendedorController extends CI_Controller
 
             $usuario = new Usuario();
             $u = $usuario->getUsuarioById($p[0]->ID_usuario_emprendedor);
-            
+
             $data = array(
                 'success' => true,
                 'message' => 'Se clausuro el proyecto'
