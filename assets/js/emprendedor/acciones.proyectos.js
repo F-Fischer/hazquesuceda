@@ -7,10 +7,12 @@ $(document).ready(function (){
                 url: 'emprendedor/modificarproyecto',
                 data: {idProyecto: idProyecto},
                 method: "get",
+                processData: false,
                 dataType: "json",
-                success: function (e) {
+            }).done(function(e){
+                window.location.href = location.origin + '/hazquesuceda/emprendedor/editarproyecto/' + idProyecto;
+            }).fail(function(e){
 
-                }
             });
         }
     });
@@ -22,10 +24,13 @@ $(document).ready(function (){
                 url: 'emprendedor/clausurarproyecto',
                 data: {idProyecto: idProyecto},
                 method: "get",
-                dataType: "json",
-                success: function (e) {
-
+                dataType: "json"
+            }).done(function(e){
+                if(e.success){
+                    $("#acciones" + idProyecto).html("No hay acciones disponibles");
                 }
+            }).fail(function(e){
+
             });
         }
     });
@@ -37,10 +42,14 @@ $(document).ready(function (){
                 url: 'emprendedor/renovarproyecto',
                 data: {idProyecto: idProyecto},
                 method: "get",
-                dataType: "json",
-                success: function (e) {
-
+                dataType: "json"
+            }).done(function(e){
+                if(e.success)
+                {
+                    $("#acciones"+idProyecto).html('<button type="button" title="Clausurar" class="btn btn-default clausurar" id="btnClausurar' + idProyecto + ' value="'+ idProyecto +' "> <span class="glyphicon glyphicon-remove"></span></button>');
                 }
+            }).fail(function(e){
+
             });
         }
     });
@@ -52,10 +61,11 @@ $(document).ready(function (){
                 url: 'emprendedor/finalizarproyecto',
                 data: {idProyecto: idProyecto},
                 method: "get",
-                dataType: "json",
-                success: function (e) {
-
-                }
+                dataType: "json"
+            }).done(function(e){
+                $("#acciones" + idProyecto).html("No hay acciones disponibles");
+            }).fail(function(e){
+                alert("no successo");
             });
         }
     });

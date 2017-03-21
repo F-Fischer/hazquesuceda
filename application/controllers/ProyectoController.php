@@ -17,6 +17,41 @@ class ProyectoController extends CI_Controller
     {
 
     }
+    
+    public function editarProyecto()
+    {
+        $p = new Proyecto();
+        $id = $this->uri->segment(3);
+        $data['id'] = $id;
+        $data['username'] = $this->session->userdata['logged_in']['username'];
+        $resultProyecto = $p->getProyectoById($id);
+
+
+
+        if (!$resultProyecto)
+        {
+            $error = new ErrorPropio();
+            $error->Error_bd();
+        }
+        else
+        {
+            $pdf = $p->getPDFbyIdProyecto($id);
+            $imgs = $p->getImgsByIdProyecto($id);
+            $dt1 = $resultProyecto->fecha_alta;
+            $dt2 = $resultProyecto->fecha_baja;
+            
+            $data['proyecto'] = $resultProyecto;
+            $data['pdf'] = $pdf;
+            $data['cant_img'] = count($imgs);
+            $data['imgs'] = $imgs;
+            $data['fecha_alta'] = $dt1;
+            $data['fecha_baja'] = $dt2;
+            $this->load->view('commons/header',$data);
+            $this->load->view('emprendedor/editar_proyecto',$data);
+            $this->load->view('commons/footer');
+        }
+
+    }
 
     public function validateUrl()
     {
@@ -252,6 +287,97 @@ class ProyectoController extends CI_Controller
             $this->load->view('commons/footer');
         }
     }
+
+    public function do_update_desc()
+    {
+        $p = new Proyecto();
+        $description = $this->input->post('descripcion');
+        $id = $this->uri->segment(3);
+
+        if ($p->updateProjectDescription($id, $description)) {
+            redirect('emprendedor/editarproyecto/' . $id);
+        }
+    }
+
+    public function do_update_title()
+    {
+        $p = new Proyecto();
+        $name = $this->input->post('nombre');
+        $id = $this->uri->segment(3);
+
+        if ($p->updateProjectDescription($id, $name)) {
+            redirect('emprendedor/editarproyecto/' . $id);
+        }
+    }
+
+    public function do_update_video()
+    {
+        $video = $this->input->post('video');
+        echo $video;
+        $path = substr($video,32);
+        $id = $this->uri->segment(3);
+
+        echo $video.' '.$path;
+
+/*
+        if ($p->updateProjectVideo($id, $path)) {
+            redirect('emprendedor/editarproyecto/' . $id);
+        }*/
+    }
+    
+    public function do_update_img($id,$name)
+    {
+        $id = $this->uri->segment(3);
+        $name = $this->uri->segment(4);
+
+        $config = array(
+            'upload_path' => './uploads',
+            'file_name' => $name,
+            'file_type' => "jpg",
+            'allowed_types' => "gif|jpg|png|jpeg",
+            'overwrite' => FALSE
+        );
+
+        $this->load->library('upload');
+        $this->upload->initialize($config);
+        var_dump($this->upload->do_upload());
+        /*
+        if()
+        {
+            redirect('emprendedor/editarproyecto/'.$id);
+        }
+        else
+        {
+
+        }*/
+    }
+
+    public function do_update_pdf($id)
+    {
+        $p = new Proyecto();
+        $pdfName = $p->getPDFNameById($id);
+
+        $config = array(
+            'upload_path' => './uploads',
+            'file_name' => $pdfName[0]->path,
+            'file_type' => "pdf",
+            'allowed_types' => "pdf",
+            'overwrite' => TRUE
+        );
+
+        $this->load->library('upload');
+        $this->upload->initialize($config);
+        if($this->upload->do_upload())
+        {
+            redirect('emprendedor/editarproyecto/'.$id);
+        }
+        else
+        {
+
+        }
+
+    }
+
 
     public function do_upload_pdf()
     {

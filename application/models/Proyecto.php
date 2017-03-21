@@ -36,6 +36,49 @@ class Proyecto extends CI_Model
         return false;
     }
 
+    public function updateProjectDescription ($id,$description)
+    {
+        $data = array(
+            'descripcion' => $description
+        );
+
+        $this->db->where('ID_proyecto', $id);
+        if($this->db->update('proyecto', $data))
+        {
+            return true;
+        }
+        return false;
+    }
+
+    public function updateProjectVideo ($id,$video)
+    {
+        $data = array(
+            'path' => $video
+        );
+
+        $this->db->where('ID_proyecto',$id);
+        $this->db->where('tipo','youtube');
+        if($this->db->update('multimedia_proyectos',$data))
+        {
+            return true;
+        }
+        return false;
+    }
+
+    public function updateProjectName ($id,$name)
+    {
+        $data = array(
+            'nombre' => $name
+        );
+
+        $this->db->where('ID_proyecto', $id);
+        if($this->db->update('proyecto', $data))
+        {
+            return true;
+        }
+        return false;
+    }
+
     public function getAllProyectos (){
         $this->db->select('ID_proyecto, ID_usuario_emprendedor, nombre, descripcion, cant_veces_pago, fecha_baja, ID_rubro_proyecto');
         $this->db->where('ID_estado', 3);
@@ -258,6 +301,25 @@ class Proyecto extends CI_Model
 
         return false;
     }
+
+    function getPDFNameById ($id)
+    {
+        $this->db->select('mp.path');
+        $this->db->from('multimedia_proyectos as mp');
+        $this->db->where('mp.ID_proyecto',$id);
+        $this->db->where('mp.tipo','pdf');
+
+        $query = $this->db->get();
+
+        if($query->num_rows() > 0)
+        {
+            return $query->result();
+        }
+
+        return false;
+    }
+
+
 
     function getProyectoById ($id)
     {
@@ -626,6 +688,8 @@ class Proyecto extends CI_Model
     {
         return $this->fechaUltimaModificacion;
     }
+
+
 
     /**
      * @param mixed $fechaUltimaModificacion
