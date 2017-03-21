@@ -82,6 +82,8 @@ $route['emprendedor/editartelefono'] = 'EmprendedorController/editarTelefono';
 $route['emprendedor/editarmail'] = 'EmprendedorController/editarMail';
 $route['emprendedor/renovarproyecto'] = 'EmprendedorController/renovarProyecto';
 $route['emprendedor/modificarproyecto'] = 'EmprendedorController/modificarProyecto';
+$route['emprendedor/editarproyecto/(:num)'] = 'ProyectoController/editarProyecto';
+
 $route['emprendedor/finalizarproyecto'] = 'EmprendedorController/finalizarProyecto';
 $route['emprendedor/clausurarproyecto'] = 'EmprendedorController/clausurarProyecto';
 $route['registroemprendedor/registrar'] = 'RegistroEmprendedor/Registrar';

@@ -384,28 +384,36 @@ class EmprendedorController extends CI_Controller
 
     public function modificarProyecto ()
     {
+        $data['username'] = $this->session->userdata['logged_in']['username'];
+
         $idProyecto = $this->input->get('idProyecto');
         $proyecto = new Proyecto();
-
-
-        $data['username'] = $this->session->userdata['logged_in']['username'];
-        $r = new Rubro();
-        $data['rubros'] = $r->getRubros();
         $data['proyecto'] = $proyecto->getProyectoByIdBasico($idProyecto);
 
-        if(!$r->getRubros())
-        {
-            $error = new ErrorPropio();
-            $error->Error_bd();
-        }
-        else
-        {
-            $this->load->view('commons/header', $data);
-            $this->load->view('emprendedor/crear_proyecto',$data);
-            $this->load->view('commons/footer');
-        }
+//        $response = $this->load->view('commons/header', $data,TRUE);
+//        $response += $this->load->view('emprendedor/crear_proyecto',$data,TRUE);
+//        $response += $this->load->view('commons/footer',TRUE);
 
+        $dataResp = array(
+            'html' => $this->load->view('emprendedor/crear_proyecto',$data,TRUE)
+        );
 
+        echo json_encode($dataResp);
+//        $r = new Rubro();
+//        $data['rubros'] = $r->getRubros();
+//        $data['proyecto'] = $proyecto->getProyectoByIdBasico($idProyecto);
+
+//        if(!$r->getRubros())
+//        {
+//            $error = new ErrorPropio();
+//            $error->Error_bd();
+//        }
+//        else
+//        {
+//            $this->load->view('commons/header', $data);
+//            $this->load->view('emprendedor/crear_proyecto',$data);
+//            $this->load->view('commons/footer');
+//        }
     }
 
     public function renovarProyecto ()
@@ -420,13 +428,20 @@ class EmprendedorController extends CI_Controller
             $usuario = new Usuario();
             $u = $usuario->getUsuarioById($p[0]->ID_usuario_emprendedor);
 
-            //$this->send_email_proyecto_por_renovar($u[0]->mail, $p[0]->nombre);
-            echo 'Se solicito renovacion';
+            $data = array(
+                'success' => true,
+                'message' => 'Se solicito renovacion'
+            );
         }
         else
         {
-            echo 'Este proyecto no puede ser Renovado';
+            $data = array(
+                'success' => false,
+                'message' => 'Este proyecto no puede ser Renovado'
+            );
         }
+
+        echo json_encode($data);
     }
 
     public function finalizarProyecto () 
@@ -441,13 +456,21 @@ class EmprendedorController extends CI_Controller
             $usuario = new Usuario();
             $u = $usuario->getUsuarioById($p[0]->ID_usuario_emprendedor);
 
-            $this->send_email_proyecto_finalizado($u[0]->mail, $p[0]->nombre);
-            echo 'Se finalizo el proyecto';
+            $data = array(
+                'status' => 'success',
+                'message' => 'Se finalizo el proyecto'
+            );
         }
         else
         {
-            echo 'Este proyecto no puede ser finalizado';
+            $data = array(
+                'status' => 'error',
+                'message' => 'Este proyecto no puede ser finalizado'
+            );
+
         }
+
+        echo json_encode($data);
     }
 
     public function clausurarProyecto ()
@@ -461,14 +484,21 @@ class EmprendedorController extends CI_Controller
 
             $usuario = new Usuario();
             $u = $usuario->getUsuarioById($p[0]->ID_usuario_emprendedor);
-
-            //$this->send_email_proyecto_finalizado($u[0]->mail, $p[0]->nombre);
-            echo 'Se clausuro el proyecto';
+            
+            $data = array(
+                'success' => true,
+                'message' => 'Se clausuro el proyecto'
+            );
         }
         else
         {
-            echo 'Este proyecto no puede ser clausurado';
+            $data = array(
+                'success' => false,
+                'message' => 'Este proyecto no puede ser clausurado'
+            );
         }
+
+        echo json_encode($data);
     }
 
     public function validate_email($email)
