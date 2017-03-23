@@ -102,12 +102,12 @@
                             $yturl = "https://www.youtube.com/watch?v=";
 
                             echo form_open('ProyectoController/do_update_video'.'/'.$proyecto->ID_proyecto);
-                            echo '<input type="text" name="nombre" value="'.$yturl.''.$proyecto->youtube.'" id="inputVideo" class="form-control">';
+                            echo '<input type="text" name="video" value="'.$yturl.''.$proyecto->youtube.'" id="inputVideo" class="form-control">';
                             echo "<br/><input type='submit' class='btn btn-default' name='submit' value='Editar' /> ";
                             echo '<br /><br /><br />
                                     <div>
                                         <div id="video" class="col-lg-8">
-                                            <iframe width="560" height="315" src="https://www.youtube.com/embed/<?php echo $proyecto->youtube; ?>" frameborder="0" allowfullscreen></iframe>
+                                            <iframe width="560" height="315" src="https://www.youtube.com/embed/'.$proyecto->youtube.'" frameborder="0" allowfullscreen></iframe>
                                         </div>
                                     </div>';
                             echo form_close();

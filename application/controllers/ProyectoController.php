@@ -305,7 +305,7 @@ class ProyectoController extends CI_Controller
         $name = $this->input->post('nombre');
         $id = $this->uri->segment(3);
 
-        if ($p->updateProjectDescription($id, $name)) {
+        if ($p->updateProjectName($id, $name)) {
             redirect('emprendedor/editarproyecto/' . $id);
         }
     }
@@ -313,16 +313,19 @@ class ProyectoController extends CI_Controller
     public function do_update_video()
     {
         $video = $this->input->post('video');
-        echo $video;
+        //echo $video;
         $path = substr($video,32);
         $id = $this->uri->segment(3);
 
-        echo $video.' '.$path;
+        $p = new Proyecto();
 
-/*
-        if ($p->updateProjectVideo($id, $path)) {
+        if($p->updateProjectVideo($id,$path)){
             redirect('emprendedor/editarproyecto/' . $id);
-        }*/
+        }
+        else
+        {
+            echo 'no grabo nada';
+        }
     }
     
     public function do_update_img($id,$name)
