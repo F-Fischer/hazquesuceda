@@ -51,11 +51,14 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 $route['default_controller'] = 'login';
 $route['welcome'] = 'login';
+$route['login/(:any)'] = 'login';
 $route['BD_error'] = 'errorpropio/error_bd';
 $route['404_override'] = 'error';
 $route['translate_uri_dashes'] = FALSE;
 $route['registroemprendedor'] = 'RegistroEmprendedor';
 $route['registroinversor'] = 'RegistroInversor';
+$route['registroinversor/registrar'] = 'RegistroInversor/Registrar';
+$route['registroemprendedor/registrar'] = 'RegistroEmprendedor/Registrar';
 $route['exitoemprendedor'] = 'RegistroEmprendedor/exito';
 $route['exitoinversor'] = 'RegistroInversor/exito';
 $route['activar/(:any)'] = 'HabilitarUsuario';
@@ -68,8 +71,7 @@ $route['emprendedor/(:num)'] = 'EmprendedorController';
 $route['micuentaE'] = 'EmprendedorController/miCuenta';
 $route['misproyectos'] = 'EmprendedorController/misProyectos';
 $route['crearproyecto'] = 'EmprendedorController/crearProyecto';
-
-//EMPRENDEDOR
+$route['proyecto/crearproyecto'] = 'ProyectoController/crearProyecto';
 $route['video/(:num)'] = 'EmprendedorController/subirVideoProyecto';
 $route['imagenes/(:num)'] = 'EmprendedorController/subirImagenProyecto';
 $route['archivo/(:num)'] = 'EmprendedorController/subirArchivoProyecto';
@@ -90,9 +92,6 @@ $route['registroemprendedor/registrar'] = 'RegistroEmprendedor/Registrar';
 $route['micuenta/editarnombre'] = 'EmprendedorController/editarNombre';
 $route['descripcionemprendedor/(:num)'] = 'ProyectoController/descripcionProyectoEmprendedor';
 
-//EMPRENDEDOR PROYECTO
-$route['proyecto/crearproyecto'] = 'ProyectoController/crearProyecto';
-
 //INVERSOR
 $route['inversor'] = 'InversorController';
 $route['inversor/(:num)'] = 'InversorController';
@@ -112,16 +111,19 @@ $route['registroinversor/registrar'] = 'RegistroInversor/Registrar';
 $route['admin'] = 'AdministradorController/index';
 $route['users'] = 'AdministradorController/users';
 $route['statistics'] = 'AdministradorController/statistics';
+$route['reports'] = 'AdministradorController/reportesCustom';
 $route['newletterempr'] = 'AdministradorController/newsletterEmprendedor';
 $route['admin/aceptarproyecto'] = 'AdministradorController/aceptarProyecto';
 $route['admin/clausurarproyecto'] = 'AdministradorController/clausurarProyecto';
 $route['admin/rechazarproyecto'] = 'AdministradorController/rechazarProyecto';
 $route['admin/inhabilitarusuario'] = 'AdministradorController/inhabilitarUsuario';
 
+$route['adminproyectos'] = 'adminproyectos';
+$route['adminproyectos/(:num)'] = 'adminproyectos';
 
 //SISTEMA
 $route['clausuraautomatica'] = 'TareasAutomaticas/clausurarProyectosDelDia';
 $route['recordatorio'] = 'TareasAutomaticas/recordatorioDeClausura';
 $route['newsletter'] = 'TareasAutomaticas/newsletterInversor';
 $route['borrarproyectos'] = 'TareasAutomaticas/borrarProyectos';
-$route['pagar/(:num)'] = 'TareasAutomaticas/informacionInversor';
+$route['pagar/(:num)/(:num)'] = 'TareasAutomaticas/informacionInversor';

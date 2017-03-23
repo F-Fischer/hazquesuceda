@@ -13,25 +13,27 @@ class Pago extends CI_Model
     private $monto;
     private $idProyectoPagado;
     private $idEstadoPago;
+    private $idMercadoPago;
 
-
-    public function generarPago($id_usuario_inversor, $fecha, $id_proyecto_pagado)
+    public function generarPago($id_usuario_inversor, $fecha, $id_proyecto_pagado, $id_mercado_pago)
     {
         $this->setIdUsuarioInversor($id_usuario_inversor);
         $this->setFecha($fecha);
         $this->setMonto(1);
         $this->setIdProyectoPagado($id_proyecto_pagado);
         $this->setIdEstadoPago(1);
+        $this->setIdMercadoPago($id_mercado_pago);
     }
 
     public function registrarPago ()
     {
         $data = array(
             'ID_usuario_inversor' => $this->getIdUsuarioInversor(),
+            'ID_proyecto_pagado' => $this->getIdProyectoPagado(),
+            'ID_estado_pago' => $this->getIdEstadoPago(),
             'fecha' => $this->getFecha(),
             'monto' => $this->getMonto(),
-            'ID_proyecto_pagado' => $this->getIdProyectoPagado(),
-            'ID_estado_pago' => $this->getIdEstadoPago()
+            'ID_mercadopago' => $this->getIdMercadoPago()
         );
 
         if($this->db->insert('pago',$data))
@@ -91,6 +93,16 @@ class Pago extends CI_Model
     public function setIdUsuarioInversor($idUsuarioInversor)
     {
         $this->idUsuarioInversor = $idUsuarioInversor;
+    }
+
+    public function getIdMercadoPago()
+    {
+        return $this->idMercadoPago;
+    }
+
+    public function setIdMercadoPago($idMercadoPago)
+    {
+        $this->idMercadoPago = $idMercadoPago;
     }
 
 }

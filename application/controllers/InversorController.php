@@ -14,9 +14,33 @@ class InversorController extends CI_Controller
         $this->load->model('Rubro');
         $this->load->model('MultimediaProyecto');
         $this->load->model('ErrorPropio');
+        $this->load->model('Permisos');
         $this->load->library('pagination');
         $this->load->library('session');
         $this->load->library('form_validation');
+    }
+
+    public function validateUrl()
+    {
+        $username = $this->session->userdata['logged_in']['username'];
+        $data['username'] = $username;
+        $url = $this->uri->segment(1);
+
+        $u = new Usuario();
+        $usuario = $u->getRolByUsername($username);
+        $rol = $usuario[0]->ID_rol;
+
+        $p = new Permisos();
+        $permiso = $p->getPermiso($rol, $url);
+
+        if($permiso)
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
     }
 
     public function index()
@@ -25,25 +49,32 @@ class InversorController extends CI_Controller
         {
             $data['username'] = $this->session->userdata['logged_in']['username'];
 
-            $this->load->library('pagination');
-            $proyecto = new Proyecto();
-            $dataCantidad = $proyecto->record_count();
-            $elementosPorPaginas = 9;
-            $config['base_url'] = base_url('inversor');
-            $config['total_rows'] = $dataCantidad;
-            $config['per_page'] = $elementosPorPaginas;
-            $config['uri_segment'] = 2;
-            $this->pagination->initialize($config);
+            if($this->validateUrl())
+            {
+                $this->load->library('pagination');
+                $proyecto = new Proyecto();
+                $dataCantidad = $proyecto->record_count();
+                $elementosPorPaginas = 9;
+                $config['base_url'] = base_url('inversor');
+                $config['total_rows'] = $dataCantidad;
+                $config['per_page'] = $elementosPorPaginas;
+                $config['uri_segment'] = 2;
+                $this->pagination->initialize($config);
 
-            $data['links'] = $this->pagination->create_links();
-            $page = ($this->uri->segment(2)) ? $this->uri->segment(2) : 0;
+                $data['links'] = $this->pagination->create_links();
+                $page = ($this->uri->segment(2)) ? $this->uri->segment(2) : 0;
 
-            //ve proyectos activos
-            $data['portfolio'] = $proyecto->getProyectos('3', $config['per_page'],$page);
+                //ve proyectos activos
+                $data['portfolio'] = $proyecto->getProyectos('3', $config['per_page'],$page);
 
-            $this->load->view('commons/header', $data);
-            $this->load->view('inversor/verproyectos_inversor',$data);
-            $this->load->view('commons/footer');
+                $this->load->view('commons/header', $data);
+                $this->load->view('inversor/verproyectos_inversor',$data);
+                $this->load->view('commons/footer');
+            }
+            else
+            {
+                echo 'sin permisos';
+            }
         }
         else
         {
@@ -54,129 +85,102 @@ class InversorController extends CI_Controller
     public function miCuenta()
     {
         $data['username'] = $this->session->userdata['logged_in']['username'];
-        $inversor = new Inversor();
-        $datosMiCuenta = $inversor->getUsuario($data['username']);
 
-        if(!$datosMiCuenta)
+        if($this->validateUrl())
         {
-            $error = new ErrorPropio();
-            $error->Error_bd();
+            $inversor = new Inversor();
+            $datosMiCuenta = $inversor->getUsuario($data['username']);
+
+            if(!$datosMiCuenta)
+            {
+                $error = new ErrorPropio();
+                $error->Error_bd();
+            }
+            else
+            {
+                $datosMiCuenta[0]->contrasena = $inversor->encrypt_decrypt('decrypt',$datosMiCuenta[0]->contrasena);
+                $data['micuenta'] = $datosMiCuenta;
+
+                $this->load->view('commons/header', $data);
+                $this->load->view('inversor/micuenta_inversor',$data);
+                $this->load->view('commons/footer');
+            }
         }
         else
         {
-            $datosMiCuenta[0]->contrasena = $inversor->encrypt_decrypt('decrypt',$datosMiCuenta[0]->contrasena);
-            $data['micuenta'] = $datosMiCuenta;
-
-            $this->load->view('commons/header', $data);
-            $this->load->view('inversor/micuenta_inversor',$data);
-            $this->load->view('commons/footer');
+            echo 'sin permisos';
         }
     }
 
     public function proyectosPagos ()
     {
         $data['username'] = $this->session->userdata['logged_in']['username'];
-        $inversor = new Inversor();
-        $result = $inversor->getIdByUsername($data['username']);
-        $proyecto = new Proyecto();
-        $proyectos = $proyecto->getProyectosPagosByUserId($result->ID_usuario);
 
-        if(!$proyectos)
+        if($this->validateUrl())
         {
-            $data['proyectos'] = null;
+            $inversor = new Inversor();
+            $result = $inversor->getIdByUsername($data['username']);
+            $proyecto = new Proyecto();
+            $proyectos = $proyecto->getProyectosPagosByUserId($result->ID_usuario);
+
+            if(!$proyectos)
+            {
+                $data['proyectos'] = null;
+            }
+            else
+            {
+                $i = 0;
+                foreach ($proyectos as $p)
+                {
+                    $pdf = $proyecto->getPDFbyIdProyecto($p->ID_proyecto);
+
+                    if ($pdf)
+                    {
+                        $proyectos[$i]->pdf = $pdf;
+                    }
+                    else
+                    {
+                        $proyectos[$i]->pdf = null;
+                    }
+
+                    $video = $proyecto->getVideoByIdProyecto($p->ID_proyecto);
+
+                    if ($video)
+                    {
+                        $proyectos[$i]->video = $video;
+                    }
+                    else
+                    {
+                        $proyectos[$i]->video = null;
+                    }
+
+                    $i++;
+                }
+
+                $data['proyectos'] = $proyectos;
+            }
+
+            $this->load->view('commons/header', $data);
+            $this->load->view('inversor/proyectospagos',$data);
+            $this->load->view('commons/footer');
         }
         else
         {
-            $i = 0;
-            foreach ($proyectos as $p)
-            {
-                $pdf = $proyecto->getPDFbyIdProyecto($p->ID_proyecto);
-
-                if ($pdf)
-                {
-                    $proyectos[$i]->pdf = $pdf;
-                }
-                else
-                {
-                    $proyectos[$i]->pdf = null;
-                }
-
-                $video = $proyecto->getVideoByIdProyecto($p->ID_proyecto);
-
-                if ($video)
-                {
-                    $proyectos[$i]->video = $video;
-                }
-                else
-                {
-                    $proyectos[$i]->video = null;
-                }
-
-                $i++;
-            }
-
-            $data['proyectos'] = $proyectos;
+            echo 'sin permisos';
         }
-
-        $this->load->view('commons/header', $data);
-        $this->load->view('inversor/proyectospagos',$data);
-        $this->load->view('commons/footer');
     }
 
     public function editarNombre()
     {
         $data['username'] = $this->session->userdata['logged_in']['username'];
-        $nombre = $this->input->post('nuevo_nombre');
 
-        $inversor = new Inversor();
-
-        if($inversor->editarDataUsuario($data['username'], 'nombre', $nombre))
+        if($this->validateUrl())
         {
-            $this->miCuenta();
-        }
-        else
-        {
-            $error = new ErrorPropio();
-            $error->Error_bd();
-        }
-    }
+            $nombre = $this->input->post('nuevo_nombre');
 
-    public function editarApellido()
-    {
-        $data['username'] = $this->session->userdata['logged_in']['username'];
-        $apellido = $this->input->post('nuevo_apellido');
+            $inversor = new Inversor();
 
-        $inversor = new Inversor();
-
-        if($inversor->editarDataUsuario($data['username'], 'apellido', $apellido))
-        {
-            $this->miCuenta();
-        }
-        else
-        {
-            $error = new ErrorPropio();
-            $error->Error_bd();
-        }
-    }
-
-    public function editarContrasena()
-    {
-        $this->form_validation->set_rules('nueva_cont_2', 'Password', 'trim|required|min_length[6]', array('min_length[6]' => 'La contraseña debe tener mas de 6 caracteres',
-            'required' => 'Debe ingresar una contraseña'));
-
-        $data['username'] = $this->session->userdata['logged_in']['username'];
-        $actual = $this->input->post('nueva_cont_1');
-        $nueva = $this->input->post('nueva_cont_2');
-
-        $inversor = new Inversor();
-
-        if ($this->form_validation->run() == FALSE)
-        {
-            $this->miCuenta();
-        }
-        else
-        {
-            if($inversor->editarContrasena($data['username'], $actual, $nueva))
+            if($inversor->editarDataUsuario($data['username'], 'nombre', $nombre))
             {
                 $this->miCuenta();
             }
@@ -186,24 +190,99 @@ class InversorController extends CI_Controller
                 $error->Error_bd();
             }
         }
+        else
+        {
+            echo 'sin permisos';
+        }
+    }
+
+    public function editarApellido()
+    {
+        $data['username'] = $this->session->userdata['logged_in']['username'];
+
+        if($this->validateUrl())
+        {
+            $apellido = $this->input->post('nuevo_apellido');
+
+            $inversor = new Inversor();
+
+            if($inversor->editarDataUsuario($data['username'], 'apellido', $apellido))
+            {
+                $this->miCuenta();
+            }
+            else
+            {
+                $error = new ErrorPropio();
+                $error->Error_bd();
+            }
+        }
+        else
+        {
+            echo 'sin permisos';
+        }
+    }
+
+    public function editarContrasena()
+    {
+        $this->form_validation->set_rules('nueva_cont_2', 'Password', 'trim|required|min_length[6]', array('min_length[6]' => 'La contraseña debe tener mas de 6 caracteres',
+            'required' => 'Debe ingresar una contraseña'));
+
+        $data['username'] = $this->session->userdata['logged_in']['username'];
+
+        if($this->validateUrl())
+        {
+            $actual = $this->input->post('nueva_cont_1');
+            $nueva = $this->input->post('nueva_cont_2');
+
+            $inversor = new Inversor();
+
+            if ($this->form_validation->run() == FALSE)
+            {
+                $this->miCuenta();
+            }
+            else
+            {
+                if($inversor->editarContrasena($data['username'], $actual, $nueva))
+                {
+                    $this->miCuenta();
+                }
+                else
+                {
+                    $error = new ErrorPropio();
+                    $error->Error_bd();
+                }
+            }
+        }
+        else
+        {
+            echo 'sin permisos';
+        }
 
     }
 
     public function editarTelefono()
     {
         $data['username'] = $this->session->userdata['logged_in']['username'];
-        $tel = $this->input->post('nuevo_telefono');
 
-        $inversor = new Inversor();
-
-        if($inversor->editarDataUsuario($data['username'], 'telefono', $tel))
+        if($this->validateUrl())
         {
-            $this->miCuenta();
+            $tel = $this->input->post('nuevo_telefono');
+
+            $inversor = new Inversor();
+
+            if($inversor->editarDataUsuario($data['username'], 'telefono', $tel))
+            {
+                $this->miCuenta();
+            }
+            else
+            {
+                $error = new ErrorPropio();
+                $error->Error_bd();
+            }
         }
         else
         {
-            $error = new ErrorPropio();
-            $error->Error_bd();
+            echo 'sin permisos';
         }
     }
 
@@ -214,25 +293,33 @@ class InversorController extends CI_Controller
             'validate_email' => 'Ya existe un usuario con esa dirección de mail'));
 
         $data['username'] = $this->session->userdata['logged_in']['username'];
-        $mail = $this->input->post('nuevo_mail');
 
-        $inversor = new Inversor();
+        if($this->validateUrl())
+        {
+            $mail = $this->input->post('nuevo_mail');
 
-        if ($this->form_validation->run() == FALSE)
-        {
-            $this->miCuenta();
-        }
-        else
-        {
-            if($inversor->editarDataEmprendedor($data['username'], 'mail', $mail))
+            $inversor = new Inversor();
+
+            if ($this->form_validation->run() == FALSE)
             {
                 $this->miCuenta();
             }
             else
             {
-                $error = new ErrorPropio();
-                $error->Error_bd();
+                if($inversor->editarDataEmprendedor($data['username'], 'mail', $mail))
+                {
+                    $this->miCuenta();
+                }
+                else
+                {
+                    $error = new ErrorPropio();
+                    $error->Error_bd();
+                }
             }
+        }
+        else
+        {
+            echo 'sin permisos';
         }
 
     }

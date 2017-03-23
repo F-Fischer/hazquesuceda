@@ -112,6 +112,20 @@ class Usuario extends CI_Model
         return false;
     }
 
+    public function getRolByUsername ($username)
+    {
+        $this->db->select('ID_rol');
+        $this->db->where('user_name', $username);
+        $query = $this->db->get('usuario');
+
+        if($query->num_rows() > 0)
+        {
+            return $query->result();
+        }
+
+        return false;
+    }
+
     public function devolverIdRol($variable)
     {
         $consulta = $this->db->get_where('usuario',array('user_name'=>$variable));
@@ -214,6 +228,36 @@ class Usuario extends CI_Model
     {
         $this->db->select('ID_usuario, user_name, nombre, apellido, mail, recibir_newsletter');
         $this->db->where('ID_rol', $id_rol);
+        $query = $this->db->get('usuario');
+
+        if($query->num_rows() > 0)
+        {
+            return $query->result();
+        }
+
+        return false;
+    }
+
+    public function getUsuariosPorFecha ($fecha_desde, $fecha_hasta)
+    {
+        $this->db->select('ID_usuario, ID_rol, fecha_alta');
+        $this->db->where('fecha_alta >=', $fecha_desde);
+        $this->db->where('fecha_alta <=', $fecha_hasta);
+        $this->db->order_by('fecha_alta', 'asc');
+        $query = $this->db->get('usuario');
+
+        if($query->num_rows() > 0)
+        {
+            return $query->result();
+        }
+
+        return false;
+    }
+
+    public function getUsuariosPorProvincia ($id_provincia)
+    {
+        $this->db->select('ID_usuario, provincia as ID_provincia');
+        $this->db->where('provincia', $id_provincia);
         $query = $this->db->get('usuario');
 
         if($query->num_rows() > 0)

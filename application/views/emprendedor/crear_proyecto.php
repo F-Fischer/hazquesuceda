@@ -33,12 +33,12 @@
         </div>
     </div>
 
-    <div class="col-md-9">
+    <div class="col-lg-offset-3 col-md-6">
 
-        <div class="col-md-6">
+        <div>
 
             <?php
-            echo form_open('ProyectoController/crearProyecto');
+            echo form_open('proyecto/crearproyecto');
 
             echo '<div class="form-group">'.form_label('Título del proyecto ').form_error('nombre', '<div class="error" style="color:red; float: right;">', '</div>');
 
@@ -79,6 +79,8 @@
 
             echo form_close();
             ?>
+
+            <a href="<?php echo base_url('emprendedor')?>">Regresar</a>
 
         </div>
 

@@ -112,6 +112,7 @@
     <div class="col-md-3">
         <ul class="nav nav-pills nav-stacked" >
             <li role="presentation" class="active"><a href="statistics">Estadísticas</a></li>
+            <li role="presentation" ><a href="reports">Reportes custom</a></li>
             <li role="presentation" ><a href="admin">Todos los proyectos</a></li>
             <li role="presentation" ><a href="users">Usuarios</a></li>
             <li role="presentation" ><a href="newletterempr">Newsletter Emprendedor</a></li>
@@ -159,18 +160,16 @@
     <div class="col-lg-offset-3 col-md-9">
         <div class="panel panel-default">
             <div class="panel-heading">
-                <h3 class="panel-title">Top 5 de proyectos menos pagos</h3>
+                <h3 class="panel-title">Top 5 de proyectos más antiguos y menos visitados</h3>
             </div>
             <div class="panel-body">
-                <p>*Tiene sentido este? porque hay muchos proyectos que nunca se pagaron, estaríamos poniendo 5 al azar...
-                    además la bd parece ignorar ese aspecto en las búsquedas. Igual se puede ver lo de la bd.</p>
                 <table class="table table-striped">
                     <thead>
                     <tr>
                         <th>Puesto</th>
                         <th>Nombre</th>
                         <th>Rubro</th>
-                        <th>VIP</th>
+                        <th>Descripción completa</th>
                     </tr>
                     </thead>
                     <tbody>
@@ -192,37 +191,73 @@
                 </table>
             </div>
         </div>
-
     </div>
 
     <div class="col-lg-offset-3 col-md-9">
         <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3 class="panel-title">Proyectos activos en la plataforma:</h3>
+            </div>
             <div class="panel-body">
-                <h3>Proyectos activos en la plataforma:</h3>
                 <div id="piechart_projects" style="width: 900px; height: 500px;"></div>
-            </div>
-
-            <div class="panel-body">
-                <h3>Usuarios registrados:</h3>
-                <div id="piechart_users" style="width: 900px; height: 500px;"></div>
-            </div>
-
-            <div class="panel-body">
-                <h3>Popularidad de proyectos:</h3>
-                <div id="barchart_values" style="width: 900px; height: 300px;"></div>
             </div>
         </div>
     </div>
+
+    <div class="col-lg-offset-3 col-md-9">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3 class="panel-title">Usuarios registrados:</h3>
+            </div>
+            <div class="panel-body">
+                <div id="piechart_users" style="width: 900px; height: 500px;"></div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-lg-offset-3 col-md-9">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3 class="panel-title">Popularidad de rubros:</h3>
+            </div>
+            <div class="panel-body">
+                <div id="barchart_values" style="width: 900px; height: 500px;"></div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-lg-offset-3 col-md-9">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3 class="panel-title">Ubicación de usuarios por provincias:</h3>
+            </div>
+            <div class="panel-body">
+                <div id="regions_div" style="width: 900px; height: 500px;"></div>
+            </div>
+        </div>
+    </div>
+
 </div>
+
+<script type="text/javascript">
+
+    var username = <?php if($username) { echo 1; } else { echo 0; } ?>;
+
+    if(username == 0)
+    {
+        window.location.href = "<?php echo base_url(); ?>";
+    }
+
+</script>
 
 <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
 
 <script type="text/javascript">
-    google.charts.load('current', {'packages':['corechart']});
+    google.charts.load('current', {'packages':['corechart', 'geochart']});
     google.charts.setOnLoadCallback(drawChartProyectos);
     google.charts.setOnLoadCallback(drawChartUsuarios);
     google.charts.setOnLoadCallback(drawChartPopularidad);
-    google.charts.setOnLoadCallback(drawChartBis);
+    google.charts.setOnLoadCallback(drawRegionsMap);
 
     function drawChartProyectos() {
         var array = <?php echo json_encode($array_proyectos); ?>;
@@ -251,19 +286,10 @@
     }
 
     function drawChartPopularidad() {
-        var data = google.visualization.arrayToDataTable([
-            ["Rubro", "Visitas", { role: "style" } ],
-            ["Proyecto genérico", 8, "color: #cc00ff"],
-            ["Franquicia", 10, "color: #ff3399"],
-            ["Social", 19, "color: #ff0000"],
-            ["Industrial", 21, "color: #ff9933"],
-            ["Económico", 21, "color: #ffff66"],
-            ["Servicios", 28, "color: #ccff66"],
-            ["Infraestructura", 30, "color: #33ccff"],
-            ["Manufacturero", 2, "color: #0000ff"],
-            ["Agropecuario", 79, "color: #cc6699"],
-            ["Comercial", 5, "color: #800000"]
-        ]);
+        var array1 = ["Rubro", "Inversores interesados", { role: "style" } ];
+        var array2 = <?php echo json_encode($array_popularidad); ?>;
+        array2[0] = array1;
+        var data = google.visualization.arrayToDataTable(array2);
 
         var view = new google.visualization.DataView(data);
         view.setColumns([0, 1,
@@ -274,14 +300,30 @@
             2]);
 
         var options = {
-            title: "Popularidad medida según visitas de cada proyecto en la plataforma",
-            width: 600,
-            height: 400,
+            title: "Popularidad medida según rubros preferidos por inversores",
             bar: {groupWidth: "95%"},
             legend: { position: "none" },
         };
         var chart = new google.visualization.BarChart(document.getElementById("barchart_values"));
         chart.draw(view, options);
+    }
+
+    function drawRegionsMap() {
+        var array = <?php echo json_encode($array_provincias); ?>;
+        var data = google.visualization.arrayToDataTable(array);
+
+        var options = {
+            region: 'AR',
+            resolution: 'provinces',
+            defaultColor: '#ffffff',
+            keepAspectRatio: true,
+            tooltip:{trigger:'selection'},
+            width:900,height:500
+        };
+
+        var chart = new google.visualization.GeoChart(document.getElementById('regions_div'));
+
+        chart.draw(data, options);
     }
 
 </script>

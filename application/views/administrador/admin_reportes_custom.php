@@ -94,7 +94,6 @@
 </style>
 
 <div class="container-fluid">
-
     <div class="highlight" align="center">
         <div class="col-lg-12 banner">
             <br>
@@ -102,7 +101,7 @@
             <br>
             <br>
             <h1 class="page-header" style="font-size: 65px; color: white;">
-                Newsletter al Emprendedor
+                Reportes custom
                 <br>
                 <br>
             </h1>
@@ -111,60 +110,60 @@
     </div>
 
     <div class="col-md-3">
-
         <ul class="nav nav-pills nav-stacked" >
             <li role="presentation" ><a href="statistics">Estadísticas</a></li>
-            <li role="presentation" ><a href="reports">Reportes custom</a></li>
+            <li role="presentation" class="active"><a href="reports">Reportes custom</a></li>
             <li role="presentation" ><a href="admin">Todos los proyectos</a></li>
             <li role="presentation" ><a href="users">Usuarios</a></li>
-            <li role="presentation" class="active" ><a href="newletterempr">Newsletter Emprendedor</a></li>
+            <li role="presentation" ><a href="newletterempr">Newsletter Emprendedor</a></li>
         </ul>
-
     </div>
 
     <div class="col-md-9">
-
         <div class="panel panel-default">
-            <br>
-            <?php
-            echo form_open('AdministradorController/newsletterEmprendedor');
+            <div class="panel-heading">
+                <h3 class="panel-title">Usuarios segun fecha:</h3>
+            </div>
+            <div class="panel-body">
+                <div>
 
-            echo '<div class="form-group">'.form_label('Título del artículo: ').form_error('titulo', '<div class="error" style="color:red; float: right;">', '</div>');
+                    <label>Fecha desde: </label>
+                    <input type="date" id="fecha_desde_u">
+                    <label>Fecha hasta: </label>
+                    <input type="date" id="fecha_hasta_u">
+                    <input type="button" id="reporte_usuarios" value="Generar reporte" class="btn btn-default">
+                    <br>
+                    <br>
+                    <br>
 
-            $data = array (
-                'id' => 'inputTitulo',
-                'name' => 'titulo',
-                'class' => 'form-control',
-                'value' => set_value('titulo')
-            );
-
-            echo form_input($data).'</div>';
-
-            echo '<div class="form-group">'.form_label('Descripción ').form_error('descripcion', '<div class="error" style="color:red; float: right;">', '</div>');
-
-            $data = array (
-                'id' => 'inputDescripcion',
-                'name' => 'descripcion',
-                'class' => 'form-control',
-                'value' => set_value('descripcion')
-            );
-
-            echo form_textarea($data).'</div>';
-
-            echo '<div class="form-group">'.form_error('rubro', '<div class="error" style="color:red; float: right;">', '</div>');
-
-            $data = array(
-                'id' => 'btnEnviarNewsletter',
-                'class' => 'btn btn-default',
-                'value' => 'Enviar newsletter',
-            );
-
-            echo '<br>'.form_submit($data,'Enviar newsletter');
-
-            echo form_close();
-            ?>
-
+                </div>
+                <div id="barchart_users_date" style="width: 900px; height: 500px;"></div>
+            </div>
         </div>
-
     </div>
+
 </div>
+
+<script type="text/javascript" src="<?php echo base_url('assets/js/admin/reportes.js'); ?>"></script>
+<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+
+<script type="text/javascript">
+    google.charts.load('current', {'packages':['bar']});
+    google.charts.setOnLoadCallback(drawChartUsuariosPorFecha);
+
+    function drawChartUsuariosPorFecha() {
+        var array = <?php echo json_encode($array_usuarios_fecha); ?>;
+        var data = google.visualization.arrayToDataTable(array);
+
+        var options = {
+            chart: {
+                title: 'Registro de usuarios en la plataforma',
+                subtitle: 'Inversores y emprendedores',
+            }
+        };
+
+        var chart = new google.charts.Bar(document.getElementById('barchart_users_date'));
+
+        chart.draw(data, options);
+    }
+</script>

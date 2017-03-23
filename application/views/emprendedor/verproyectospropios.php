@@ -44,7 +44,7 @@
 
                         <thead>
                         <tr>
-                            <th>Id Proyecto</th>
+                            <th>Código identificador</th>
                             <th>Nombre</th>
                             <th>Estado</th>
                             <th>Cantidad de visitas</th>
