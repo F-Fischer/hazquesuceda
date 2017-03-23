@@ -95,6 +95,7 @@
 
 <script src="<?php echo base_url('assets/js/jquery.dataTables.min.js'); ?>"></script>
 <link rel="stylesheet" href="<?php echo base_url('assets/css/jquery.dataTables.min.css'); ?>">
+<script src="<?php echo base_url('assets/js/admin/acciones.usuarios.js'); ?>"></script>
 <div class="container-fluid">
 
     <div class="highlight" align="center">
@@ -162,11 +163,18 @@
                         <td>'.$u->fecha_nacimiento.'</td>
                         <td>'.$u->rol.'</td>
                         <td>'.$u->fecha_alta.'</td>
-                        <td>'.$u->fecha_baja.'</td>
-                        <td>'.$u->habilitado.'</td>
-                        <td>'.$u->user_name.'</td>
+                        <td>'.$u->fecha_baja.'</td>';
+                        if($u->habilitado==1)
+                        {
+                            echo '<td>Habilitado</td>';
+                        }
+                        else
+                        {
+                            echo '<td>Inhabilitado</td>';
+                        }
+                        echo '<td>'.$u->user_name.'</td>
                         <td>'.$u->recibir_newsletter.'</td>
-                        <td></td>
+                        <td><button type="button" title="Inhabilitar" class="btn btn-default inhabilitar" id="btnInhabilitar'.$u->ID_usuario.'" value="'.$u->ID_usuario.'"> <span class="glyphicon glyphicon-remove"></span></button></td>
                         </tr>';
                     }
 

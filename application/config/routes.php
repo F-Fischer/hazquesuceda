@@ -116,6 +116,8 @@ $route['newletterempr'] = 'AdministradorController/newsletterEmprendedor';
 $route['admin/aceptarproyecto'] = 'AdministradorController/aceptarProyecto';
 $route['admin/clausurarproyecto'] = 'AdministradorController/clausurarProyecto';
 $route['admin/rechazarproyecto'] = 'AdministradorController/rechazarProyecto';
+$route['admin/inhabilitarusuario'] = 'AdministradorController/inhabilitarUsuario';
+
 
 //SISTEMA
 $route['clausuraautomatica'] = 'TareasAutomaticas/clausurarProyectosDelDia';

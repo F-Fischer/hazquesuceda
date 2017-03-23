@@ -121,6 +121,21 @@ class Usuario extends CI_Model
         return $idRol;
     }
 
+    public function inhabilitarUsuario($id)
+    {
+        $this->db->set('habilitado', 0);
+        $this->db->where('ID_usuario',$id);
+        if($this->db->update('usuario'))
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+
+    }
+
     public function devolverHabilitado($variable)
     {
         $consulta = $this->db->get_where('usuario',array('user_name'=>$variable));

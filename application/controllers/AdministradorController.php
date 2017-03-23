@@ -94,6 +94,29 @@ class AdministradorController extends CI_Controller
         }
     }
 
+    public function inhabilitarUsuario () 
+    {
+        $idUsuario = $this->input->get('idUsuario'); 
+        $u = new Usuario();
+        
+        if($u->inhabilitarUsuario($idUsuario))
+        {
+            $data = array(
+                'status' => true,
+                'message' => 'Se inhabilito usuario'
+            );
+        }
+        else
+        {
+            $data = array(
+                'status' => false,
+                'message' => 'El usuario '.$idUsuario.' no puede ser inhabilitado'
+            );
+        }
+
+        echo json_encode($data);
+    }
+    
     public function send_email_proyecto_activo ($email, $nombre) {
         $to = $email;
         $subject = "Tu proyecto en Haz que suceda!";
