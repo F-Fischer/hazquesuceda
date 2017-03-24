@@ -40,38 +40,6 @@ class EmprendedorController extends CI_Controller
         }
     }
 
-    /*public function index()
-    {
-        if($this->session->userdata('logged_in'))
-        {
-            $data['username'] = $this->session->userdata['logged_in']['username'];
-
-            $this->load->library('pagination');
-            $proyecto = new Proyecto();
-            $dataCantidad = $proyecto->record_count();
-            $elementosPorPaginas = 9;
-            $config['base_url'] = base_url('emprendedor');
-            $config['total_rows'] = $dataCantidad;
-            $config['per_page'] = $elementosPorPaginas;
-            $config['uri_segment'] = 2;
-            $this->pagination->initialize($config);
-
-            $data['links'] = $this->pagination->create_links();
-            $page = ($this->uri->segment(2)) ? $this->uri->segment(2) : 0;
-
-            //ve proyectos finalizados
-            $data['portfolio'] = $proyecto->getProyectos('5', $config['per_page'],$page);
-
-            $this->load->view('commons/header', $data);
-            $this->load->view('emprendedor/verproyectos_emprendedor',$data);
-            $this->load->view('commons/footer');
-        }
-        else
-        {
-            redirect('login', 'refresh');
-        }
-    }*/
-
     public function index()
     {
         if($this->session->userdata('logged_in'))
@@ -82,10 +50,11 @@ class EmprendedorController extends CI_Controller
                 $data['rol'] = 2;
                 $this->load->library('pagination');
                 $proyecto = new Proyecto();
-                $dataCantidad = $proyecto->record_count();
+                $dataCantidad = $proyecto->record_count("F");
+                $cantidad = intval($dataCantidad[0]->record_count);
                 $elementosPorPaginas = 9;
                 $config['base_url'] = base_url('emprendedor');
-                $config['total_rows'] = $dataCantidad;
+                $config['total_rows'] = $cantidad;
                 $config['per_page'] = $elementosPorPaginas;
                 $config['uri_segment'] = 2;
                 $this->pagination->initialize($config);
