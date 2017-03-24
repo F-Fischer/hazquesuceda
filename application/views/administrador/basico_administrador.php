@@ -196,9 +196,9 @@
     $(document).ready(function() {
         $('#todosLosProyectos').DataTable( {
             initComplete: function () {
-                this.api().column(5).every( function () {
+                this.api().column(3).every( function () {
                     var column = this;
-                    var select = $('<select><option value=""></option></select>')
+                    var select = $('<select><option value="">Todos</option></select>')
                         .appendTo( $(column.header()) )
                         .on( 'change', function () {
                             var val = $.fn.dataTable.util.escapeRegex(

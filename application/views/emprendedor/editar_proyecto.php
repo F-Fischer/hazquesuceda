@@ -92,10 +92,11 @@
                         <label>Video</label>
 
                         <?php
-
-                        if($proyecto->youtube === NULL)
+                        if($youtube == NULL)
                         {
+                            echo form_open('ProyectoController/do_update_video'.'/'.$proyecto->ID_proyecto);
                             echo '<h3>Usted no posee nigún video</h3><br /><input type="text" name="nombre" value="" id="inputNoVideo" class="form-control">';
+                            echo form_close();
                         }
                         else
                         {
