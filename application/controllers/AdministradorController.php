@@ -143,8 +143,6 @@ class AdministradorController extends CI_Controller
         
         if($u->inhabilitarUsuario($idUsuario))
         {
-            $user = $u->getUsuarioById($idUsuario);
-            $this->send_email_usuario_inhabilitado($user[0]->mail);
             $data = array(
                 'status' => true,
                 'message' => 'Se inhabilito usuario'
@@ -159,6 +157,11 @@ class AdministradorController extends CI_Controller
         }
 
         echo json_encode($data);
+        if($data["status"])
+        {
+            $user = $u->getUsuarioById($idUsuario);
+            $this->send_email_usuario_inhabilitado($user[0]->mail);
+        }
     }
 
     public function send_email_usuario_inhabilitado ($email) {
