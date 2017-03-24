@@ -53,7 +53,7 @@ class InversorController extends CI_Controller
             {
                 $this->load->library('pagination');
                 $proyecto = new Proyecto();
-                $dataCantidad = $proyecto->record_count();
+                $dataCantidad = $proyecto->record_count("A");
                 $cantidad = intval($dataCantidad[0]->record_count);
                 $elementosPorPaginas = 9;
                 $config['base_url'] = base_url('inversor');
