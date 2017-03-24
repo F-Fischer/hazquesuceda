@@ -559,7 +559,7 @@ class EmprendedorController extends CI_Controller
 
             $data = array(
                 'success' => true,
-                'message' => 'Se solicito renovacion'
+                'message' => 'Se realizo renovación'
             );
         }
         else

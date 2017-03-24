@@ -112,13 +112,17 @@ class Proyecto extends CI_Model
         $query = $this->db->get('proyecto');
         $result = $query->row();
 
-        if($result->ID_estado == 4)
+        if($result->ID_estado == 3)
         {
             $date=new DateTime(); //this returns the current date time
             $result = $date->format('Y-m-d-H-i-s');
 
-            $this->db->set('ID_estado', 1);
+            $date = date('Y-m-d');
+            $fechaBaja = strtotime("+30 days", strtotime($date));
+            $fechaBajaInsert = date("Y-m-d", $fechaBaja);
+            
             $this->db->set('fecha_ultima_modificacion', $result);
+            $this->db->set('fecha_baja', $fechaBajaInsert);
             $this->db->where('ID_proyecto',$idProyecto);
             $this->db->update('proyecto');
 
