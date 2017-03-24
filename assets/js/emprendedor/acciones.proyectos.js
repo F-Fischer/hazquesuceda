@@ -27,7 +27,8 @@ $(document).ready(function (){
                 dataType: "json"
             }).done(function(e){
                 if(e.success){
-                    $("#acciones" + idProyecto).html("No hay acciones disponibles");
+                    //$("#acciones" + idProyecto).html("No hay acciones disponibles");
+                    window.location.href = location.origin + '/hazquesuceda/misproyectos';
                 }
             }).fail(function(e){
 
@@ -47,6 +48,7 @@ $(document).ready(function (){
                 if(e.success)
                 {
                     $("#acciones"+idProyecto).html('<button type="button" title="Clausurar" class="btn btn-default clausurar" id="btnClausurar' + idProyecto + ' value="'+ idProyecto +' "> <span class="glyphicon glyphicon-remove"></span></button>');
+                    window.location.href = location.origin + '/hazquesuceda/misproyectos';
                 }
             }).fail(function(e){
 

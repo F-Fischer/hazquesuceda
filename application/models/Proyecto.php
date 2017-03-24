@@ -169,6 +169,7 @@ class Proyecto extends CI_Model
 
             $this->db->set('ID_estado', 5);
             $this->db->set('fecha_ultima_modificacion', $result);
+            $this->db->set('fecha_baja', $result);
             $this->db->where('ID_proyecto',$idProyecto);
             $this->db->update('proyecto');
 

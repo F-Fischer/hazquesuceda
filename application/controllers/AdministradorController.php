@@ -143,6 +143,8 @@ class AdministradorController extends CI_Controller
         
         if($u->inhabilitarUsuario($idUsuario))
         {
+            $user = $u->getUsuarioById($idUsuario);
+            $this->send_email_usuario_inhabilitado($user[0]->mail);
             $data = array(
                 'status' => true,
                 'message' => 'Se inhabilito usuario'
@@ -158,8 +160,45 @@ class AdministradorController extends CI_Controller
 
         echo json_encode($data);
     }
-    
+
+    public function send_email_usuario_inhabilitado ($email) {
+        $to = $email;
+        $subject = "Su cuenta de haz que suceda!";
+
+        $message = "
+                    <html>
+                        <head>
+                            <title>HTML email</title>
+                        </head>
+                        <body>
+                            <div class=\"jumbotron\">
+                              <h1>Que pena!</h1>
+                              <p>
+                                  Hemos detectuado un problema con su cuenta. La misma 
+                                  ha sido inhabilitada por no cumplir con los requisitos de HQS.
+                              </p>
+                              <label>Por favor contáctese con nosotros!</label>
+                              <p>
+                                  El equipo de Haz que suceda!
+                              </p>
+                            </div>
+                        </body>
+                    </html>
+                    ";
+
+        // Always set content-type when sending HTML email
+        $headers = "MIME-Version: 1.0" . "\r\n";
+        $headers .= "Content-type:text/html;charset=UTF-8" . "\r\n";
+
+        // More headers
+        $headers .= 'From: <soporte@hazquesuceda.org>' . "\r\n";
+
+        mail($to,$subject,$message,$headers);
+    }
+
+
     public function send_email_proyecto_activo ($email, $nombre) {
+
         $to = $email;
         $subject = "Tu proyecto en Haz que suceda!";
 
