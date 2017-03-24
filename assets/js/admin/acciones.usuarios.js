@@ -13,7 +13,12 @@ $(document).ready(function(){
                         pathArray = location.href.split( '/' );
                         protocol = pathArray[0];
                         host = pathArray[2];
-                        url = protocol + '//' + host + '/users';
+                        if(host.includes(".org")){
+                            url = protocol + '//' + host + '/users';
+                        }
+                        else {
+                            url = protocol + '//' + host + '/hazquesuceda/users';
+                        }
                         window.location.href = url;
                     }
                     else
