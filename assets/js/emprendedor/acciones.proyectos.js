@@ -3,17 +3,7 @@ $(document).ready(function (){
     $('body').on('click','.modificar', function(){
         if(confirm('Desea modificar este proyecto?')) {
             var idProyecto = $(this).attr('value');
-            $.ajax({
-                url: 'emprendedor/modificarproyecto',
-                data: {idProyecto: idProyecto},
-                method: "get",
-                processData: false,
-                dataType: "json",
-            }).done(function(e){
-                window.location.href = location.origin + '/hazquesuceda/emprendedor/editarproyecto/' + idProyecto;
-            }).fail(function(e){
-
-            });
+            redirect("emprendedor/editarproyecto",idProyecto);
         }
     });
 
@@ -27,8 +17,7 @@ $(document).ready(function (){
                 dataType: "json"
             }).done(function(e){
                 if(e.success){
-                    //$("#acciones" + idProyecto).html("No hay acciones disponibles");
-                    window.location.href = location.origin + '/hazquesuceda/misproyectos';
+                    redirect("misproyectos","");
                 }
             }).fail(function(e){
 
@@ -47,8 +36,7 @@ $(document).ready(function (){
             }).done(function(e){
                 if(e.success)
                 {
-                    $("#acciones"+idProyecto).html('<button type="button" title="Clausurar" class="btn btn-default clausurar" id="btnClausurar' + idProyecto + ' value="'+ idProyecto +' "> <span class="glyphicon glyphicon-remove"></span></button>');
-                    window.location.href = location.origin + '/hazquesuceda/misproyectos';
+                    redirect("misproyectos","");
                 }
             }).fail(function(e){
 
@@ -65,11 +53,34 @@ $(document).ready(function (){
                 method: "get",
                 dataType: "json"
             }).done(function(e){
-                $("#acciones" + idProyecto).html("No hay acciones disponibles");
+                redirect("misproyectos","");
             }).fail(function(e){
-                alert("no successo");
+
             });
         }
     });
+
+    function redirect(uri,attr) {
+        pathArray = location.href.split( '/' );
+        protocol = pathArray[0];
+        host = pathArray[2];
+        if(host.includes(".org")){
+            if(attr==""){
+                url = protocol + '//' + host + '/' + uri;
+            }
+            else{
+                url = protocol + '//' + host + '/' + uri + '/' + attr;
+            }
+        }
+        else {
+            if(attr==""){
+                url = protocol + '//' + host + '/hazquesuceda/' + uri;
+            }
+            else{
+                url = protocol + '//' + host + '/hazquesuceda/' + uri + '/' + attr;
+            }
+        }
+        window.location.href = url;
+    }
 
 });
