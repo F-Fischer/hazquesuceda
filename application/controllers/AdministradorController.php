@@ -199,7 +199,6 @@ class AdministradorController extends CI_Controller
         mail($to,$subject,$message,$headers);
     }
 
-
     public function send_email_proyecto_activo ($email, $nombre) {
 
         $to = $email;
