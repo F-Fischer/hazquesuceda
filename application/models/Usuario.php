@@ -238,6 +238,21 @@ class Usuario extends CI_Model
         return false;
     }
 
+    public function getInversoresNewsletter ()
+    {
+        $this->db->select('ID_usuario, user_name, nombre, apellido, mail, recibir_newsletter');
+        $this->db->where('ID_rol', 3);
+        $this->db->where('recibir_newsletter', 1);
+        $query = $this->db->get('usuario');
+
+        if($query->num_rows() > 0)
+        {
+            return $query->result();
+        }
+
+        return false;
+    }
+
     public function getUsuariosPorFecha ($fecha_desde, $fecha_hasta)
     {
         $this->db->select('ID_usuario, ID_rol, fecha_alta');
