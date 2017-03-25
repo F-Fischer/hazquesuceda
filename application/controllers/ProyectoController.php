@@ -41,6 +41,7 @@ class ProyectoController extends CI_Controller
             $dt2 = $resultProyecto->fecha_baja;
             
             $data['proyecto'] = $resultProyecto;
+            $data['youtube'] = $resultProyecto->youtube;
             $data['pdf'] = $pdf;
             $data['cant_img'] = count($imgs);
             $data['imgs'] = $imgs;

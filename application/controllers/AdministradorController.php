@@ -98,12 +98,23 @@ class AdministradorController extends CI_Controller
             $u = $usuario->getUsuarioById($p[0]->ID_usuario_emprendedor);
 
             $this->send_email_proyecto_activo($u[0]->mail, $p[0]->nombre);
-            echo 'Proyecto activo';
+            
+            $data = array (
+                'success' => true,
+                'message' => 'Proyecto activo'
+            );
+
         }
         else
         {
-            echo 'Este proyecto no puede ser activado';
+            $data = array (
+                'success' => false,
+                'message' => 'Este proyecto no puede ser activado'
+            );
+            
         }
+        
+        echo json_encode($data);
     }
 
     public function clausurarProyecto()
@@ -113,12 +124,20 @@ class AdministradorController extends CI_Controller
         $p = new Proyecto();
         if($p->clausurarProyecto($idProyecto))
         {
-            return true;
+            $data = array (
+                'success' => true,
+                'message' => 'El proyecto ha sido clausurado'
+            );
         }
         else
         {
-            return false;
+            $data = array (
+                'success' => false,
+                'message' => 'Este proyecto no puede ser clausurado'
+            );
         }
+        
+        echo json_encode($data);
     }
 
     public function rechazarProyecto()
@@ -128,12 +147,20 @@ class AdministradorController extends CI_Controller
         $p = new Proyecto();
         if($p->rechazarProyecto($idProyecto))
         {
-            return true;
+            $data = array (
+                'success' => true,
+                'message' => 'El proyecto ha sido rechazado'
+            );
         }
         else
         {
-            return false;
+            $data = array (
+                'success' => false,
+                'message' => 'Este proyecto no puede ser rechazado'
+            );
         }
+
+        echo json_encode($data);
     }
 
     public function inhabilitarUsuario () 

@@ -9,7 +9,7 @@ $(document).ready(function(){
                 method: "get",
                 dataType: "json",
                 success: function (e) {
-                    $("#nombreEstado" + idProyecto).html("activo");
+                    redirect();
                 }
             });
         }
@@ -24,7 +24,7 @@ $(document).ready(function(){
                 method: "get",
                 dataType: "json",
                 success: function (e) {
-                    console.log(e);
+                    redirect();
                 }
             });
         }
@@ -39,10 +39,23 @@ $(document).ready(function(){
                 method: "get",
                 dataType: "json",
                 success: function (e) {
-
+                    redirect();
                 }
             });
         }
     });
+
+    function redirect() {
+        pathArray = location.href.split( '/' );
+        protocol = pathArray[0];
+        host = pathArray[2];
+        if(host.includes(".org")){
+            url = protocol + '//' + host + '/admin';
+        }
+        else {
+            url = protocol + '//' + host + '/hazquesuceda/admin';
+        }
+        window.location.href = url;
+    }
 
 });

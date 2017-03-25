@@ -587,6 +587,7 @@ class Proyecto extends CI_Model
         $this->db->order_by('fecha_alta', 'desc');
         $this->db->order_by('cant_visitas', 'desc');
         $query = $this->db->get();
+        
         if($query->num_rows() > 0)
         {
             return $query->result();
@@ -618,8 +619,33 @@ class Proyecto extends CI_Model
         }
     }
 
-    public function record_count() {
-        return $this->db->count_all("proyecto");
+    public function record_count($type) {
+
+
+        $this->db->select('COUNT(p.ID_proyecto) as record_count');
+        $this->db->from('proyecto as p');
+
+        switch ($type)
+        {
+            case "A":
+                $this->db->where('p.ID_estado',3);
+                break;
+            case "F":
+                $this->db->where('p.ID_estado',5);
+                break;
+            default:
+                break;
+        }
+        
+        $query = $this->db->get();
+        if($query->num_rows() > 0)
+        {
+            return $query->result();
+        }
+        else
+        {
+            return 0;
+        }
     }
 
     public function getNombre()
