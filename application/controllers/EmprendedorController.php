@@ -177,7 +177,7 @@ class EmprendedorController extends CI_Controller
 
             if($this->validateUrl())
             {
-                $r = new Rubro();
+                /*$r = new Rubro();
                 $data['rubros'] = $r->getRubros();
 
                 if(!$r->getRubros())
@@ -186,11 +186,12 @@ class EmprendedorController extends CI_Controller
                     $error->Error_bd();
                 }
                 else
-                {
-                    $this->load->view('commons/header', $data);
-                    $this->load->view('emprendedor/crear_proyecto',$data);
-                    $this->load->view('commons/footer');
-                }
+                { }*/
+
+
+                $this->load->view('commons/header', $data);
+                $this->load->view('emprendedor/crear_proyecto',$data);
+                $this->load->view('commons/footer');
             }
             else
             {
@@ -211,6 +212,7 @@ class EmprendedorController extends CI_Controller
             $id = $this->uri->segment(2);
             $proyecto = new Proyecto();
             $resultado = $proyecto->getProyectoBasicoById($id);
+
             if(!$resultado)
             {
                 $error = new ErrorPropio();
