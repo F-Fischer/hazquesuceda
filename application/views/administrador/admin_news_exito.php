@@ -1,6 +1,6 @@
 <style>
     .banner {
-        background-image: url("assets/img/admin.jpg");
+        background-image: url("<?php echo base_url().'assets/img/admin.jpg'; ?>");
     }
 
     .nav-pills > li.active > a, .nav-pills > li.active > a:focus {
