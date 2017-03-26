@@ -1,4 +1,6 @@
+<script src="<?php  echo base_url("assets/js/emprendedor/edicion.proyectos.js");?>"></script>
 <div id="content">
+
     <style>
         .banner {
             background-image: url("assets/img/emp.jpg");
@@ -116,6 +118,9 @@
                         ?>
                     </div>
                     <br />
+                    <div>
+                        <input value="A mis proyectos!" id="btnRegresar" class="btn btn-default">
+                    </div>
 
             </div>
 
