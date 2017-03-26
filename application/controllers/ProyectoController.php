@@ -114,6 +114,7 @@ class ProyectoController extends CI_Controller
         $url->setTipo('youtube');
         $url->setPath($_POST["video"]);
         $url->setIdProyecto($this->uri->segment(3));
+
         if ($this->form_validation->run() == FALSE)
         {
             $data['username'] = $this->session->userdata['logged_in']['username'];

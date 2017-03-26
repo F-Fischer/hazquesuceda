@@ -64,8 +64,8 @@ $route['exitoinversor'] = 'RegistroInversor/exito';
 $route['activar/(:any)'] = 'HabilitarUsuario';
 $route['portfolio'] = 'portfolio';
 $route['portfolio/(:num)'] = 'portfolio';
-$route['adminproyectos'] = 'adminproyectos';
-$route['adminproyectos/(:num)'] = 'adminproyectos';
+
+// EMPRENDEDOR
 $route['emprendedor'] = 'EmprendedorController';
 $route['emprendedor/(:num)'] = 'EmprendedorController';
 $route['micuentaE'] = 'EmprendedorController/miCuenta';
@@ -117,7 +117,6 @@ $route['admin/aceptarproyecto'] = 'AdministradorController/aceptarProyecto';
 $route['admin/clausurarproyecto'] = 'AdministradorController/clausurarProyecto';
 $route['admin/rechazarproyecto'] = 'AdministradorController/rechazarProyecto';
 $route['admin/inhabilitarusuario'] = 'AdministradorController/inhabilitarUsuario';
-
 $route['adminproyectos'] = 'adminproyectos';
 $route['adminproyectos/(:num)'] = 'adminproyectos';
 

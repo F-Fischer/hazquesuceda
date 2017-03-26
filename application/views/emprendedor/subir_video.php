@@ -42,7 +42,8 @@
             </div>
 
             <?php
-            echo form_open('proyectocontroller/subirVideo/'.$proyecto->ID_proyecto);
+            echo form_open('ProyectoController/subirVideo/'.$proyecto->ID_proyecto);
+
             //Este funciona
             echo '<div class="form-group">'.form_label('Url del video ').form_error('video', '<div class="error" style="color:red; float: right;">', '</div>');
             $data = array (
