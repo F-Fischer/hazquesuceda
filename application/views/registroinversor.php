@@ -237,8 +237,19 @@
                     <h4 class="modal-title" id="myModalLabel">Términos y
                         condiciones</h4>
                 </div>
-                <div class="modal-body">Acá van los términos y condiciones,
-                    en forma de texto plano, ni bien los redactemos jaja.</div>
+                <div class="modal-body">
+                    Bienvenido a Haz que suceda!. Al usar este sitio web (el "Sitio") y los servicios (de manera conjunta con el Sitio, los "Servicios") de
+                    Haz que suceda!, PBC (denominados de manera conjunta con sus empresas matrices, filiales, afiliados, agentes, representantes, consultores,
+                    empleados, responsables y administradores, como "Haz que suceda!" o "nosotros"), estará aceptando cumplir estas normas jurídicamente
+                    vinculantes (los "Términos"). Asimismo, también acepta adherirse a nuestra Política de privacidad y cumplir todas las normas del Sitio,
+                    como nuestras Reglas de la comunidad y las normas para iniciar proyectos.
+                    <br>
+                    <br>
+                    Es posible que de vez en cuando modifiquemos estos términos. Si lo hacemos, le avisaremos de los cambios significativos mediante un aviso
+                    en el Sitio o a través de un correo electrónico. Las nuevas versiones de los términos nunca se aplicarán de forma retroactiva y le
+                    informaremos de la fecha exacta en la que entrarán en vigor. Si sigue usando Haz que suceda! después de una modificación, se considerará
+                    que acepta los nuevos términos.
+                </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                 </div>

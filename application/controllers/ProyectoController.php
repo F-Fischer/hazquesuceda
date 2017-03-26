@@ -79,7 +79,7 @@ class ProyectoController extends CI_Controller
 
     public function crearProyecto()
     {
-        //este funciona
+//este funciona
         $this->form_validation->set_rules('nombre', 'inputNombre', 'trim|required', array('required' => 'No ingreso título del proyecto'));
         $this->form_validation->set_rules('descripcion', 'inputDescripcion', 'trim|required',array('required' => 'No ingreso descripción'));
 
@@ -127,7 +127,6 @@ class ProyectoController extends CI_Controller
 
     public function subirVideo()
     {
-        //Este funciona
         $this->form_validation->set_rules('video', 'inputVideo', 'trim|required', array('required' => 'No ingresó url del video'));
 
         $url = new MultimediaProyecto();
@@ -168,6 +167,7 @@ class ProyectoController extends CI_Controller
                 redirect('imagenes/'.$id);
             }
         }
+
     }
 
     public function guardarImgBD($upload_path)

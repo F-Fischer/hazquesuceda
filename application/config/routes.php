@@ -71,7 +71,6 @@ $route['emprendedor/(:num)'] = 'EmprendedorController';
 $route['micuentaE'] = 'EmprendedorController/miCuenta';
 $route['misproyectos'] = 'EmprendedorController/misProyectos';
 $route['crearproyecto'] = 'EmprendedorController/crearProyecto';
-$route['proyecto/crearproyecto'] = 'ProyectoController/crearProyecto';
 $route['video/(:num)'] = 'EmprendedorController/subirVideoProyecto';
 $route['imagenes/(:num)'] = 'EmprendedorController/subirImagenProyecto';
 $route['archivo/(:num)'] = 'EmprendedorController/subirArchivoProyecto';
@@ -91,6 +90,7 @@ $route['emprendedor/clausurarproyecto'] = 'EmprendedorController/clausurarProyec
 $route['registroemprendedor/registrar'] = 'RegistroEmprendedor/Registrar';
 $route['micuenta/editarnombre'] = 'EmprendedorController/editarNombre';
 $route['descripcionemprendedor/(:num)'] = 'ProyectoController/descripcionProyectoEmprendedor';
+
 
 //INVERSOR
 $route['inversor'] = 'InversorController';
