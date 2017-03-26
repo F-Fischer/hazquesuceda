@@ -160,7 +160,7 @@ class EmprendedorController extends CI_Controller
                     $this->load->view('emprendedor/crear_proyecto',$data);
                     $this->load->view('commons/footer');
                 }
-                
+
             }
             else
             {

@@ -98,6 +98,7 @@ class ProyectoController extends CI_Controller
             $date = strtotime("+30 days", strtotime($date));
             $date = date("Y-m-d", $date);
             $p->setFechaBaja($date);
+
             if($p->insertProyecto())
             {
                 $proyecto = new Proyecto();
