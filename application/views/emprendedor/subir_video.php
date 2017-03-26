@@ -45,7 +45,6 @@
             echo form_open('proyectocontroller/subirVideo/'.$proyecto->ID_proyecto);
             //Este funciona
             echo '<div class="form-group">'.form_label('Url del video ').form_error('video', '<div class="error" style="color:red; float: right;">', '</div>');
-
             $data = array (
                 'id' => 'inputVideo',
                 'name' => 'video',
@@ -53,21 +52,15 @@
                 'value' => set_value('video'),
                 'placeholder' => 'Pegue aquí la url de su video en YouTube'
             );
-
             echo form_input($data).'</div>';
-
             $data = array(
                 'id' => 'btnGuardarVideo',
                 'class' => 'btn btn-default',
                 'value' => 'Guardar video!',
             );
-
             echo '<br>'.form_submit($data,'Guardar video!');
-
             echo form_close();
-
             echo '<br>'.anchor(base_url().'imagenes/'.$proyecto->ID_proyecto,'No tengo un video todavía');
-
             ?>
 
             <br>
@@ -81,66 +74,3 @@
     </div>
 
 </div>
-<<<<<<< HEAD
-
-<script>
-    $(document).ready(function (){
-
-        $("#subir_video").click(function(){
-            if($("#video").val() == "")
-            {
-                alert('No insertó url');
-            }
-            else
-            {
-                var video = $("#video").val();
-                var id_proyecto = document.getElementById("id_proyecto").innerText;
-
-                debugger;
-
-                $.ajax({
-                    url: 'ProyectoController/subirVideo',
-                    data: {
-                        video: video,
-                        id: id_proyecto
-                    },
-                    type: "POST",
-                    success: function (res) {
-                        debugger;
-                        redirect('imagenes', res);
-                    },
-                    error: function(err) {
-                        debugger;
-                        alert('algo salió mal: ' + err.responseText);
-                    }
-                });
-            }
-        });
-
-        function redirect(uri,attr) {
-            pathArray = location.href.split( '/' );
-            protocol = pathArray[0];
-            host = pathArray[2];
-            if(host.includes(".org")){
-                if(attr==""){
-                    url = protocol + '//' + host + '/' + uri;
-                }
-                else{
-                    url = protocol + '//' + host + '/' + uri + '/' + attr;
-                }
-            }
-            else {
-                if(attr==""){
-                    url = protocol + '//' + host + '/hazquesuceda/' + uri;
-                }
-                else{
-                    url = protocol + '//' + host + '/hazquesuceda/' + uri + '/' + attr;
-                }
-            }
-            window.location.href = url;
-        }
-
-    });
-</script>
-=======
->>>>>>> eccc92054c50459f3a1c59cd3cf512e0867a2cf8
