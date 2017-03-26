@@ -330,7 +330,33 @@ class ProyectoController extends CI_Controller
             echo 'no grabo nada';
         }
     }
+
+    public function do_set_video()
+    {
+        $video = $this->input->post('video');
+        //echo $video;
+        $path = substr($video,32);
+        $id = $this->uri->segment(3);
+        $mm = new MultimediaProyecto();
+        $mm->setPath($path);
+        $mm->setTipo('youtube');
+        $mm->setIdProyecto($id);
+        
+        $p = new Proyecto();
+
+        if($mm->insertMultimedia()){
+            redirect('emprendedor/editarproyecto/' . $id);
+        }
+        else
+        {
+            echo 'no grabo nada';
+        }
     
+    }
+    
+
+
+
     public function do_update_img($id,$name)
     {
         $id = $this->uri->segment(3);

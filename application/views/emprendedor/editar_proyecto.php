@@ -23,9 +23,6 @@
 
 
                     <div class="form-group">
-                        <!--<label>Título del proyecto</label>
-                        <input type="text" name="nombre" value="<?php /*echo $proyecto->nombre; */?>" id="inputNombre" class="form-control">
-                        -->
                         <?php
                             echo form_open('ProyectoController/do_update_title'.'/'.$proyecto->ID_proyecto);
                             echo '<label>Título del proyecto</label>';
@@ -96,8 +93,9 @@
                         <?php
                         if($youtube == NULL)
                         {
-                            echo form_open('ProyectoController/do_update_video'.'/'.$proyecto->ID_proyecto);
-                            echo '<h3>Usted no posee nigún video</h3><br /><input type="text" name="nombre" value="" id="inputNoVideo" class="form-control">';
+                            echo form_open('ProyectoController/do_set_video'.'/'.$proyecto->ID_proyecto);
+                            echo '<h3>Usted no posee nigún video</h3><br /><input type="text" name="video" value="" id="inputNoVideo" class="form-control">';
+                            echo "<br/><input type='submit' class='btn btn-default' name='submit' value='Cargar' /> ";
                             echo form_close();
                         }
                         else
@@ -118,7 +116,9 @@
                         ?>
                     </div>
                     <br />
-                    <div>
+                    <br />
+                    <br />
+                    <div class="col-md-12">
                         <input value="A mis proyectos!" id="btnRegresar" class="btn btn-default">
                     </div>
 
