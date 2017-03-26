@@ -79,59 +79,99 @@ class ProyectoController extends CI_Controller
 
     public function crearProyecto()
     {
-        $data['username'] = $this->session->userdata['logged_in']['username'];
+//este funciona
+        $this->form_validation->set_rules('nombre', 'inputNombre', 'trim|required', array('required' => 'No ingreso título del proyecto'));
+        $this->form_validation->set_rules('descripcion', 'inputDescripcion', 'trim|required',array('required' => 'No ingreso descripción'));
 
         $p = new Proyecto();
-        $p->setNombre($this->input->post('nombre'));
-        $p->setDescripcion($this->input->post('descripcion'));
-        $p->setIdRubroProyecto($this->input->post('rubro'));
 
-        $e = new Emprendedor();
-        $id = $e->getIdEmprendedor($data['username']);
-        $p->setIdUsuarioEmprendedor($id[0]->ID_usuario);
-        $data['userid'] = $id[0]->ID_usuario;
+        $p->setNombre($_POST["nombre"]);
+        $p->setDescripcion($_POST["descripcion"]);
+        $p->setIdRubroProyecto($_POST["comboRubros"]);
 
-        $date = date('Y-m-d');
-
-        $p->setFechaAlta($date);
-        $p->setFechaUltimaModificacion($date);
-
-        $date = strtotime("+30 days", strtotime($date));
-        $date = date("Y-m-d", $date);
-        $p->setFechaBaja($date);
-
-        if($p->insertProyecto())
+        if ($this->form_validation->run() == FALSE)
         {
-            $proyecto = new Proyecto();
-            $resultado = $proyecto->getInfoBasicaProyectoByNombre($this->input->post('nombre'),$id[0]->ID_usuario);
-            echo $resultado->ID_proyecto;
+            $r = new Rubro();
+            $data['rubros'] = $r->getRubros();
+            $data['username'] = $this->session->userdata['logged_in']['username'];
+            $this->load->view('commons/header', $data);
+            $this->load->view('emprendedor/crear_proyecto',$data);
+            $this->load->view('commons/footer');
         }
+        else
+        {
+            $data['username'] = $this->session->userdata['logged_in']['username'];
+            $e = new Emprendedor();
+            $id = $e->getIdEmprendedor($data['username']);
+            $p->setIdUsuarioEmprendedor($id[0]->ID_usuario);
+            $data['userid'] = $id[0]->ID_usuario;
 
+            $date = date('Y-m-d');
+
+            $p->setFechaAlta($date);
+            $p->setFechaUltimaModificacion($date);
+
+            $date = strtotime("+30 days", strtotime($date));
+            $date = date("Y-m-d", $date);
+            $p->setFechaBaja($date);
+
+            if($p->insertProyecto())
+            {
+                $proyecto = new Proyecto();
+                $resultado = $proyecto->getInfoBasicaProyectoByNombre($_POST["nombre"],$id[0]->ID_usuario);
+
+                redirect('video/'.$resultado->ID_proyecto);
+            }
+        }
     }
 
     public function subirVideo()
     {
-        $id = $this->input->post('id');
-        $video = $this->input->post('video');
+        $this->form_validation->set_rules('video', 'inputVideo', 'trim|required', array('required' => 'No ingresó url del video'));
 
         $url = new MultimediaProyecto();
         $url->setTipo('youtube');
-        $url->setPath($video);
-        $url->setIdProyecto($id);
+        $url->setPath($_POST["video"]);
+        $url->setIdProyecto($this->uri->segment(3));
 
-        $path = substr($video,32);  // https://www.youtube.com/watch?v=Ibv2ZoLgcyg
-        $url->setPath($path);
-
-        if($url->insertMultimedia())
+        if ($this->form_validation->run() == FALSE)
         {
-            $data = array( 'id' => $id);
+            $data['username'] = $this->session->userdata['logged_in']['username'];
+            $id = $this->uri->segment(3);
+
+            $proyecto = new Proyecto();
+            $resultado = $proyecto->getProyectoBasicoById($id);
+
+            if(!$resultado)
+            {
+                $error = new ErrorPropio();
+                $error->Error_bd();
+            }
+            else
+            {
+                $data['proyecto'] = $resultado;
+                $this->load->view('commons/header',$data);
+                $this->load->view('emprendedor/subir_video',$data);
+                $this->load->view('commons/footer');
+            }
         }
         else
         {
-            $data = array( 'id' => 'no se');
+            $path = substr($_POST["video"],32);  // https://www.youtube.com/watch?v=Ibv2ZoLgcyg
+            $url->setPath($path);
+
+            if($url->insertMultimedia())
+            {
+                $id = $this->uri->segment(3);
+
+                redirect('imagenes/'.$id);
+            }
         }
 
+<<<<<<< HEAD
         echo json_encode($data);
+=======
+>>>>>>> eccc92054c50459f3a1c59cd3cf512e0867a2cf8
     }
 
     public function guardarImgBD($upload_path)
