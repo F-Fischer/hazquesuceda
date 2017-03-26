@@ -1,4 +1,6 @@
+<script src="<?php  echo base_url("assets/js/emprendedor/edicion.proyectos.js");?>"></script>
 <div id="content">
+
     <style>
         .banner {
             background-image: url("<?php echo base_url().'assets/img/emp.jpg'; ?>");
@@ -21,9 +23,6 @@
 
 
                     <div class="form-group">
-                        <!--<label>Título del proyecto</label>
-                        <input type="text" name="nombre" value="<?php /*echo $proyecto->nombre; */?>" id="inputNombre" class="form-control">
-                        -->
                         <?php
                             echo form_open('ProyectoController/do_update_title'.'/'.$proyecto->ID_proyecto);
                             echo '<label>Título del proyecto</label>';
@@ -94,8 +93,9 @@
                         <?php
                         if($youtube == NULL)
                         {
-                            echo form_open('ProyectoController/do_update_video'.'/'.$proyecto->ID_proyecto);
-                            echo '<h3>Usted no posee nigún video</h3><br /><input type="text" name="nombre" value="" id="inputNoVideo" class="form-control">';
+                            echo form_open('ProyectoController/do_set_video'.'/'.$proyecto->ID_proyecto);
+                            echo '<h3>Usted no posee nigún video</h3><br /><input type="text" name="video" value="" id="inputNoVideo" class="form-control">';
+                            echo "<br/><input type='submit' class='btn btn-default' name='submit' value='Cargar' /> ";
                             echo form_close();
                         }
                         else
@@ -116,6 +116,15 @@
                         ?>
                     </div>
                     <br />
+                    <br />
+                    <br />
+                    <div class="col-md-12">
+                        <br />
+                        <br />
+                        <div align="center">
+                            <input  style="width:30%" value="Regresar a mis proyectos!" id="btnRegresar" class="btn btn-default">
+                        </div>
+                    </div>
 
             </div>
 
