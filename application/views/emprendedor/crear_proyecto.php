@@ -1,6 +1,6 @@
 <style>
     .banner {
-        background-image: url("assets/img/emp.jpg");
+        background-image: url("<?php echo base_url().'assets/img/emp.jpg'; ?>");
     }
 </style>
 
@@ -38,7 +38,7 @@
         <div>
 
             <?php
-            echo form_open('proyecto/crearproyecto');
+            echo form_open('ProyectoController/crearProyecto');
             //Este funciona
             echo '<div class="form-group">'.form_label('Título del proyecto ').form_error('nombre', '<div class="error" style="color:red; float: right;">', '</div>');
 

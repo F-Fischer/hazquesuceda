@@ -1,7 +1,7 @@
 <div id="content">
     <style>
         .banner {
-            background-image: url("assets/img/emp.jpg");
+            background-image: url("<?php echo base_url().'assets/img/emp.jpg'; ?>");
         }
     </style>
 
