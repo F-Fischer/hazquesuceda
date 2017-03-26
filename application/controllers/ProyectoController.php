@@ -40,8 +40,21 @@ class ProyectoController extends CI_Controller
             $dt1 = $resultProyecto->fecha_alta;
             $dt2 = $resultProyecto->fecha_baja;
             
+            $mm = new MultimediaProyecto();
+            
+            
+            
             $data['proyecto'] = $resultProyecto;
-            $data['youtube'] = $resultProyecto->youtube;
+            
+            if($mm->containsVideo($id))
+            {
+                $data['video'] = true;    
+            }
+            else 
+            {
+                $data['video'] = false;
+            }
+            
             $data['pdf'] = $pdf;
             $data['cant_img'] = count($imgs);
             $data['imgs'] = $imgs;
