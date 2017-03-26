@@ -100,7 +100,8 @@
                     type: "POST",
                     dataType: 'json',
                     success: function (res) {
-                        window.location.href = 'video/' + res;
+                        debugger;
+                        redirect('video', res);
                     },
                     error: function(err) {
                         alert('algo salió mal: ' + err.responseText);
@@ -108,6 +109,29 @@
                 });
             }
         });
+
+        function redirect(uri,attr) {
+            pathArray = location.href.split( '/' );
+            protocol = pathArray[0];
+            host = pathArray[2];
+            if(host.includes(".org")){
+                if(attr==""){
+                    url = protocol + '//' + host + '/' + uri;
+                }
+                else{
+                    url = protocol + '//' + host + '/' + uri + '/' + attr;
+                }
+            }
+            else {
+                if(attr==""){
+                    url = protocol + '//' + host + '/hazquesuceda/' + uri;
+                }
+                else{
+                    url = protocol + '//' + host + '/hazquesuceda/' + uri + '/' + attr;
+                }
+            }
+            window.location.href = url;
+        }
 
     });
 </script>

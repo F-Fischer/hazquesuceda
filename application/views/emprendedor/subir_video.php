@@ -90,7 +90,7 @@
                     type: "POST",
                     success: function (res) {
                         debugger;
-                        window.location.href = 'imagenes/' + res;
+                        redirect('imagenes', res);
                     },
                     error: function(err) {
                         debugger;
@@ -99,6 +99,29 @@
                 });
             }
         });
+
+        function redirect(uri,attr) {
+            pathArray = location.href.split( '/' );
+            protocol = pathArray[0];
+            host = pathArray[2];
+            if(host.includes(".org")){
+                if(attr==""){
+                    url = protocol + '//' + host + '/' + uri;
+                }
+                else{
+                    url = protocol + '//' + host + '/' + uri + '/' + attr;
+                }
+            }
+            else {
+                if(attr==""){
+                    url = protocol + '//' + host + '/hazquesuceda/' + uri;
+                }
+                else{
+                    url = protocol + '//' + host + '/hazquesuceda/' + uri + '/' + attr;
+                }
+            }
+            window.location.href = url;
+        }
 
     });
 </script>

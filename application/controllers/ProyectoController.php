@@ -131,7 +131,7 @@ class ProyectoController extends CI_Controller
             $data = array( 'id' => 'no se');
         }
 
-        echo 'caro';
+        echo json_encode($data);
     }
 
     public function guardarImgBD($upload_path)
