@@ -119,7 +119,11 @@
                     <br />
                     <br />
                     <div class="col-md-12">
-                        <input value="A mis proyectos!" id="btnRegresar" class="btn btn-default">
+                        <br />
+                        <br />
+                        <div align="center">
+                            <input  style="width:30%" value="Regresar a mis proyectos!" id="btnRegresar" class="btn btn-default">
+                        </div>
                     </div>
 
             </div>
