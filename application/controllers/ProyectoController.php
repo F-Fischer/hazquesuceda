@@ -68,13 +68,14 @@ class ProyectoController extends CI_Controller
     }
     public function crearProyecto()
     {
-//este funciona
+        //este funciona
         $this->form_validation->set_rules('nombre', 'inputNombre', 'trim|required', array('required' => 'No ingreso título del proyecto'));
         $this->form_validation->set_rules('descripcion', 'inputDescripcion', 'trim|required',array('required' => 'No ingreso descripción'));
         $p = new Proyecto();
         $p->setNombre($_POST["nombre"]);
         $p->setDescripcion($_POST["descripcion"]);
         $p->setIdRubroProyecto($_POST["comboRubros"]);
+
         if ($this->form_validation->run() == FALSE)
         {
             $r = new Rubro();

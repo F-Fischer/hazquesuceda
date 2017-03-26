@@ -146,7 +146,7 @@ class EmprendedorController extends CI_Controller
 
             if($this->validateUrl())
             {
-                /*$r = new Rubro();
+                $r = new Rubro();
                 $data['rubros'] = $r->getRubros();
 
                 if(!$r->getRubros())
@@ -155,12 +155,12 @@ class EmprendedorController extends CI_Controller
                     $error->Error_bd();
                 }
                 else
-                { }*/
-
-
-                $this->load->view('commons/header', $data);
-                $this->load->view('emprendedor/crear_proyecto',$data);
-                $this->load->view('commons/footer');
+                {
+                    $this->load->view('commons/header', $data);
+                    $this->load->view('emprendedor/crear_proyecto',$data);
+                    $this->load->view('commons/footer');
+                }
+                
             }
             else
             {
@@ -474,7 +474,48 @@ class EmprendedorController extends CI_Controller
         }
 
     }
-    
+
+    public function modificarProyecto ()
+    {
+        $data['username'] = $this->session->userdata['logged_in']['username'];
+
+        if($this->validateUrl())
+        {
+            $idProyecto = $this->input->get('idProyecto');
+            $proyecto = new Proyecto();
+            $data['proyecto'] = $proyecto->getProyectoByIdBasico($idProyecto);
+
+//        $response = $this->load->view('commons/header', $data,TRUE);
+//        $response += $this->load->view('emprendedor/crear_proyecto',$data,TRUE);
+//        $response += $this->load->view('commons/footer',TRUE);
+
+            $dataResp = array(
+                'html' => $this->load->view('emprendedor/crear_proyecto',$data,TRUE)
+            );
+
+            echo json_encode($dataResp);
+//        $r = new Rubro();
+//        $data['rubros'] = $r->getRubros();
+//        $data['proyecto'] = $proyecto->getProyectoByIdBasico($idProyecto);
+
+//        if(!$r->getRubros())
+//        {
+//            $error = new ErrorPropio();
+//            $error->Error_bd();
+//        }
+//        else
+//        {
+//            $this->load->view('commons/header', $data);
+//            $this->load->view('emprendedor/crear_proyecto',$data);
+//            $this->load->view('commons/footer');
+//        }
+        }
+        else
+        {
+            echo 'sin permisos';
+        }
+    }
+
     public function renovarProyecto ()
     {
         $idProyecto = $this->input->get('idProyecto');
