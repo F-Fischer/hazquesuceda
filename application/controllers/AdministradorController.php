@@ -98,23 +98,12 @@ class AdministradorController extends CI_Controller
             $u = $usuario->getUsuarioById($p[0]->ID_usuario_emprendedor);
 
             $this->send_email_proyecto_activo($u[0]->mail, $p[0]->nombre);
-            
-            $data = array (
-                'success' => true,
-                'message' => 'Proyecto activo'
-            );
-
+            echo 'Proyecto activo';
         }
         else
         {
-            $data = array (
-                'success' => false,
-                'message' => 'Este proyecto no puede ser activado'
-            );
-            
+            echo 'Este proyecto no puede ser activado';
         }
-        
-        echo json_encode($data);
     }
 
     public function clausurarProyecto()
@@ -124,20 +113,12 @@ class AdministradorController extends CI_Controller
         $p = new Proyecto();
         if($p->clausurarProyecto($idProyecto))
         {
-            $data = array (
-                'success' => true,
-                'message' => 'El proyecto ha sido clausurado'
-            );
+            return true;
         }
         else
         {
-            $data = array (
-                'success' => false,
-                'message' => 'Este proyecto no puede ser clausurado'
-            );
+            return false;
         }
-        
-        echo json_encode($data);
     }
 
     public function rechazarProyecto()
@@ -147,20 +128,12 @@ class AdministradorController extends CI_Controller
         $p = new Proyecto();
         if($p->rechazarProyecto($idProyecto))
         {
-            $data = array (
-                'success' => true,
-                'message' => 'El proyecto ha sido rechazado'
-            );
+            return true;
         }
         else
         {
-            $data = array (
-                'success' => false,
-                'message' => 'Este proyecto no puede ser rechazado'
-            );
+            return false;
         }
-
-        echo json_encode($data);
     }
 
     public function inhabilitarUsuario () 
@@ -485,19 +458,16 @@ class AdministradorController extends CI_Controller
             $descripcion = $_POST["descripcion"];
 
             $usuario = new Usuario();
-            $usuarios = $usuario->getUsuariosPorRol(2);
+            $usuarios = $usuario->getEmprendedoresNewsletter();
 
             // para cada usuario emprendedor
             foreach ($usuarios as $u)
             {
-                if ($u->recibir_newsletter == 1)
-                {
-                    $this->send_newsletter_emprendedor($u->mail, $titulo, $descripcion);
-                }
+                $this->send_newsletter_emprendedor($u->mail, $titulo, $descripcion);
             }
 
             $this->load->view('commons/header', $data);
-            $this->load->view('administrador/admin_newsletter_empr',$data);
+            $this->load->view('administrador/admin_news_exito',$data);
             $this->load->view('commons/footer');
         }
     }

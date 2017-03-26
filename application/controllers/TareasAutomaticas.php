@@ -105,7 +105,7 @@ class TareasAutomaticas extends CI_Controller
     public function newsletterInversor ()
     {
         $usuario = new Usuario();
-        $usuarios = $usuario->getUsuariosPorRol(3);
+        $usuarios = $usuario->getInversoresNewsletter();
 
         // para cada usuario inversor
         foreach ($usuarios as $u)
