@@ -88,51 +88,99 @@ class AdministradorController extends CI_Controller
     public function aceptarProyecto()
     {
         $idProyecto = $this->input->get('idProyecto');
-        $proyecto = new Proyecto();
+        $p = new Proyecto();
 
-        if($proyecto->activarProyecto($idProyecto))
+        if($p->activarProyecto($idProyecto))
         {
-            $p = $proyecto->getProyectoByIdBasico($idProyecto);
-
-            $usuario = new Usuario();
-            $u = $usuario->getUsuarioById($p[0]->ID_usuario_emprendedor);
-
-            $this->send_email_proyecto_activo($u[0]->mail, $p[0]->nombre);
-            echo 'Proyecto activo';
+            $data = array(
+                'status' => true,
+                'message' => 'Se activo proyecto'
+            );
         }
         else
         {
-            echo 'Este proyecto no puede ser activado';
+            $data = array(
+                'status' => false,
+                'message' => 'El proyecto '.$idProyecto.' no puede ser activado'
+            );
+        }
+
+        echo json_encode($data);
+
+        if($data["status"])
+        {
+            $proyecto = $p->getProyectoByIdBasico($idProyecto);
+
+            $usuario = new Usuario();
+            $u = $usuario->getUsuarioById($proyecto[0]->ID_usuario_emprendedor);
+
+            $this->send_email_proyecto_activo($u[0]->mail, $proyecto[0]->nombre);
         }
     }
 
     public function clausurarProyecto()
     {
         $idProyecto = $this->input->get('idProyecto');
-
         $p = new Proyecto();
+
         if($p->clausurarProyecto($idProyecto))
         {
-            return true;
+            $data = array(
+                'status' => true,
+                'message' => 'Se clausuro proyecto'
+            );
         }
         else
         {
-            return false;
+            $data = array(
+                'status' => false,
+                'message' => 'El proyecto '.$idProyecto.' no puede ser clausurado'
+            );
+        }
+
+        echo json_encode($data);
+
+        if($data["status"])
+        {
+            $proyecto = $p->getProyectoByIdBasico($idProyecto);
+
+            $usuario = new Usuario();
+            $u = $usuario->getUsuarioById($proyecto[0]->ID_usuario_emprendedor);
+
+            $this->send_email_proyecto_rechazado($u[0]->mail, $proyecto[0]->nombre);
         }
     }
 
     public function rechazarProyecto()
     {
         $idProyecto = $this->input->get('idProyecto');
-
         $p = new Proyecto();
+
         if($p->rechazarProyecto($idProyecto))
         {
-            return true;
+            $data = array(
+                'status' => true,
+                'message' => 'Se rechazo proyecto'
+            );
         }
         else
         {
-            return false;
+            $data = array(
+                'status' => false,
+                'message' => 'El proyecto '.$idProyecto.' no puede ser rechazado'
+            );
+        }
+
+        echo json_encode($data);
+
+        if($data["status"])
+        {
+            $proyecto = $p->getProyectoByIdBasico($idProyecto);
+
+            $usuario = new Usuario();
+            $u = $usuario->getUsuarioById($proyecto[0]->ID_usuario_emprendedor);
+
+            $this->send_email_proyecto_rechazado($u[0]->mail, $proyecto[0]->nombre);
         }
     }
 
@@ -157,6 +205,7 @@ class AdministradorController extends CI_Controller
         }
 
         echo json_encode($data);
+
         if($data["status"])
         {
             $user = $u->getUsuarioById($idUsuario);
@@ -205,26 +254,313 @@ class AdministradorController extends CI_Controller
         $subject = "Tu proyecto en Haz que suceda!";
 
         $message = "
+                    <!doctype html>
                     <html>
-                        <head>
-                            <title>HTML email</title>
-                        </head>
-                        <body>
-                            <div class=\"jumbotron\">
-                              <h1>Felicitaciones!</h1>
-                              <p>
-                                  Nuestro administrador a aprobado tu proyecto <strong>" . $nombre. " </strong>.
-                                  Nuestros inversores ya pueden verlo.
-                              </p>
-                              <label>¡Exitos a ti y a tu proyecto!</label>
-                              <p>
-                                  Gracias por confiar en nosotros.
-                              </p>
-                              <p>
-                                  El equipo de Haz que suceda!
-                              </p>
-                            </div>
-                        </body>
+                    <head>
+                    <title></title>
+                    <style type=\"text/css\">
+                    /* CLIENT-SPECIFIC STYLES */
+                    body, table, td, a { -webkit-text-size-adjust: 100%; -ms-text-size-adjust: 100%; }
+                    table, td { mso-table-lspace: 0pt; mso-table-rspace: 0pt; }
+                    img { -ms-interpolation-mode: bicubic; }
+
+                    /* RESET STYLES */
+                    img { border: 0; height: auto; line-height: 100%; outline: none; text-decoration: none; }
+                    table { border-collapse: collapse !important; }
+                    body { height: 100% !important; margin: 0 !important; padding: 0 !important; width: 100% !important; }
+
+                    /* iOS BLUE LINKS */
+                    a[x-apple-data-detectors] {
+                        color: inherit !important;
+                        text-decoration: none !important;
+                        font-size: inherit !important;
+                        font-family: inherit !important;
+                        font-weight: inherit !important;
+                        line-height: inherit !important;
+                    }
+
+                    /* MOBILE STYLES */
+                    @media screen and (max-width: 480px) {
+                      .img-max {
+                        width: 100% !important;
+                        max-width: 100% !important;
+                        height: auto !important;
+                      }
+
+                      .max-width {
+                        max-width: 100% !important;
+                      }
+
+                      .mobile-wrapper {
+                        width: 85% !important;
+                        max-width: 85% !important;
+                      }
+
+                      .mobile-padding {
+                        padding-left: 5% !important;
+                        padding-right: 5% !important;
+                      }
+
+                      .full-width {
+                        width: 100% !important;
+                      }
+                    }
+
+                    /* ANDROID CENTER FIX */
+                    div[style*=\"margin: 16px 0;\"] { margin: 0 !important; }
+                    </style>
+                    </head>
+                    <body style=\"margin: 0 !important; padding: 0; !important background-color: #ffffff;\" bgcolor=\"#ffffff\">
+
+                    <table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" width=\"100%\">
+                        <tr>
+                            <td align=\"center\" valign=\"top\" width=\"100%\" background=\"images/bg.jpg\" bgcolor=\"#B74215\" style=\"background: #B74215 url('images/bg.jpg'); background-size: cover; padding: 35px 15px 0 15px;\" class=\"mobile-padding\">
+                                <table align=\"center\" border=\"0\" cellpadding=\"0\" cellspacing=\"0\" width=\"480\" class=\"full-width\">
+                                    <tr>
+                                        <td align=\"center\" valign=\"top\" style=\"padding: 0 0 50px 0;\">
+                                            <img src='". base_url()."/assets/img/hqslogo2.png' width=\"50\" height=\"50\" border=\"0\" style=\"display: block;\">
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td align=\"center\" valign=\"top\" style=\"padding: 0 0 20px 0;\">
+                                            <img src='". base_url()."/assets/img/hqslogo2.png' width=\"300\" height=\"300\" border=\"0\" style=\"display: block;\">
+                                        </td>
+                                    </tr>
+                                </table>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td align=\"center\" height=\"100%\" valign=\"top\" width=\"100%\" bgcolor=\"#f6f6f6\" style=\"padding: 0 15px 50px 15px;\" class=\"mobile-padding\">
+                                <table align=\"center\" border=\"0\" cellpadding=\"0\" cellspacing=\"0\" width=\"480\" class=\"full-width\">
+                                    <tr>
+                                        <td align=\"center\" valign=\"top\" style=\"padding: 0 0 25px 0; font-family: Open Sans, Helvetica, Arial, sans-serif;\">
+                                            <table cellspacing=\"0\" cellpadding=\"0\" border=\"0\" width=\"100%\">
+                                                <tr>
+                                                    <td align=\"center\" bgcolor=\"#ffffff\" style=\"border-radius: 0 0 3px 3px; padding: 25px;\">
+                                                        <table cellspacing=\"0\" cellpadding=\"0\" border=\"0\" width=\"100%\">
+                                                            <tr>
+                                                                <td align=\"center\" style=\"font-family: Open Sans, Helvetica, Arial, sans-serif;\">
+                                                                    <h2 style=\"font-size: 28px; color: #444444; margin: 0; padding-bottom: 10px;\">Felicitaciones!</h2>
+                                                                    <p style=\"color: #999999; font-size: 16px; line-height: 24px; margin: 0;\">
+                                                                      Nuestro administrador ha aprobado tu proyecto <strong>" . $nombre. " </strong>.
+                                                                      Nuestros inversores ya pueden verlo.
+                                                                    </p>
+                                                                    <br />
+                                                                    <label> ¡Exitos a ti y a tu proyecto! </label>
+                                                                    <p style=\"color: #999999; font-size: 16px; line-height: 24px; margin: 0;\">
+                                                                       Gracias por confiar en nosotros.
+                                                                       <br />
+                                                                       El equipo de Haz que suceda!
+                                                                    </p>
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td align=\"center\" style=\"padding: 30px 0 0 0;\">
+                                                                    <table border=\"0\" cellspacing=\"0\" cellpadding=\"0\">
+                                                                        <tr>
+                                                                            <td align=\"center\" style=\"border-radius: 26px;\" bgcolor=\"#75b6c9\">
+                                                                                <a href=\"https://www.hazquesuceda.org\" target=\"_blank\" style=\"font-size: 16px; font-family: Open Sans, Helvetica, Arial, sans-serif; color: #ffffff; text-decoration: none; border-radius: 26px; background-color: #B72F20; padding: 14px 26px; border: 1px solid #B72F20; display: block;\">Read more &rarr;</a>
+                                                                            </td>
+                                                                        </tr>
+                                                                    </table>
+                                                                </td>
+                                                            </tr>
+                                                        </table>
+                                                    </td>
+                                                </tr>
+                                          </table>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td align=\"center\" height=\"100%\" valign=\"top\" width=\"100%\" bgcolor=\"#f6f6f6\" style=\"padding: 0 15px 40px 15px;\">
+                                <table align=\"center\" border=\"0\" cellpadding=\"0\" cellspacing=\"0\" width=\"480\" class=\"mobile-wrapper\">
+                                    <tr>
+                                        <td align=\"center\" valign=\"top\" style=\"padding: 0 0 5px 0;\">
+                                            <img src='". base_url()."/assets/img/hqslogo2.png'  width=\"100\" height=\"100\" border=\"0\" style=\"display: block;\">
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td align=\"center\" valign=\"top\" style=\"padding: 0; font-family: Open Sans, Helvetica, Arial, sans-serif; color: #999999;\">
+                                            <p style=\"font-size: 14px; line-height: 20px;\">
+                                                Cordoba, Argentina
+                                              <br><br>
+
+                                              <a href=\"http://hazquesuceda.org\" style=\"color: #999999;\" target=\"_blank\">View Online</a>
+                                              &nbsp; &bull; &nbsp;
+                                              <a href=\"http://hazquesuceda.org\" style=\"color: #999999;\" target=\"_blank\">Unsubscribe</a>
+                                            </p>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </td>
+                        </tr>
+                    </table>
+
+                    </body>
+                    </html>
+                    ";
+
+        // Always set content-type when sending HTML email
+        $headers = "MIME-Version: 1.0" . "\r\n";
+        $headers .= "Content-type:text/html;charset=UTF-8" . "\r\n";
+
+        // More headers
+        $headers .= 'From: <soporte@hazquesuceda.org>' . "\r\n";
+
+        mail($to,$subject,$message,$headers);
+    }
+
+    public function send_email_proyecto_rechazado ($email, $nombre) {
+
+        $to = $email;
+        $subject = "Tu proyecto en Haz que suceda!";
+
+        $message = "
+                    <!doctype html>
+                    <html>
+                    <head>
+                    <title></title>
+                    <style type=\"text/css\">
+                    /* CLIENT-SPECIFIC STYLES */
+                    body, table, td, a { -webkit-text-size-adjust: 100%; -ms-text-size-adjust: 100%; }
+                    table, td { mso-table-lspace: 0pt; mso-table-rspace: 0pt; }
+                    img { -ms-interpolation-mode: bicubic; }
+
+                    /* RESET STYLES */
+                    img { border: 0; height: auto; line-height: 100%; outline: none; text-decoration: none; }
+                    table { border-collapse: collapse !important; }
+                    body { height: 100% !important; margin: 0 !important; padding: 0 !important; width: 100% !important; }
+
+                    /* iOS BLUE LINKS */
+                    a[x-apple-data-detectors] {
+                        color: inherit !important;
+                        text-decoration: none !important;
+                        font-size: inherit !important;
+                        font-family: inherit !important;
+                        font-weight: inherit !important;
+                        line-height: inherit !important;
+                    }
+
+                    /* MOBILE STYLES */
+                    @media screen and (max-width: 480px) {
+                      .img-max {
+                        width: 100% !important;
+                        max-width: 100% !important;
+                        height: auto !important;
+                      }
+
+                      .max-width {
+                        max-width: 100% !important;
+                      }
+
+                      .mobile-wrapper {
+                        width: 85% !important;
+                        max-width: 85% !important;
+                      }
+
+                      .mobile-padding {
+                        padding-left: 5% !important;
+                        padding-right: 5% !important;
+                      }
+
+                      .full-width {
+                        width: 100% !important;
+                      }
+                    }
+
+                    /* ANDROID CENTER FIX */
+                    div[style*=\"margin: 16px 0;\"] { margin: 0 !important; }
+                    </style>
+                    </head>
+                    <body style=\"margin: 0 !important; padding: 0; !important background-color: #ffffff;\" bgcolor=\"#ffffff\">
+
+                    <table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" width=\"100%\">
+                        <tr>
+                            <td align=\"center\" valign=\"top\" width=\"100%\" background=\"images/bg.jpg\" bgcolor=\"#B74215\" style=\"background: #B74215 url('images/bg.jpg'); background-size: cover; padding: 35px 15px 0 15px;\" class=\"mobile-padding\">
+                                <table align=\"center\" border=\"0\" cellpadding=\"0\" cellspacing=\"0\" width=\"480\" class=\"full-width\">
+                                    <tr>
+                                        <td align=\"center\" valign=\"top\" style=\"padding: 0 0 50px 0;\">
+                                            <img src='". base_url()."/assets/img/hqslogo2.png' width=\"50\" height=\"50\" border=\"0\" style=\"display: block;\">
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td align=\"center\" valign=\"top\" style=\"padding: 0 0 20px 0;\">
+                                            <img src='". base_url()."/assets/img/hqslogo2.png' width=\"300\" height=\"300\" border=\"0\" style=\"display: block;\">
+                                        </td>
+                                    </tr>
+                                </table>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td align=\"center\" height=\"100%\" valign=\"top\" width=\"100%\" bgcolor=\"#f6f6f6\" style=\"padding: 0 15px 50px 15px;\" class=\"mobile-padding\">
+                                <table align=\"center\" border=\"0\" cellpadding=\"0\" cellspacing=\"0\" width=\"480\" class=\"full-width\">
+                                    <tr>
+                                        <td align=\"center\" valign=\"top\" style=\"padding: 0 0 25px 0; font-family: Open Sans, Helvetica, Arial, sans-serif;\">
+                                            <table cellspacing=\"0\" cellpadding=\"0\" border=\"0\" width=\"100%\">
+                                                <tr>
+                                                    <td align=\"center\" bgcolor=\"#ffffff\" style=\"border-radius: 0 0 3px 3px; padding: 25px;\">
+                                                        <table cellspacing=\"0\" cellpadding=\"0\" border=\"0\" width=\"100%\">
+                                                            <tr>
+                                                                <td align=\"center\" style=\"font-family: Open Sans, Helvetica, Arial, sans-serif;\">
+                                                                    <h2 style=\"font-size: 28px; color: #444444; margin: 0; padding-bottom: 10px;\">UPS!</h2>
+                                                                    <p style=\"color: #999999; font-size: 16px; line-height: 24px; margin: 0;\">
+                                                                      Nuestro administrador leyó tu proyecto <strong>" . $nombre. " </strong>., pero detectó un problema con el mismo, por lo cual el mismo fue rechazado.
+                                                                      Esto significa que aún no es visible en Haz que suceda!. Pero no implica que no pueda serlo a futuro. Checkea su informacióna
+                                                                      y nuestras políticas hacerca de proyectos. Crea una nueva versión del mismo y envíala.
+                                                                    </p>
+                                                                    <br />
+                                                                    <label> Suerte con eso! </label>
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td align=\"center\" style=\"padding: 30px 0 0 0;\">
+                                                                    <table border=\"0\" cellspacing=\"0\" cellpadding=\"0\">
+                                                                        <tr>
+                                                                            <td align=\"center\" style=\"border-radius: 26px;\" bgcolor=\"#75b6c9\">
+                                                                                <a href=\"https://www.hazquesuceda.org\" target=\"_blank\" style=\"font-size: 16px; font-family: Open Sans, Helvetica, Arial, sans-serif; color: #ffffff; text-decoration: none; border-radius: 26px; background-color: #B72F20; padding: 14px 26px; border: 1px solid #B72F20; display: block;\">Read more &rarr;</a>
+                                                                            </td>
+                                                                        </tr>
+                                                                    </table>
+                                                                </td>
+                                                            </tr>
+                                                        </table>
+                                                    </td>
+                                                </tr>
+                                          </table>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td align=\"center\" height=\"100%\" valign=\"top\" width=\"100%\" bgcolor=\"#f6f6f6\" style=\"padding: 0 15px 40px 15px;\">
+                                <table align=\"center\" border=\"0\" cellpadding=\"0\" cellspacing=\"0\" width=\"480\" class=\"mobile-wrapper\">
+                                    <tr>
+                                        <td align=\"center\" valign=\"top\" style=\"padding: 0 0 5px 0;\">
+                                            <img src='". base_url()."/assets/img/hqslogo2.png'  width=\"100\" height=\"100\" border=\"0\" style=\"display: block;\">
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td align=\"center\" valign=\"top\" style=\"padding: 0; font-family: Open Sans, Helvetica, Arial, sans-serif; color: #999999;\">
+                                            <p style=\"font-size: 14px; line-height: 20px;\">
+                                                Cordoba, Argentina
+                                              <br><br>
+
+                                              <a href=\"http://hazquesuceda.org\" style=\"color: #999999;\" target=\"_blank\">View Online</a>
+                                              &nbsp; &bull; &nbsp;
+                                              <a href=\"http://hazquesuceda.org\" style=\"color: #999999;\" target=\"_blank\">Unsubscribe</a>
+                                            </p>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </td>
+                        </tr>
+                    </table>
+
+                    </body>
                     </html>
                     ";
 
