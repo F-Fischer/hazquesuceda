@@ -1,19 +1,28 @@
 <script src="<?php echo base_url('assets/js/jquery.dataTables.min.js'); ?>"></script>
 <link rel="stylesheet" href="<?php echo base_url('assets/css/jquery.dataTables.min.css'); ?>">
+
+<style>
+    .banner {
+        background-image: url("<?php echo base_url().'assets/img/emp.jpg'; ?>");
+    }
+</style>
+
 <div class="container-fluid">
+
     <div class="highlight" align="center">
-        <br>
-        <br>
-        <br>
-        <br>
-        <div class="col-lg-12">
-            <h1 class="page-header" style="font-size: 65px;">Mis proyectos...
+
+        <div class="col-lg-12 banner">
+            <br>
+            <br>
+            <br>
+            <br><h1 class="page-header" style="font-size: 65px; color: white;">Mis proyectos
                 <br>
                 <br>
             </h1>
         </div>
 
     </div>
+
 
     <div class="col-md-3">
 

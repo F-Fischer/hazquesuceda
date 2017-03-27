@@ -1,26 +1,29 @@
-<div id="content">
-    <style>
-        .banner {
-            background-image: url("<?php echo base_url().'assets/img/emp.jpg'; ?>");
-        }
-    </style>
+<style>
+    .banner {
+        background-image: url("<?php echo base_url().'assets/img/emp.jpg'; ?>");
+    }
+</style>
 
-    <script src="<?php echo base_url('assets/js/jquery.dataTables.min.js'); ?>"></script>
-    <script src="<?php echo base_url('assets/js/emprendedor/acciones.proyectos.js'); ?>"></script>
-    <link rel="stylesheet" href="<?php echo base_url('assets/css/jquery.dataTables.min.css'); ?>">
-    <div class="container-fluid">
-        <div class="highlight" align="center">
-            <div class="col-lg-12 banner">
-                <br>
-                <br>
-                <br>
-                <br><h1 class="page-header" style="font-size: 65px; color: white;">Mis proyectos...
-                    <br>
-                    <br>
-                </h1>
-            </div>
+<script src="<?php echo base_url('assets/js/jquery.dataTables.min.js'); ?>"></script>
+<script src="<?php echo base_url('assets/js/emprendedor/acciones.proyectos.js'); ?>"></script>
+<link rel="stylesheet" href="<?php echo base_url('assets/css/jquery.dataTables.min.css'); ?>">
 
+
+<div class="container-fluid">
+
+    <div class="highlight" align="center">
+
+        <div class="col-lg-12 banner">
+            <br>
+            <br>
+            <br>
+            <br><h1 class="page-header" style="font-size: 65px; color: white;">Ver proyectos propios
+                <br>
+                <br>
+            </h1>
         </div>
+
+    </div>
 
         <div class="col-md-3">
 
@@ -112,3 +115,4 @@
         });
     </script>
 </div>
+
