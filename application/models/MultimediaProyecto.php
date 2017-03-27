@@ -84,6 +84,25 @@ class MultimediaProyecto extends CI_Model
 
     }
 
+    public function containsVideo ($idProyecto)
+    {
+        $this->db->select('*');
+        $this->db->from('multimedia_proyectos');
+        $this->db->where('ID_proyecto',$idProyecto);
+        $this->db->where('tipo','youtube');
+
+        $query = $this->db->get();
+        
+        if($query->num_rows() > 0)
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
+
     public function getIdProyecto()
     {
         return $this->idProyecto;

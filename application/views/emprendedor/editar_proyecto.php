@@ -91,14 +91,7 @@
                         <label>Video</label>
 
                         <?php
-                        if($youtube == NULL)
-                        {
-                            echo form_open('ProyectoController/do_set_video'.'/'.$proyecto->ID_proyecto);
-                            echo '<h3>Usted no posee nigún video</h3><br /><input type="text" name="video" value="" id="inputNoVideo" class="form-control">';
-                            echo "<br/><input type='submit' class='btn btn-default' name='submit' value='Cargar' /> ";
-                            echo form_close();
-                        }
-                        else
+                        if($video)
                         {
                             $yturl = "https://www.youtube.com/watch?v=";
 
@@ -111,6 +104,13 @@
                                             <iframe width="560" height="315" src="https://www.youtube.com/embed/'.$proyecto->youtube.'" frameborder="0" allowfullscreen></iframe>
                                         </div>
                                     </div>';
+                            echo form_close();
+                        }
+                        else
+                        {
+                            echo form_open('ProyectoController/do_set_video'.'/'.$proyecto->ID_proyecto);
+                            echo '<h3>Usted no posee nigún video</h3><br /><input type="text" name="video" value="" id="inputNoVideo" class="form-control">';
+                            echo "<br/><input type='submit' class='btn btn-default' name='submit' value='Cargar' /> ";
                             echo form_close();
                         }
                         ?>
