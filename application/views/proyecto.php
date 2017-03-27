@@ -49,7 +49,7 @@
         <br>
         <h3>Sobre el proyecto...</h3>
         <br>
-        <p><?php echo $proyecto->descripcion; ?></p>
+        <p style="white-space: pre-wrap"><?php echo $proyecto->descripcion; ?></p>
     </div>
 
     <div class="col-md-12">

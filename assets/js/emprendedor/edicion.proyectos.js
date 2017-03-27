@@ -1,6 +1,3 @@
-/**
- * Created by franc on 3/26/2017.
- */
 $(document).ready(function () {
 
     function redirect(uri,attr) {
@@ -31,5 +28,5 @@ $(document).ready(function () {
         redirect("misproyectos","");
     });
 
-
 });
+
