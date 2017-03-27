@@ -240,21 +240,25 @@ class EmprendedorController extends CI_Controller
 
                     if($cantImg == 1 && ($multimedia[0]->path == 'image-not-available.jpg'))
                     {
-                        var_dump('y aca');
                         $data['special_case'] = 'si';
+                        $data['proyecto'] = $resultado;
+                        $data['cantimg'] = $cantImg;
+                        $data['warning'] = null;
+                        $this->load->view('commons/header', $data);
+                        $this->load->view('emprendedor/subir_archivo',$data);
+                        $this->load->view('commons/footer');
                     }
                     else
                     {
                         $data['special_case'] = null;
+                        $data['proyecto'] = $resultado;
+                        $data['cantimg'] = $cantImg;
+                        $data['warning'] = null;
+                        $this->load->view('commons/header', $data);
+                        $this->load->view('emprendedor/subir_imagen',$data);
+                        $this->load->view('commons/footer');
                     }
                 }
-
-                $data['proyecto'] = $resultado;
-                $data['cantimg'] = $cantImg;
-                $data['warning'] = null;
-                $this->load->view('commons/header', $data);
-                $this->load->view('emprendedor/subir_imagen',$data);
-                $this->load->view('commons/footer');
             }
         }
         else
@@ -315,7 +319,7 @@ class EmprendedorController extends CI_Controller
         }
     }
 
-    public function proyectoSinArchivo()
+    public function finCrearProyecto()
     {
         $data['username'] = $this->session->userdata['logged_in']['username'];
         $id = $this->uri->segment(2);
@@ -329,11 +333,9 @@ class EmprendedorController extends CI_Controller
         }
         else
         {
-            $data['error'] = null;
-            $data['msg'] = 'El proyecto se ha subido correctamente, sin archivo adjunto.';
             $data['proyecto'] = $resultado;
             $this->load->view('commons/header', $data);
-            $this->load->view('emprendedor/subir_archivo',$data);
+            $this->load->view('emprendedor/fin_crear_proyecto',$data);
             $this->load->view('commons/footer');
         }
 

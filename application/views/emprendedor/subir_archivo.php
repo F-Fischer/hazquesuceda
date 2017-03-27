@@ -47,14 +47,6 @@
             echo "<br>";
             echo "<input type='submit' class='btn btn-default' name='submit' value='upload' disabled/> ";
         }
-        else if ($msg)
-        {
-            echo "<div class=\"alert alert-success\"><strong> Exito! </strong>".$msg."</div>";
-            echo "<input type='file' name='userfile' size='20' disabled />";
-            echo "<br>";
-            echo "<input type='submit' class='btn btn-default' name='submit' value='upload' disabled/> ";
-            echo "<a href='".base_url('misproyectos')."'>Ver mis proyectos</a>";
-        }
         else
         {
             echo form_open_multipart('ProyectoController/do_upload_pdf'.'/'.$proyecto->ID_proyecto);

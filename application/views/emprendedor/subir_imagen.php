@@ -68,15 +68,6 @@
                     echo '<br>'.anchor('ProyectoController/no_img_upload/'.$proyecto->ID_proyecto,'No tengo imágenes todavía');
                     echo '<h5> ó </h5>'.anchor(base_url().'/archivo/'.$proyecto->ID_proyecto,'Ya subí mis imágenes');
                 }
-                else if($special_case)
-                {
-                    echo '<h5> Presione continuar para seguir...</h5>';
-                    echo "<input type='file' name='userfile' size='20' disabled />";
-                    echo "<br>";
-                    echo "<input type='submit' class='btn btn-default' name='submit' value='upload' disabled/> ";
-
-                    echo '<br>'.anchor(base_url().'/archivo/'.$proyecto->ID_proyecto,'Continuar');
-                }
                 else
                 {
                     echo form_open_multipart('ProyectoController/do_upload_img'.'/'.$proyecto->ID_proyecto);
