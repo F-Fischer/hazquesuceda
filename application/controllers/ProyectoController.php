@@ -205,7 +205,14 @@ class ProyectoController extends CI_Controller
 
         if($url->insertMultimedia())
         {
-            redirect('imagenes/'.$id);
+            if($cantImg < 2)
+            {
+                redirect('imagenes/'.$id);
+            }
+            else
+            {
+                redirect('archivo/'.$id);
+            }
         }
     }
 
@@ -364,9 +371,6 @@ class ProyectoController extends CI_Controller
         }
     
     }
-    
-
-
 
     public function do_update_img($id,$name)
     {
@@ -420,7 +424,6 @@ class ProyectoController extends CI_Controller
         }
 
     }
-
 
     public function do_upload_pdf()
     {
