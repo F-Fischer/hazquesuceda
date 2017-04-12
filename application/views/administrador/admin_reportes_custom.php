@@ -101,7 +101,7 @@
             <br>
             <br>
             <h1 class="page-header" style="font-size: 65px; color: white;">
-                Reportes custom
+                Registros por fecha
                 <br>
                 <br>
             </h1>
@@ -112,7 +112,7 @@
     <div class="col-md-3">
         <ul class="nav nav-pills nav-stacked" >
             <li role="presentation" ><a href="<?php echo base_url(); ?>statistics">Estadísticas</a></li>
-            <li role="presentation" class="active"><a href="<?php echo base_url(); ?>reports">Reportes custom</a></li>
+            <li role="presentation" class="active"><a href="<?php echo base_url(); ?>reports">Registros por fecha</a></li>
             <li role="presentation" ><a href="<?php echo base_url(); ?>admin">Todos los proyectos</a></li>
             <li role="presentation" ><a href="<?php echo base_url(); ?>users">Usuarios</a></li>
             <li role="presentation" ><a href="<?php echo base_url(); ?>newletterempr">Newsletter Emprendedor</a></li>
@@ -122,7 +122,7 @@
     <div class="col-md-9">
         <div class="panel panel-default">
             <div class="panel-heading">
-                <h3 class="panel-title">Usuarios segun fecha:</h3>
+                <h3 class="panel-title">Usuarios registrados según fecha:</h3>
             </div>
             <div class="panel-body">
                 <div>

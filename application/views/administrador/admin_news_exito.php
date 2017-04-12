@@ -114,7 +114,7 @@
 
         <ul class="nav nav-pills nav-stacked" >
             <li role="presentation" ><a href="<?php echo base_url(); ?>statistics">Estadísticas</a></li>
-            <li role="presentation" ><a href="<?php echo base_url(); ?>reports">Reportes custom</a></li>
+            <li role="presentation" ><a href="<?php echo base_url(); ?>reports">Registros por fecha</a></li>
             <li role="presentation" ><a href="<?php echo base_url(); ?>admin">Todos los proyectos</a></li>
             <li role="presentation" ><a href="<?php echo base_url(); ?>users">Usuarios</a></li>
             <li role="presentation" class="active" ><a href="<?php echo base_url(); ?>newletterempr">Newsletter Emprendedor</a></li>
